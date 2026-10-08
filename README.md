@@ -219,7 +219,12 @@ Immediately after checkout via Stripe, you are redirected to your private activa
 For teams with dozens of repositories, you do not need to configure them one by one. In your GitHub Organization settings, add `ZEROSLOP_API_KEY` under Organization Secrets and grant access to **"All repositories"**. Every repository in your organization automatically inherits ZeroSlop pre-flight protection.
 
 ### How do I get support or request custom invariant rules?
-Direct founder and senior engineering support is available via [**contact@ribbsaetersystems.com**](mailto:contact@ribbsaetersystems.com). Every inquiry is reviewed and answered by senior production engineers within 24 hours.
+Direct founder and senior engineering support is available via [**contact@ribbsaetersystems.com**](mailto:contact@ribbsaetersystems.com). For media, press inquiries, and editorial kits, contact [**press@ribbsaetersystems.com**](mailto:press@ribbsaetersystems.com). Every inquiry is reviewed and answered by senior production engineers within 24 hours.
+
+### Direct Inquiries & Desks
+- **Technical & License Support**: [contact@ribbsaetersystems.com](mailto:contact@ribbsaetersystems.com)
+- **Media & Press Relations**: [press@ribbsaetersystems.com](mailto:press@ribbsaetersystems.com)
+- **Enterprise Architecture**: [contact@ribbsaetersystems.com](mailto:contact@ribbsaetersystems.com)
 
 ---
 
@@ -231,7 +236,7 @@ Direct founder and senior engineering support is available via [**contact@ribbsa
 
 ### Systems. Intelligence. Product. Business.
 
-[Website](https://www.ribbsaeter.com/) · [Ribbsaeter Systems](https://www.ribbsaetersystems.com/) · [ZeroSlop™ Portal](https://www.ribbsaetersystems.com/zeroslop) · [GitHub Profile](https://github.com/patrickswedish)
+[Personal Website](https://www.patrickribbsaeter.com/) · [Ribbsaeter Systems](https://www.ribbsaetersystems.com/) · [ZeroSlop™ Portal](https://www.ribbsaetersystems.com/zeroslop) · [LinkedIn](https://www.linkedin.com/patrickribbsaeter) · [GitHub Profile](https://github.com/patrickswedish)
 
 <br/>
 
