@@ -68,7 +68,10 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 
 | Organization | Repository | PR Number | Category | Outcome |
 | :--- | :--- | :--- | :--- | :--- |
+| **Hugging Face** | `huggingface/diffusers` | [#14481](https://github.com/huggingface/diffusers/pull/14481) | Generative AI / Diffusion | **Merged Upstream** |
 | **Meta** | `facebookincubator/velox` | [#18529](https://github.com/facebookincubator/velox/pull/18529) | Systems Engine | **Merged Upstream** |
+| **DuckDB** | `duckdb/duckdb` | [#26443](https://github.com/duckdb/duckdb/pull/26443) | Analytical Database | **Merged Upstream** |
+| **Valkey** | `valkey-io/valkey` | [#4424](https://github.com/valkey-io/valkey/pull/4424) | In-Memory Engine | **Merged Upstream** |
 | **Apache** | `apache/datafusion` | [#24394](https://github.com/apache/datafusion/pull/24394) | Query Execution | **Merged Upstream** |
 | **LLVM** | `llvm/llvm-project` | [#215076](https://github.com/llvm/llvm-project/pull/215076) | Compiler Backend | **Merged Upstream** |
 | **Rust** | `rust-lang/rust` | [#161202](https://github.com/rust-lang/rust/pull/161202) | Type Lowering | **Merged Upstream** |
