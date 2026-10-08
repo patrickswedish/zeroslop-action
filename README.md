@@ -207,6 +207,22 @@ Provision license keys and explore the live interactive simulator at [**ribbsaet
 
 ---
 
+## ❓ Frequently Asked Questions (FAQ)
+
+### How do I activate my license key after purchasing?
+Immediately after checkout via Stripe, you are redirected to your private activation screen displaying your sovereign API key (`RST_LIVE_xxx`). Copy this key, navigate to your GitHub Repository or Organization **Settings → Secrets and variables → Actions**, create a secret named `ZEROSLOP_API_KEY`, and paste the workflow YAML. Your pull requests are protected in under 60 seconds.
+
+### Does ZeroSlop store, retain, or train on our proprietary code?
+**Strictly zero code retention.** ZeroSlop evaluates pull request diffs ephemerally in a volatile Node 20 RAM enclave. Your source code is never written to disk, never stored in a database, and never used to train machine learning models. We log strictly mathematical invariant telemetry (lines purged, invariant pass/fail).
+
+### How does the Team Tier protect all repositories in our organization?
+For teams with dozens of repositories, you do not need to configure them one by one. In your GitHub Organization settings, add `ZEROSLOP_API_KEY` under Organization Secrets and grant access to **"All repositories"**. Every repository in your organization automatically inherits ZeroSlop pre-flight protection.
+
+### How do I get support or request custom invariant rules?
+Direct founder and senior engineering support is available via [**contact@ribbsaetersystems.com**](mailto:contact@ribbsaetersystems.com). Every inquiry is reviewed and answered by senior production engineers within 24 hours.
+
+---
+
 <div align="center">
 
 <img src="./assets/zeroslop-closing-banner.svg" width="100%" alt="Surgical Invariants · Zero Regressions" />
