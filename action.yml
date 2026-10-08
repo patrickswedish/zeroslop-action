@@ -1,0 +1,35 @@
+name: 'ZeroSlop™ by Ribbsaeter Systems'
+author: 'Patrick Ribbsaeter / Ribbsaeter Systems'
+description: 'The #1 Sovereign Standard for Zero AI Slop in Pull Requests. Pre-flight invariant auditing & diff minimization.'
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  api_key:
+    description: 'Ribbsaeter Systems ZeroSlop API key (RST_LIVE_xxx)'
+    required: true
+  base_branch:
+    description: 'Base branch to compare against'
+    required: false
+    default: 'main'
+  auto_polish:
+    description: 'Automatically run repository-native linters and auto-commit clean code'
+    required: false
+    default: 'true'
+  fail_on_slop:
+    description: 'Fail the action if unmitigated AI slop or invariant violations are detected'
+    required: false
+    default: 'true'
+
+outputs:
+  slop_score:
+    description: 'Calculated slop percentage (0% to 100%)'
+  lines_reduced:
+    description: 'Total number of bloated lines eliminated'
+  invariants_verified:
+    description: 'Count of architectural invariants proved green'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
