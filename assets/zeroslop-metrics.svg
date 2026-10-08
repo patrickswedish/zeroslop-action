@@ -3,13 +3,13 @@
   <desc id="desc">Four verified architectural pillars: Invariant Lock, Diff Reduction, Zero Code Retention, and Clean Enclave Runtime.</desc>
   <defs>
     <linearGradient id="mBg" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#060E18"/>
-      <stop offset="0.5" stop-color="#091626"/>
-      <stop offset="1" stop-color="#060E18"/>
+      <stop offset="0" stop-color="#050505"/>
+      <stop offset="0.5" stop-color="#0A090D"/>
+      <stop offset="1" stop-color="#050505"/>
     </linearGradient>
     <linearGradient id="pillGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0E2138"/>
-      <stop offset="1" stop-color="#081422"/>
+      <stop offset="0" stop-color="#140E10"/>
+      <stop offset="1" stop-color="#0A0708"/>
     </linearGradient>
     <clipPath id="mClip">
       <rect width="1200" height="76" rx="14"/>
@@ -22,44 +22,44 @@
     <!-- 4 Equal Metric Cards (width 265 each, gaps 24, padding 38) -->
     <!-- Card 1: 100% Green CI First -->
     <g transform="translate(38, 12)">
-      <rect width="265" height="52" rx="10" fill="url(#pillGrad)" stroke="#10B981" stroke-opacity="0.38"/>
+      <rect width="265" height="52" rx="10" fill="url(#pillGrad)" stroke="#10B981" stroke-opacity="0.4"/>
       <rect width="4" height="52" rx="2" fill="#10B981"/>
       <circle cx="26" cy="26" r="10" fill="#064E3B"/>
       <text x="26" y="30" text-anchor="middle" fill="#34D399" font-family="Inter,sans-serif" font-size="11" font-weight="900">✓</text>
       <text x="48" y="21" fill="#6EE7B7" font-family="Inter,sans-serif" font-size="8.5" font-weight="800" letter-spacing="1">INVARIANT LOCK</text>
-      <text x="48" y="38" fill="#F0FDF4" font-family="Inter,sans-serif" font-size="13" font-weight="800">100% Green CI First</text>
+      <text x="48" y="38" fill="#F4F0E8" font-family="Inter,sans-serif" font-size="13" font-weight="800">100% Green CI First</text>
     </g>
 
     <!-- Card 2: 94.2% Diff Reduction -->
     <g transform="translate(327, 12)">
-      <rect width="265" height="52" rx="10" fill="url(#pillGrad)" stroke="#38BDF8" stroke-opacity="0.38"/>
-      <rect width="4" height="52" rx="2" fill="#38BDF8"/>
-      <circle cx="26" cy="26" r="10" fill="#0C4A6E"/>
-      <text x="26" y="29.5" text-anchor="middle" fill="#38BDF8" font-family="Consolas,monospace" font-size="10" font-weight="800">Δ</text>
-      <text x="48" y="21" fill="#7DD3FC" font-family="Inter,sans-serif" font-size="8.5" font-weight="800" letter-spacing="1">DIFF MINIMIZATION</text>
-      <text x="48" y="38" fill="#F0F9FF" font-family="Inter,sans-serif" font-size="13" font-weight="800">94.2% Surgical Purge</text>
+      <rect width="265" height="52" rx="10" fill="url(#pillGrad)" stroke="#E33126" stroke-opacity="0.45"/>
+      <rect width="4" height="52" rx="2" fill="#E33126"/>
+      <circle cx="26" cy="26" r="10" fill="#2B0E0D"/>
+      <text x="26" y="29.5" text-anchor="middle" fill="#FF6B5E" font-family="Consolas,monospace" font-size="10" font-weight="800">Δ</text>
+      <text x="48" y="21" fill="#FF8275" font-family="Inter,sans-serif" font-size="8.5" font-weight="800" letter-spacing="1">DIFF MINIMIZATION</text>
+      <text x="48" y="38" fill="#F4F0E8" font-family="Inter,sans-serif" font-size="13" font-weight="800">94.2% Surgical Purge</text>
     </g>
 
     <!-- Card 3: Zero Code Retention -->
     <g transform="translate(616, 12)">
-      <rect width="265" height="52" rx="10" fill="url(#pillGrad)" stroke="#F59E0B" stroke-opacity="0.38"/>
-      <rect width="4" height="52" rx="2" fill="#F59E0B"/>
-      <circle cx="26" cy="26" r="10" fill="#451A03"/>
-      <text x="26" y="29" text-anchor="middle" fill="#FBBF24" font-family="Inter,sans-serif" font-size="10" font-weight="900">🔒</text>
+      <rect width="265" height="52" rx="10" fill="url(#pillGrad)" stroke="#FFB800" stroke-opacity="0.4"/>
+      <rect width="4" height="52" rx="2" fill="#FFB800"/>
+      <circle cx="26" cy="26" r="10" fill="#2B1D08"/>
+      <text x="26" y="29" text-anchor="middle" fill="#FFC837" font-family="Inter,sans-serif" font-size="10" font-weight="900">🔒</text>
       <text x="48" y="21" fill="#FCD34D" font-family="Inter,sans-serif" font-size="8.5" font-weight="800" letter-spacing="1">SECURITY ENCLAVE</text>
-      <text x="48" y="38" fill="#FFFBEB" font-family="Inter,sans-serif" font-size="13" font-weight="800">Zero Code Retention</text>
+      <text x="48" y="38" fill="#F4F0E8" font-family="Inter,sans-serif" font-size="13" font-weight="800">Zero Code Retention</text>
     </g>
 
-    <!-- Card 4: Zero-Dependency Node 20 -->
+    <!-- Card 4: Zero Supply Chain / Node 20 -->
     <g transform="translate(905, 12)">
-      <rect width="257" height="52" rx="10" fill="url(#pillGrad)" stroke="#A78BFA" stroke-opacity="0.38"/>
-      <rect width="4" height="52" rx="2" fill="#A78BFA"/>
-      <circle cx="26" cy="26" r="10" fill="#2E1065"/>
-      <text x="26" y="29.5" text-anchor="middle" fill="#C4B5FD" font-family="Consolas,monospace" font-size="10" font-weight="800">⚡</text>
-      <text x="48" y="21" fill="#DDD6FE" font-family="Inter,sans-serif" font-size="8.5" font-weight="800" letter-spacing="1">ZERO SUPPLY CHAIN</text>
-      <text x="48" y="38" fill="#FAF5FF" font-family="Inter,sans-serif" font-size="13" font-weight="800">Node 20 Enclave</text>
+      <rect width="257" height="52" rx="10" fill="url(#pillGrad)" stroke="#E33126" stroke-opacity="0.45"/>
+      <rect width="4" height="52" rx="2" fill="#E33126"/>
+      <circle cx="26" cy="26" r="10" fill="#2B0E0D"/>
+      <text x="26" y="29.5" text-anchor="middle" fill="#FF6B5E" font-family="Consolas,monospace" font-size="10" font-weight="800">⚡</text>
+      <text x="48" y="21" fill="#FF8275" font-family="Inter,sans-serif" font-size="8.5" font-weight="800" letter-spacing="1">ZERO SUPPLY CHAIN</text>
+      <text x="48" y="38" fill="#F4F0E8" font-family="Inter,sans-serif" font-size="13" font-weight="800">Node 20 Enclave</text>
     </g>
 
-    <rect x="0.5" y="0.5" width="1199" height="75" rx="13.5" fill="none" stroke="#5FE7FF" stroke-opacity="0.15"/>
+    <rect x="0.5" y="0.5" width="1199" height="75" rx="13.5" fill="none" stroke="#E33126" stroke-opacity="0.25"/>
   </g>
 </svg>

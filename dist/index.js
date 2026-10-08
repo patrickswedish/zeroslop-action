@@ -196,7 +196,7 @@ async function run() {
   const baseBranch = getInput('base_branch', 'main');
   const autoPolish = getInput('auto_polish', 'true') === 'true';
   const failOnSlop = getInput('fail_on_slop', 'true') === 'true';
-  const apiEndpoint = getInput('api_endpoint', 'https://api.ribbsaetersystems.com/v1/verify');
+  const apiEndpoint = getInput('api_endpoint', 'https://ribbsaetersystems.com/api/v1/verify');
 
   if (!apiKey) {
     console.error('❌ Error: Missing required input `api_key`. Provide your Ribbsaeter Systems key (RST_LIVE_xxx).');

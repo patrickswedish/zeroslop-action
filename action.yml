@@ -2,8 +2,8 @@ name: 'ZeroSlop™ by Ribbsaeter Systems'
 author: 'Patrick Ribbsaeter / Ribbsaeter Systems'
 description: 'The #1 Sovereign Standard for Zero AI Slop in Pull Requests. Pre-flight architectural invariant auditing & diff minimization.'
 branding:
-  icon: 'check-circle'
-  color: 'blue'
+  icon: 'shield'
+  color: 'red'
 
 inputs:
   api_key:
@@ -24,7 +24,7 @@ inputs:
   api_endpoint:
     description: 'ZeroSlop verification API endpoint (for custom on-premise or VPC deployments)'
     required: false
-    default: 'https://api.ribbsaetersystems.com/v1/verify'
+    default: 'https://ribbsaetersystems.com/api/v1/verify'
 
 outputs:
   slop_score:

@@ -142,7 +142,7 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 | `base_branch` | No | `main` | Base branch to compare incoming pull request diff against. |
 | `auto_polish` | No | `true` | Automatically run repo-native linters and auto-commit clean code. |
 | `fail_on_slop` | No | `true` | Fail the status check if unmitigated AI slop patterns are detected. |
-| `api_endpoint` | No | `https://api.ribbsaetersystems.com/v1/verify` | Custom API endpoint for on-premise or VPC enterprise appliances. |
+| `api_endpoint` | No | `https://ribbsaetersystems.com/api/v1/verify` | Custom API endpoint for on-premise or VPC enterprise appliances. |
 
 ### Outputs
 
@@ -197,11 +197,11 @@ AI coding agents (Cursor, Copilot, Claude Code) increased commit volume by 300%,
 
 ## 💼 Commercial Licensing & Pricing
 
-| Tier | Investment | Seat & Account Scope | Concurrency | Capabilities Included |
-| :--- | :--- | :--- | :---: | :--- |
-| **Solo Engineer** | **$19 / month** | **Strictly 1 Developer**<br>*(Personal GitHub handle)* | 1 runner | Unlimited local CLI audits · Personal repository PR audits · Diff minimization engine |
-| **Engineering Team** | **$79 / seat / mo** | **3 to 25 Developers**<br>*(1 GitHub Organization · Min 3 seats)* | 10 runners | Everything in Solo · GitHub Action runner · Auto-polish & auto-commit engine · Team invariant rules |
-| **Enterprise Core** | **$2,500 / month**<br>*(Annual Contract)* | **Up to 100 Developers**<br>*(Unlimited within VPC)* | Unlimited | Everything in Team · On-Prem / VPC self-hosted runner · Custom architectural invariant rules · NIS2 & CISO audit logs · Dedicated SLA |
+| Tier | Investment | Seat & Account Scope | Concurrency | Capabilities Included | Direct Checkout |
+| :--- | :--- | :--- | :--- | :--- | :---: |
+| **Solo Engineer** | **$19 / month** | **Strictly 1 Developer**<br>*(Personal GitHub handle)* | 1 runner | Unlimited local CLI audits · Personal repository PR audits · Diff minimization engine | [**Subscribe ($19/mo)**](https://buy.stripe.com/5kQ7sN6Pi06Q2vc4plfQI00) |
+| **Engineering Team** | **$79 / seat / mo** | **3 to 25 Developers**<br>*(1 GitHub Organization · Min 3 seats)* | 10 runners | Everything in Solo · GitHub Action runner · Auto-polish & auto-commit engine · Team invariant rules | [**Deploy Team ($79/seat)**](https://buy.stripe.com/28E28tb5y9Hq5Ho3lhfQI01) |
+| **Enterprise Core** | **$2,500 / month**<br>*(Annual Contract)* | **Up to 100 Developers**<br>*(Unlimited within VPC)* | Unlimited | Everything in Team · On-Prem / VPC self-hosted runner · Custom architectural invariant rules · NIS2 & CISO audit logs · Dedicated SLA | [**Inquire Core**](https://ribbsaetersystems.com/contact?tier=enterprise) |
 
 Provision license keys and explore the live interactive simulator at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
 
