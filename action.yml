@@ -1,6 +1,6 @@
 name: 'ZeroSlop™ by Ribbsaeter Systems'
 author: 'Patrick Ribbsaeter / Ribbsaeter Systems'
-description: 'The #1 Sovereign Standard for Zero AI Slop in Pull Requests. Pre-flight architectural invariant auditing & diff minimization.'
+description: 'Sovereign pre-flight invariant airlock for pull requests. Purge AI slop, isolate compilers, 100% green CI.'
 branding:
   icon: 'shield'
   color: 'red'
