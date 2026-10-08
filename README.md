@@ -26,6 +26,10 @@
 
 <br/><br/>
 
+<img src="./assets/zeroslop-trust-banner.svg" width="100%" alt="Verified Architectural PRs Merged Upstream Across 16 Tier-1 Foundations &amp; Systems" />
+
+<br/><br/>
+
 ### Pre-Flight Architectural Invariant Auditing · Compiler Isolation · Diff Minimization
 
 **The #1 Sovereign Standard for Zero AI Slop in Pull Requests.**
