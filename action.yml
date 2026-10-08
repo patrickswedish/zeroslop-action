@@ -1,6 +1,6 @@
 name: 'ZeroSlop™ by Ribbsaeter Systems'
 author: 'Patrick Ribbsaeter / Ribbsaeter Systems'
-description: 'The #1 Sovereign Standard for Zero AI Slop in Pull Requests. Pre-flight invariant auditing & diff minimization.'
+description: 'The #1 Sovereign Standard for Zero AI Slop in Pull Requests. Pre-flight architectural invariant auditing & diff minimization.'
 branding:
   icon: 'check-circle'
   color: 'blue'
@@ -21,12 +21,16 @@ inputs:
     description: 'Fail the action if unmitigated AI slop or invariant violations are detected'
     required: false
     default: 'true'
+  api_endpoint:
+    description: 'ZeroSlop verification API endpoint (for custom on-premise or VPC deployments)'
+    required: false
+    default: 'https://api.ribbsaetersystems.com/v1/verify'
 
 outputs:
   slop_score:
     description: 'Calculated slop percentage (0% to 100%)'
   lines_reduced:
-    description: 'Total number of bloated lines eliminated'
+    description: 'Total percentage of bloated lines eliminated'
   invariants_verified:
     description: 'Count of architectural invariants proved green'
 

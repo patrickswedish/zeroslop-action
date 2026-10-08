@@ -9,7 +9,8 @@
   <a href="https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems"><img src="https://img.shields.io/badge/Marketplace-v1.0.0-blue?style=flat-square" alt="GitHub Marketplace" /></a>
   <a href="https://ribbsaetersystems.com/zeroslop"><img src="https://img.shields.io/badge/Invariants-100%25%20Green-emerald?style=flat-square" alt="100% Green" /></a>
   <a href="https://ribbsaetersystems.com/zeroslop"><img src="https://img.shields.io/badge/Diff%20Reduction-94%25-blue?style=flat-square" alt="94% Diff Reduction" /></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square" alt="License MIT" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Proprietary-gold?style=flat-square" alt="License Proprietary" /></a>
+  <a href="PRIVACY_POLICY.md"><img src="https://img.shields.io/badge/Privacy-Zero%20Code%20Retention-success?style=flat-square" alt="Zero Code Retention" /></a>
 </p>
 
 ---
@@ -86,28 +87,32 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 | `base_branch` | No | `main` | Base branch to compare pull request diff against |
 | `auto_polish` | No | `true` | Automatically run repo-native linters and auto-commit clean code |
 | `fail_on_slop` | No | `true` | Fail the check if unmitigated AI slop patterns are detected |
+| `api_endpoint` | No | `https://api.ribbsaetersystems.com/v1/verify` | Custom API endpoint for on-prem/VPC enterprise appliances |
 
 ---
 
 ## 🔒 Security & Privacy Guarantee
 
-* **Zero Code Retention**: Your proprietary codebase is never stored, retained, or used for model training.
-* **Client-Isolated**: Analysis occurs via encrypted memory pipes and ephemeral runner sandboxes.
-* **Compliance**: Ready for enterprise DevSecOps, SOC2, and European NIS2 compliance.
+* **Zero Code Retention**: Your proprietary codebase is **never stored, retained, or used for model training**. Diffs are analyzed ephemerally in RAM and purged immediately. Read our full [Zero Code Retention & Privacy Policy](PRIVACY_POLICY.md).
+* **Client Enclave Bridge**: Zero-dependency runner (`Node.js 20`). No supply-chain bloat or unvetted npm packages.
+* **Enterprise Compliance**: Ready for enterprise DevSecOps, Swiss FADP, European GDPR, and NIS2 compliance.
+* **Responsible Disclosure**: Security policies and vulnerability reporting SLAs detailed in [SECURITY.md](SECURITY.md).
 
 ---
 
-## 💼 Commercial Licensing
+## 💼 Commercial Licensing & Pricing
 
 * **Solo Engineer**: **$19 / month** — Unlimited CLI audits, diff minimization.
 * **Engineering Team**: **$79 / seat / month** — GitHub Action runner, auto-polish & auto-commit engine.
 * **Enterprise Core**: **$2,500 / month** — On-prem runners, custom architectural invariant rules, CISO audit logs.
 
-Learn more and subscribe at [**https://ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
+Subscribe and provision keys at [**https://ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
 
 ---
 
-## Legal & Trademarks
+## ⚖️ Legal, Trademarks & IP Protection
 
-Copyright © 2026 Patrick Ribbsaeter / Ribbsaeter Systems. All Rights Reserved.  
-*ZeroSlop™ and the ZeroSlop Invariant Engine are proprietary trademarks of Patrick Ribbsaeter / Ribbsaeter Systems (Zurich · Amsterdam · Eindhoven).*
+* **Software License**: Distributed under the [Ribbsaeter Systems Proprietary Software Client License Agreement](LICENSE). Unauthorized copying, decompilation, reverse engineering, and AI model benchmarking are strictly prohibited.
+* **Terms of Service**: Governed by the [Commercial Terms of Service](TERMS_OF_SERVICE.md).
+* **Trademarks**: "ZeroSlop", "ZeroSlop PR", "ZeroSlop Invariant Engine", and "Ribbsaeter Systems" are proprietary trademarks of Patrick Ribbsaeter / Ribbsaeter Systems (Zurich · Amsterdam · Eindhoven).
+* **Copyright**: Copyright © 2026 Patrick Ribbsaeter / Ribbsaeter Systems. All Rights Reserved.
