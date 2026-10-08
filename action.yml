@@ -7,8 +7,9 @@ branding:
 
 inputs:
   api_key:
-    description: 'Ribbsaeter Systems ZeroSlop API key (RST_LIVE_xxx)'
-    required: true
+    description: 'Ribbsaeter Systems ZeroSlop API key (Optional for Community Invariant Mode; required for Enterprise Cloud)'
+    required: false
+    default: ''
   base_branch:
     description: 'Base branch to compare against'
     required: false
