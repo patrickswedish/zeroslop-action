@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="380" viewBox="0 0 1200 380" role="img" aria-labelledby="title desc">
+  <title id="title">ZeroSlop™ by Ribbsaeter Systems</title>
+  <desc id="desc">Sovereign Pre-Flight Invariant Airlock for Pull Requests — Purge AI Slop, Isolate Compilers, 100% Green CI.</desc>
+  <defs>
+    <style>
+      .signal { stroke-dasharray: 8 16; animation: signalFlow 6s linear infinite; }
+      .signal-rev { stroke-dasharray: 6 14; animation: signalFlowRev 8s linear infinite; }
+      .node-pulse { animation: nodeGlow 2.5s ease-in-out infinite; }
+      .node-pulse-alt { animation: nodeGlow 2.5s ease-in-out 1.25s infinite; }
+      .ring-cw { transform-origin: 1020px 190px; animation: spinCW 22s linear infinite; }
+      .ring-ccw { transform-origin: 1020px 190px; animation: spinCCW 16s linear infinite; }
+      .core-glow { animation: corePulse 3.5s ease-in-out infinite; }
+      .scan-light { animation: sweepScan 9s ease-in-out infinite; }
+      .badge-glow { animation: badgePulse 4s ease-in-out infinite; }
+
+      @keyframes signalFlow { to { stroke-dashoffset: -96; } }
+      @keyframes signalFlowRev { to { stroke-dashoffset: 80; } }
+      @keyframes nodeGlow { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+      @keyframes spinCW { to { transform: rotate(360deg); } }
+      @keyframes spinCCW { to { transform: rotate(-360deg); } }
+      @keyframes corePulse { 0%, 100% { transform: scale(0.96); opacity: 0.75; } 50% { transform: scale(1.04); opacity: 1; } }
+      @keyframes sweepScan {
+        0%, 10% { transform: translateX(-260px); opacity: 0; }
+        22% { opacity: 0.14; }
+        50% { opacity: 0.05; }
+        70%, 100% { transform: translateX(1260px); opacity: 0; }
+      }
+      @keyframes badgePulse { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
+
+      @media (prefers-reduced-motion: reduce) {
+        .signal, .signal-rev, .node-pulse, .node-pulse-alt, .ring-cw, .ring-ccw, .core-glow, .scan-light, .badge-glow {
+          animation: none;
+        }
+      }
+    </style>
+
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#040810"/>
+      <stop offset="0.52" stop-color="#081424"/>
+      <stop offset="1" stop-color="#0E2138"/>
+    </linearGradient>
+
+    <linearGradient id="cyanGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00D2FF"/>
+      <stop offset="0.48" stop-color="#5FE7FF"/>
+      <stop offset="1" stop-color="#2F81F7"/>
+    </linearGradient>
+
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFE066"/>
+      <stop offset="0.5" stop-color="#FFB800"/>
+      <stop offset="1" stop-color="#E59900"/>
+    </linearGradient>
+
+    <radialGradient id="reactorGlow" cx="0.85" cy="0.5" r="0.45">
+      <stop offset="0" stop-color="#00F0FF" stop-opacity="0.22"/>
+      <stop offset="0.45" stop-color="#126899" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#040810" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="brandAura" cx="0.2" cy="0.3" r="0.5">
+      <stop offset="0" stop-color="#2F81F7" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#040810" stop-opacity="0"/>
+    </radialGradient>
+
+    <pattern id="gridPattern" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#B8D8EE" stroke-opacity="0.045"/>
+    </pattern>
+
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="coreAura" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <clipPath id="viewportClip">
+      <rect width="1200" height="380" rx="24"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#viewportClip)">
+    <!-- Base Canvas -->
+    <rect width="1200" height="380" fill="url(#bgGrad)"/>
+    <rect width="1200" height="380" fill="url(#brandAura)"/>
+    <rect width="1200" height="380" fill="url(#reactorGlow)"/>
+    <rect width="1200" height="380" fill="url(#gridPattern)"/>
+
+    <!-- Subtle Architectural Guides -->
+    <path d="M 0 338 L 1200 338" stroke="#5FE7FF" stroke-opacity="0.12" stroke-width="1"/>
+    <path d="M 720 0 L 720 380" stroke="#5FE7FF" stroke-opacity="0.07" stroke-width="1"/>
+    <path d="M 0 46 L 1200 46" stroke="#5FE7FF" stroke-opacity="0.05" stroke-width="1"/>
+
+    <!-- Kinetic Beam Scan -->
+    <path class="scan-light" d="M -160 0 L -60 0 L 140 380 L 40 380 Z" fill="#75E6FF" opacity="0"/>
+
+    <!-- Circuit Signals Flowing to Invariant Core -->
+    <g class="signal" fill="none" stroke="url(#cyanGrad)" stroke-width="1.5" opacity="0.65">
+      <path d="M 760 84 L 880 84 L 920 124 L 980 124"/>
+      <path d="M 730 148 L 840 148 L 870 178 L 945 178"/>
+      <path d="M 750 236 L 860 236 L 890 206 L 945 206"/>
+      <path d="M 780 296 L 890 296 L 930 256 L 980 256"/>
+    </g>
+
+    <g class="signal-rev" fill="none" stroke="#2F81F7" stroke-width="1.2" opacity="0.45">
+      <path d="M 810 110 L 875 110 L 905 140 L 960 140"/>
+      <path d="M 795 268 L 870 268 L 910 228 L 960 228"/>
+    </g>
+
+    <!-- Signal Nodes -->
+    <g fill="#5FE7FF">
+      <circle class="node-pulse" cx="760" cy="84" r="3.5"/>
+      <circle class="node-pulse-alt" cx="880" cy="84" r="3"/>
+      <circle class="node-pulse" cx="730" cy="148" r="3.5"/>
+      <circle class="node-pulse-alt" cx="840" cy="148" r="3"/>
+      <circle class="node-pulse" cx="750" cy="236" r="3.5"/>
+      <circle class="node-pulse-alt" cx="860" cy="236" r="3"/>
+      <circle class="node-pulse" cx="780" cy="296" r="3.5"/>
+      <circle class="node-pulse-alt" cx="890" cy="296" r="3"/>
+    </g>
+
+    <!-- Sovereign Invariant Airlock Core (Right Graphic) -->
+    <g id="invariantReactor">
+      <!-- Outer Chamber -->
+      <circle cx="1020" cy="190" r="115" fill="#06101D" stroke="#5FE7FF" stroke-opacity="0.16" stroke-width="1.2"/>
+      <circle cx="1020" cy="190" r="98" fill="none" stroke="url(#cyanGrad)" stroke-opacity="0.32" stroke-width="1" stroke-dasharray="8 6"/>
+
+      <!-- Rotating Invariant Aperture Rings -->
+      <circle class="ring-cw" cx="1020" cy="190" r="82" fill="none" stroke="url(#cyanGrad)" stroke-width="1.8" stroke-dasharray="64 24 8 32"/>
+      <circle class="ring-ccw" cx="1020" cy="190" r="62" fill="none" stroke="#5FE7FF" stroke-opacity="0.65" stroke-width="1.4" stroke-dasharray="28 16"/>
+
+      <!-- Orbiting Invariant Checkpoint Beads -->
+      <g class="ring-cw">
+        <circle cx="1020" cy="108" r="5.5" fill="#5FE7FF" filter="url(#softGlow)"/>
+        <circle cx="1092" cy="232" r="4.5" fill="#2F81F7"/>
+        <circle cx="948" cy="232" r="4" fill="#00D2FF"/>
+      </g>
+      <g class="ring-ccw">
+        <circle cx="1020" cy="252" r="4" fill="#FFE066" filter="url(#softGlow)"/>
+        <circle cx="968" cy="155" r="3.5" fill="#5FE7FF"/>
+        <circle cx="1072" cy="155" r="3.5" fill="#2F81F7"/>
+      </g>
+
+      <!-- Center Invariant Core: Octagonal Shield & Emerald/Cyan Lock -->
+      <g class="core-glow" transform-origin="1020px 190px">
+        <polygon points="1020,154 1046,165 1056,190 1046,215 1020,226 994,215 984,190 994,165"
+                 fill="#07192C" stroke="url(#cyanGrad)" stroke-width="2.2" filter="url(#coreAura)"/>
+        <!-- Inner Lock Emblem -->
+        <circle cx="1020" cy="190" r="14" fill="#0A243F" stroke="#5FE7FF" stroke-width="1.5"/>
+        <path d="M 1016 186 L 1019 193 L 1025 183" fill="none" stroke="#5FE7FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <!-- Reticle Crosshairs -->
+      <path d="M 915 190 L 950 190  M 1090 190 L 1125 190  M 1020 85 L 1020 120  M 1020 260 L 1020 295"
+            stroke="#5FE7FF" stroke-opacity="0.32" stroke-width="1" stroke-dasharray="3 6"/>
+
+      <!-- Small Telemetry Labels Around Core -->
+      <text x="1020" y="70" text-anchor="middle" fill="#6B8BA7" font-family="Consolas,monospace" font-size="9" letter-spacing="2">AIRLOCK: ACTIVE</text>
+      <text x="1020" y="322" text-anchor="middle" fill="#6B8BA7" font-family="Consolas,monospace" font-size="9" letter-spacing="2">INVARIANT LOCK: 100%</text>
+    </g>
+
+    <!-- Left Brand & Value Proposition Typography -->
+    <g font-family="Inter,Segoe UI,-apple-system,sans-serif">
+      <!-- Hallmark / Kicker -->
+      <g transform="translate(68, 68)">
+        <rect x="0" y="0" width="8" height="8" rx="2" fill="#5FE7FF"/>
+        <text x="18" y="8" fill="#7CE3F7" font-size="12" font-weight="700" letter-spacing="3.8">RIBBSAETER SYSTEMS  ·  SOVEREIGN PRE-FLIGHT AIRLOCK</text>
+      </g>
+
+      <!-- Sovereign Product Title -->
+      <g transform="translate(64, 154)">
+        <text x="0" y="0" fill="#F4F9FF" font-size="64" font-weight="900" letter-spacing="-1.8">ZEROSLOP</text>
+        <text x="352" y="-24" fill="#5FE7FF" font-size="28" font-weight="700">™</text>
+      </g>
+
+      <!-- Glowing Metallic Accent Divider -->
+      <rect x="68" y="174" width="560" height="3" rx="1.5" fill="url(#cyanGrad)" filter="url(#softGlow)"/>
+      <polygon points="348,175.5 352,171.5 356,175.5 352,179.5" fill="#FFE066"/>
+
+      <!-- Core Subtitle -->
+      <text x="68" y="214" fill="#E2EDF8" font-size="20" font-weight="600" letter-spacing="-0.2">
+        The Invariant Gatekeeper for AI-Augmented Software Teams
+      </text>
+
+      <!-- Tactical Feature Badges / Pills -->
+      <g transform="translate(68, 238)">
+        <rect x="0" y="0" width="138" height="26" rx="6" fill="#0C1B2E" stroke="#5FE7FF" stroke-opacity="0.35"/>
+        <text x="69" y="17" text-anchor="middle" fill="#5FE7FF" font-size="10.5" font-weight="700" letter-spacing="1.2">PURGE AI SLOP</text>
+
+        <rect x="146" y="0" width="160" height="26" rx="6" fill="#0C1B2E" stroke="#5FE7FF" stroke-opacity="0.35"/>
+        <text x="226" y="17" text-anchor="middle" fill="#5FE7FF" font-size="10.5" font-weight="700" letter-spacing="1.2">ISOLATE COMPILERS</text>
+
+        <rect x="314" y="0" width="168" height="26" rx="6" fill="#0C1B2E" stroke="#5FE7FF" stroke-opacity="0.35"/>
+        <text x="398" y="17" text-anchor="middle" fill="#5FE7FF" font-size="10.5" font-weight="700" letter-spacing="1.2">100% GREEN CI FIRST</text>
+      </g>
+
+      <!-- Bottom Mission & Telemetry Row -->
+      <text x="68" y="306" fill="#88A2BC" font-size="13" font-weight="500" letter-spacing="0.4">
+        Zero code retention  ·  Runs ephemerally in RAM  ·  Auto-commits surgical formatting
+      </text>
+
+      <text x="68" y="360" fill="#4B6882" font-family="Consolas,monospace" font-size="10.5" letter-spacing="1.5">
+        GITHUB ACTION v1.0.0  |  POWERED BY RIBBSAETER INVARIANT ENGINE  |  SWISS QUALITY
+      </text>
+    </g>
+
+    <!-- Geographic / Version Mark Top Right -->
+    <text x="1140" y="360" text-anchor="end" fill="#4B6882" font-family="Consolas,monospace" font-size="10.5" letter-spacing="1.5">
+      SECURE ENCLAVE · SHA-256 VERIFIED
+    </text>
+
+    <!-- Outer Perimeter Highlight Line -->
+    <rect x="1" y="1" width="1198" height="378" rx="23" fill="none" stroke="#5FE7FF" stroke-opacity="0.22" stroke-width="1.5"/>
+  </g>
+</svg>

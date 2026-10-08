@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="42" viewBox="0 0 210 42" role="img" aria-labelledby="title desc">
+  <title id="title">View on GitHub Marketplace</title>
+  <desc id="desc">Direct link to ZeroSlop on GitHub Marketplace.</desc>
+  <defs>
+    <linearGradient id="btnBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0E223D"/>
+      <stop offset="1" stop-color="#081424"/>
+    </linearGradient>
+    <linearGradient id="accentLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00D2FF"/>
+      <stop offset="1" stop-color="#5FE7FF"/>
+    </linearGradient>
+  </defs>
+  <rect x="0.5" y="0.5" width="209" height="41" rx="10" fill="url(#btnBg)" stroke="#35D4FF" stroke-opacity="0.38"/>
+  <rect width="4" height="42" rx="2" fill="url(#accentLine)"/>
+  
+  <!-- GitHub Action Mark -->
+  <g transform="translate(16 11)" fill="none" stroke="#5FE7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="10" cy="10" r="9"/>
+    <path d="M 7 10 L 9.5 12.5 L 13.5 7.5"/>
+  </g>
+  
+  <text x="48" y="17" fill="#88A8C8" font-family="Inter,Arial,sans-serif" font-size="8" font-weight="700" letter-spacing="1.2">GITHUB MARKETPLACE</text>
+  <text x="48" y="30" fill="#F4F9FF" font-family="Inter,Arial,sans-serif" font-size="11.5" font-weight="800" letter-spacing="0.4">INSTALL ACTION</text>
+  <text x="190" y="26" text-anchor="middle" fill="#35D4FF" font-family="Arial,sans-serif" font-size="15" font-weight="700">↗</text>
+</svg>

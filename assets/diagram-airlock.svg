@@ -1,0 +1,233 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="370" viewBox="0 0 1200 370" role="img" aria-labelledby="title desc">
+  <title id="title">ZeroSlop Invariant Architecture Pipeline</title>
+  <desc id="desc">Visual transformation of an unverified 184-line AI pull request through the ZeroSlop Invariant Airlock into a surgical 4-line green invariant fix.</desc>
+  <defs>
+    <style>
+      .flow-signal { stroke-dasharray: 6 12; animation: flowSig 5s linear infinite; }
+      .flow-signal-rev { stroke-dasharray: 6 12; animation: flowSigRev 5s linear infinite; }
+      .card-pulse { animation: cardGlow 3.5s ease-in-out infinite; }
+      .airlock-spin { transform-origin: 600px 175px; animation: spinAirlock 20s linear infinite; }
+      
+      @keyframes flowSig { to { stroke-dashoffset: -72; } }
+      @keyframes flowSigRev { to { stroke-dashoffset: 72; } }
+      @keyframes cardGlow { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
+      @keyframes spinAirlock { to { transform: rotate(360deg); } }
+      
+      @media (prefers-reduced-motion: reduce) {
+        .flow-signal, .flow-signal-rev, .card-pulse, .airlock-spin { animation: none; }
+      }
+    </style>
+
+    <linearGradient id="diaBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050B14"/>
+      <stop offset="0.5" stop-color="#081423"/>
+      <stop offset="1" stop-color="#0B1A2F"/>
+    </linearGradient>
+
+    <!-- Card Backgrounds -->
+    <linearGradient id="slopCardBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1A0D15"/>
+      <stop offset="1" stop-color="#0E080D"/>
+    </linearGradient>
+
+    <linearGradient id="airlockCardBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0A1D33"/>
+      <stop offset="1" stop-color="#061221"/>
+    </linearGradient>
+
+    <linearGradient id="invariantCardBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#081E19"/>
+      <stop offset="1" stop-color="#051210"/>
+    </linearGradient>
+
+    <linearGradient id="cyanLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00D2FF"/>
+      <stop offset="1" stop-color="#2F81F7"/>
+    </linearGradient>
+
+    <pattern id="diaGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#75B5DE" stroke-opacity="0.04"/>
+    </pattern>
+
+    <clipPath id="diagramClip">
+      <rect width="1200" height="370" rx="20"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#diagramClip)">
+    <rect width="1200" height="370" fill="url(#diaBg)"/>
+    <rect width="1200" height="370" fill="url(#diaGrid)"/>
+
+    <!-- Section Header Title -->
+    <text x="600" y="38" text-anchor="middle" fill="#6B8CA8" font-family="Inter,sans-serif" font-size="11" font-weight="700" letter-spacing="3.2">
+      INVARIANT PIPELINE  ·  BEFORE &amp; AFTER RECONSTRUCTION
+    </text>
+
+    <!-- Conduits Connecting Cards -->
+    <g fill="none" stroke="url(#cyanLine)" stroke-width="1.8">
+      <!-- Left to Middle -->
+      <path class="flow-signal" d="M 370 175 L 440 175"/>
+      <!-- Middle to Right -->
+      <path class="flow-signal" d="M 760 175 L 830 175"/>
+    </g>
+    <!-- Arrowheads -->
+    <polygon points="436,170 446,175 436,180" fill="#5FE7FF"/>
+    <polygon points="826,170 836,175 826,180" fill="#34D399"/>
+
+    <!-- ============================================================== -->
+    <!-- CARD 1: RAW AI PULL REQUEST (THE SLOP)                         -->
+    <!-- ============================================================== -->
+    <g transform="translate(48, 62)">
+      <rect width="320" height="270" rx="14" fill="url(#slopCardBg)" stroke="#FF4D6D" stroke-opacity="0.4" stroke-width="1.2"/>
+      <!-- Top Status Banner -->
+      <path d="M 0 14 Q 0 0 14 0 L 306 0 Q 320 0 320 14 L 320 38 L 0 38 Z" fill="#2A0E18"/>
+      <circle cx="22" cy="19" r="5" fill="#FF4D6D"/>
+      <text x="36" y="23" fill="#FFA5B5" font-family="Inter,sans-serif" font-size="10.5" font-weight="800" letter-spacing="1">RAW AI PULL REQUEST</text>
+      <text x="302" y="23" text-anchor="end" fill="#FF4D6D" font-family="Consolas,monospace" font-size="11" font-weight="700">+184 LINES</text>
+
+      <!-- Code Snippet Mockup -->
+      <g transform="translate(18, 52)" font-family="Consolas,monospace" font-size="10">
+        <!-- Line 1 -->
+        <rect x="0" y="0" width="284" height="18" fill="#FF4D6D" fill-opacity="0.12" rx="3"/>
+        <text x="8" y="13" fill="#FF8599">+ class HelperAdapterWrapper:</text>
+
+        <!-- Line 2 -->
+        <rect x="0" y="22" width="284" height="18" fill="#FF4D6D" fill-opacity="0.12" rx="3"/>
+        <text x="8" y="35" fill="#FF8599">+   def __init__(self, cfg=None):</text>
+
+        <!-- Line 3 -->
+        <rect x="0" y="44" width="284" height="18" fill="#FF4D6D" fill-opacity="0.12" rx="3"/>
+        <text x="8" y="57" fill="#FF8599">+     # 80 lines hallucinated mock</text>
+
+        <!-- Line 4 -->
+        <rect x="0" y="66" width="284" height="18" fill="#FF4D6D" fill-opacity="0.12" rx="3"/>
+        <text x="8" y="79" fill="#FF8599">+     self.dead_guard = True</text>
+
+        <!-- Line 5 -->
+        <rect x="0" y="88" width="284" height="18" fill="#FF4D6D" fill-opacity="0.12" rx="3"/>
+        <text x="8" y="101" fill="#FF8599">+   def run_pipeline_safe(...):</text>
+      </g>
+
+      <!-- Warning Metrics -->
+      <g transform="translate(18, 176)">
+        <rect x="0" y="0" width="284" height="30" rx="6" fill="#1C0B12" stroke="#FF4D6D" stroke-opacity="0.25"/>
+        <text x="12" y="19" fill="#FF7B90" font-family="Inter,sans-serif" font-size="10" font-weight="600">
+          ❌ 14 Failing Checks  ·  Dead Memory
+        </text>
+      </g>
+
+      <!-- Outcome Badge -->
+      <g transform="translate(18, 218)">
+        <rect x="0" y="0" width="284" height="34" rx="8" fill="#2C0C17"/>
+        <text x="142" y="21" text-anchor="middle" fill="#FF6B81" font-family="Inter,sans-serif" font-size="11" font-weight="800" letter-spacing="0.5">
+          REVIEW FATIGUE · REJECTED
+        </text>
+      </g>
+    </g>
+
+    <!-- ============================================================== -->
+    <!-- CARD 2: ZEROSLOP™ INVARIANT AIRLOCK (THE ENGINE)               -->
+    <!-- ============================================================== -->
+    <g transform="translate(440, 62)">
+      <rect width="320" height="270" rx="14" fill="url(#airlockCardBg)" stroke="#5FE7FF" stroke-opacity="0.6" stroke-width="1.5" class="card-pulse"/>
+      <!-- Top Status Banner -->
+      <path d="M 0 14 Q 0 0 14 0 L 306 0 Q 320 0 320 14 L 320 38 L 0 38 Z" fill="#0C2542"/>
+      <circle cx="22" cy="19" r="5" fill="#5FE7FF"/>
+      <text x="36" y="23" fill="#D6F4FF" font-family="Inter,sans-serif" font-size="10.5" font-weight="800" letter-spacing="1">ZEROSLOP™ PRE-FLIGHT AIRLOCK</text>
+      <text x="302" y="23" text-anchor="end" fill="#5FE7FF" font-family="Consolas,monospace" font-size="10" font-weight="700">GATE ACTIVE</text>
+
+      <!-- Engine 3-Phase Process -->
+      <g transform="translate(18, 52)">
+        <!-- Step 1 -->
+        <rect x="0" y="0" width="284" height="36" rx="6" fill="#0A1E35" stroke="#35D4FF" stroke-opacity="0.25"/>
+        <circle cx="16" cy="18" r="8" fill="#123B63"/>
+        <text x="16" y="21.5" text-anchor="middle" fill="#5FE7FF" font-family="Inter,sans-serif" font-size="9" font-weight="800">1</text>
+        <text x="34" y="16" fill="#F0F8FF" font-family="Inter,sans-serif" font-size="10.5" font-weight="700">AST Invariant Isolation</text>
+        <text x="34" y="29" fill="#7FA9CA" font-family="Inter,sans-serif" font-size="9">Strips 180 lines of AI bloat to root contract</text>
+
+        <!-- Step 2 -->
+        <rect x="0" y="44" width="284" height="36" rx="6" fill="#0A1E35" stroke="#35D4FF" stroke-opacity="0.25"/>
+        <circle cx="16" cy="18" r="8" fill="#123B63"/>
+        <text x="16" y="21.5" text-anchor="middle" fill="#5FE7FF" font-family="Inter,sans-serif" font-size="9" font-weight="800">2</text>
+        <text x="34" y="16" fill="#F0F8FF" font-family="Inter,sans-serif" font-size="10.5" font-weight="700">Local Compiler Enclave</text>
+        <text x="34" y="29" fill="#7FA9CA" font-family="Inter,sans-serif" font-size="9">Evaluates types, memory &amp; edge cases in RAM</text>
+
+        <!-- Step 3 -->
+        <rect x="0" y="88" width="284" height="36" rx="6" fill="#0A1E35" stroke="#35D4FF" stroke-opacity="0.25"/>
+        <circle cx="16" cy="18" r="8" fill="#123B63"/>
+        <text x="16" y="21.5" text-anchor="middle" fill="#5FE7FF" font-family="Inter,sans-serif" font-size="9" font-weight="800">3</text>
+        <text x="34" y="16" fill="#F0F8FF" font-family="Inter,sans-serif" font-size="10.5" font-weight="700">Auto-Polish Engine</text>
+        <text x="34" y="29" fill="#7FA9CA" font-family="Inter,sans-serif" font-size="9">Runs repo linters &amp; commits back to branch</text>
+      </g>
+
+      <!-- Security / Performance Strip -->
+      <g transform="translate(18, 190)">
+        <rect x="0" y="0" width="284" height="24" rx="4" fill="#071728"/>
+        <text x="142" y="16" text-anchor="middle" fill="#5FE7FF" font-family="Consolas,monospace" font-size="9.5" letter-spacing="1">
+          ZERO CODE RETENTION · RAM ENCLAVE
+        </text>
+      </g>
+
+      <!-- Outcome Badge -->
+      <g transform="translate(18, 222)">
+        <rect x="0" y="0" width="284" height="34" rx="8" fill="#0E3354" stroke="#5FE7FF" stroke-opacity="0.4"/>
+        <text x="142" y="21" text-anchor="middle" fill="#E2F5FF" font-family="Inter,sans-serif" font-size="11" font-weight="800" letter-spacing="0.5">
+          SURGICAL INVARIANT VERIFIED ⚡
+        </text>
+      </g>
+    </g>
+
+    <!-- ============================================================== -->
+    <!-- CARD 3: SOVEREIGN INVARIANT FIX (THE OUTCOME)                  -->
+    <!-- ============================================================== -->
+    <g transform="translate(832, 62)">
+      <rect width="320" height="270" rx="14" fill="url(#invariantCardBg)" stroke="#10B981" stroke-opacity="0.5" stroke-width="1.2"/>
+      <!-- Top Status Banner -->
+      <path d="M 0 14 Q 0 0 14 0 L 306 0 Q 320 0 320 14 L 320 38 L 0 38 Z" fill="#0C2B22"/>
+      <circle cx="22" cy="19" r="5" fill="#34D399"/>
+      <text x="36" y="23" fill="#D1FAE5" font-family="Inter,sans-serif" font-size="10.5" font-weight="800" letter-spacing="1">SOVEREIGN INVARIANT FIX</text>
+      <text x="302" y="23" text-anchor="end" fill="#34D399" font-family="Consolas,monospace" font-size="11" font-weight="700">+4 / -2 LINES</text>
+
+      <!-- Code Snippet Mockup -->
+      <g transform="translate(18, 52)" font-family="Consolas,monospace" font-size="10">
+        <!-- Line 1 -->
+        <rect x="0" y="0" width="284" height="18" fill="#10B981" fill-opacity="0.12" rx="3"/>
+        <text x="8" y="13" fill="#6EE7B7">+ if mask is None:</text>
+
+        <!-- Line 2 -->
+        <rect x="0" y="22" width="284" height="18" fill="#10B981" fill-opacity="0.12" rx="3"/>
+        <text x="8" y="35" fill="#6EE7B7">+     return image, None, None</text>
+
+        <!-- Line 3 -->
+        <rect x="0" y="44" width="284" height="18" fill="#10B981" fill-opacity="0.12" rx="3"/>
+        <text x="8" y="57" fill="#6EE7B7">+ # Preserves 3-tuple return contract</text>
+
+        <!-- Line 4 -->
+        <rect x="0" y="66" width="284" height="18" fill="#10B981" fill-opacity="0.08" rx="3"/>
+        <text x="8" y="79" fill="#A7F3D0">+ # Zero regressions across all pipelines</text>
+      </g>
+
+      <!-- Success Metrics -->
+      <g transform="translate(18, 154)">
+        <rect x="0" y="0" width="284" height="52" rx="6" fill="#09221C" stroke="#10B981" stroke-opacity="0.25"/>
+        <text x="12" y="20" fill="#6EE7B7" font-family="Inter,sans-serif" font-size="10" font-weight="700">
+          🟢 100% Green CI on First Push
+        </text>
+        <text x="12" y="38" fill="#9AE6B4" font-family="Inter,sans-serif" font-size="9.5">
+          94.2% Diff Reduction · 0 Maintainer Churn
+        </text>
+      </g>
+
+      <!-- Outcome Badge -->
+      <g transform="translate(18, 218)">
+        <rect x="0" y="0" width="284" height="34" rx="8" fill="#0D3B2E"/>
+        <text x="142" y="21" text-anchor="middle" fill="#34D399" font-family="Inter,sans-serif" font-size="11" font-weight="800" letter-spacing="0.5">
+          MERGED UPSTREAM INSTANTLY ✓
+        </text>
+      </g>
+    </g>
+
+    <!-- Outer Perimeter Line -->
+    <rect x="1" y="1" width="1198" height="368" rx="19" fill="none" stroke="#5FE7FF" stroke-opacity="0.18" stroke-width="1.2"/>
+  </g>
+</svg>

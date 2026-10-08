@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="42" viewBox="0 0 210 42" role="img" aria-labelledby="title desc">
+  <title id="title">Try Interactive Diff Simulator</title>
+  <desc id="desc">Launch the 184-line slop to 4-line surgical invariant simulator.</desc>
+  <defs>
+    <linearGradient id="btnBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0E223D"/>
+      <stop offset="1" stop-color="#081424"/>
+    </linearGradient>
+    <linearGradient id="emeraldAccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#10B981"/>
+      <stop offset="1" stop-color="#34D399"/>
+    </linearGradient>
+  </defs>
+  <rect x="0.5" y="0.5" width="209" height="41" rx="10" fill="url(#btnBg)" stroke="#34D399" stroke-opacity="0.34"/>
+  <rect width="4" height="42" rx="2" fill="url(#emeraldAccent)"/>
+  
+  <!-- Slop vs Invariant Diff Icon -->
+  <g transform="translate(16 11)" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 4 5 L 10 5 M 4 10 L 8 10 M 4 15 L 12 15"/>
+    <circle cx="15" cy="10" r="3" fill="#34D399" fill-opacity="0.3"/>
+  </g>
+  
+  <text x="48" y="17" fill="#6EE7B7" font-family="Inter,Arial,sans-serif" font-size="8" font-weight="700" letter-spacing="1.2">LIVE INVARIANT DIFF</text>
+  <text x="48" y="30" fill="#F4F9FF" font-family="Inter,Arial,sans-serif" font-size="11.5" font-weight="800" letter-spacing="0.4">TRY SIMULATOR</text>
+  <text x="190" y="26" text-anchor="middle" fill="#34D399" font-family="Arial,sans-serif" font-size="15" font-weight="700">↗</text>
+</svg>

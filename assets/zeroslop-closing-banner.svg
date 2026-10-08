@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="190" viewBox="0 0 1200 190" role="img" aria-labelledby="title desc">
+  <title id="title">ZeroSlop Closing Hallmark — Surgical Invariants · 100% Green CI First · Zero Regressions</title>
+  <desc id="desc">Closing luxury banner for ZeroSlop by Ribbsaeter Systems.</desc>
+  <defs>
+    <style>
+      .flow-a { stroke-dasharray: 8 16; animation: flowA 6.5s linear infinite; }
+      .flow-b { stroke-dasharray: 5 18; animation: flowB 9s linear infinite reverse; }
+      .pulse-node { animation: pNode 2.6s ease-in-out infinite; }
+      .pulse-node-alt { animation: pNode 2.6s ease-in-out 1.3s infinite; }
+      .core-glow { animation: cGlow 4s ease-in-out infinite; }
+      .sweep-light { animation: sLight 8.5s ease-in-out infinite; }
+
+      @keyframes flowA { to { stroke-dashoffset: -96; } }
+      @keyframes flowB { to { stroke-dashoffset: -92; } }
+      @keyframes pNode { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+      @keyframes cGlow { 0%, 100% { opacity: 0.88; } 50% { opacity: 1; } }
+      @keyframes sLight {
+        0%, 14% { transform: translateX(-280px); opacity: 0; }
+        26% { opacity: 0.12; }
+        66% { opacity: 0.05; }
+        80%, 100% { transform: translateX(1380px); opacity: 0; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .flow-a, .flow-b, .pulse-node, .pulse-node-alt, .core-glow, .sweep-light { animation: none; }
+      }
+    </style>
+
+    <linearGradient id="cBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#040810"/>
+      <stop offset="0.55" stop-color="#081424"/>
+      <stop offset="1" stop-color="#0D2036"/>
+    </linearGradient>
+
+    <linearGradient id="sigGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00D2FF"/>
+      <stop offset="0.5" stop-color="#5FE7FF"/>
+      <stop offset="1" stop-color="#2F81F7"/>
+    </linearGradient>
+
+    <radialGradient id="haloCenter">
+      <stop offset="0" stop-color="#26D9FF" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#050C16" stop-opacity="0"/>
+    </radialGradient>
+
+    <pattern id="cGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#B8D8EE" stroke-opacity="0.045"/>
+    </pattern>
+
+    <filter id="cGlowFilter" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <clipPath id="cFrame">
+      <rect width="1200" height="190" rx="22"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#cFrame)">
+    <rect width="1200" height="190" fill="url(#cBg)"/>
+    <rect width="1200" height="190" fill="url(#cGrid)"/>
+    <ellipse cx="600" cy="95" rx="360" ry="170" fill="url(#haloCenter)"/>
+    <path class="sweep-light" d="M -220 0 L -110 0 L 70 190 L -40 190 Z" fill="#BFF5FF" opacity="0"/>
+
+    <!-- Left & Right Invariant Signal Conduits -->
+    <g fill="none" stroke="url(#sigGrad)">
+      <path class="flow-a" d="M 0 48 L 180 48 L 230 95 L 340 95" stroke-width="1.5" opacity="0.6"/>
+      <path class="flow-b" d="M 0 142 L 180 142 L 230 95 L 340 95" stroke-width="1.2" opacity="0.45"/>
+      <path class="flow-b" d="M 1200 48 L 1020 48 L 970 95 L 860 95" stroke-width="1.2" opacity="0.45"/>
+      <path class="flow-a" d="M 1200 142 L 1020 142 L 970 95 L 860 95" stroke-width="1.5" opacity="0.6"/>
+    </g>
+
+    <!-- Signal Nodes -->
+    <g fill="#5FE7FF">
+      <circle class="pulse-node" cx="180" cy="48" r="4"/>
+      <circle class="pulse-node-alt" cx="180" cy="142" r="4"/>
+      <circle class="pulse-node-alt" cx="1020" cy="48" r="4"/>
+      <circle class="pulse-node" cx="1020" cy="142" r="4"/>
+    </g>
+
+    <!-- Center Hallmark Box -->
+    <g class="core-glow">
+      <rect x="330" y="46" width="540" height="98" rx="18" fill="#071526" stroke="url(#sigGrad)" stroke-opacity="0.75" stroke-width="1.5"/>
+      <rect x="345" y="58" width="510" height="74" rx="12" fill="none" stroke="#5FE7FF" stroke-opacity="0.12"/>
+      
+      <!-- Sub-label -->
+      <text x="600" y="78" fill="#75E6FF" font-family="Inter,Segoe UI,sans-serif" font-size="10.5" font-weight="700" letter-spacing="3.2" text-anchor="middle">
+        RIBBSAETER SYSTEMS  ·  SOVEREIGN PRE-FLIGHT GUARANTEE
+      </text>
+
+      <!-- Headline -->
+      <text x="600" y="112" fill="#F4F9FF" font-family="Inter,Segoe UI,sans-serif" font-size="22" font-weight="900" letter-spacing="1.2" text-anchor="middle" filter="url(#cGlowFilter)">
+        SURGICAL INVARIANTS · ZERO REGRESSIONS
+      </text>
+    </g>
+
+    <!-- Outer Perimeter Highlight Line -->
+    <rect x="1" y="1" width="1198" height="188" rx="21" fill="none" stroke="#5FE7FF" stroke-opacity="0.22" stroke-width="1.2"/>
+  </g>
+</svg>
