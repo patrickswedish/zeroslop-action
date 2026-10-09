@@ -30,13 +30,18 @@
 
 <br/><br/>
 
-### Pre-Flight Architectural Invariant Auditing · Compiler Isolation · Diff Minimization
+### Stop Paying Senior Engineers to Review AI Boilerplate.
+**The Sovereign Pre-Flight Invariant Gatekeeper for AI-Augmented Software Teams.**
 
-**The #1 Sovereign Standard for Zero AI Slop in Pull Requests.**
-
-*Built for engineering leaders and AI-augmented teams who refuse to let unverified LLM slop erode their codebases.*
+*Reclaim 60+ senior hours per sprint. Intercept hallucinated wrappers, structural bloat, and unauthorized test deletions before they reach human review.*
 
 </div>
+
+<br/>
+
+> **The Executive Summary**: AI coding agents increased code output by 300%, but engineering velocity slowed down by 40% because senior architects are trapped acting as human linters. **ZeroSlop™ by Ribbsaeter Systems** mechanically audits incoming PR diffs against architectural invariants, stripping slop down to surgical, green commits that merge in minutes.
+
+<br/>
 
 ---
 
@@ -105,6 +110,12 @@ jobs:
 * **Sovereign Community Mode (Default · Zero-Config)**: Executes locally inside your GitHub runner with zero external API calls. Enforces AST diff budgets, Zero Test Deletion Guard, and exit-code validation on every pull request out of the box.
 * **Enterprise Fleet Key**: To unlock centralized organizational audit logs, SLA compliance dashboards, and team telemetry across dozens of repositories, generate your key at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop) and store it as `RIBBSAETER_KEY` in your repository or organization secrets.
 
+<div align="center">
+  <br/>
+  <img src="./assets/zeroslop-terminal-check.svg" width="100%" alt="ZeroSlop Autonomous Runner Execution Terminal" />
+  <br/>
+</div>
+
 ---
 
 ## 🏛️ The Wall of Sovereign Proof
@@ -139,7 +150,7 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 
 | Input | Required | Default | Description |
 | :--- | :---: | :--- | :--- |
-| `api_key` | **Yes** | — | Ribbsaeter Systems ZeroSlop API key (`RST_LIVE_xxx`). |
+| `api_key` | No (Optional) | `''` | Optional. Unlocks centralized enterprise audit logs, SLA dashboards, and team telemetry. Omit for default zero-config Community Invariant Mode. |
 | `base_branch` | No | `main` | Base branch to compare incoming pull request diff against. |
 | `auto_polish` | No | `true` | Automatically run repo-native linters and auto-commit clean code. |
 | `fail_on_slop` | No | `true` | Fail the status check if unmitigated AI slop patterns are detected. |
