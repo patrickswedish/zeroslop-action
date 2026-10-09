@@ -150,10 +150,13 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 
 | Input | Required | Default | Description |
 | :--- | :---: | :--- | :--- |
-| `api_key` | No (Optional) | `''` | Optional. Unlocks centralized enterprise audit logs, SLA dashboards, and team telemetry. Omit for default zero-config Community Invariant Mode. |
+| `license_key` | No (Optional) | `''` | ZeroSlop Pro/Enterprise License Key (from Stripe Checkout). Unlocks CI Diagnostics and centralized fleet telemetry. |
+| `ci_diagnostics` | No | `false` | Enable Pro CI Intelligence & Flake Classifier. Automatically isolates contributor green code from maintainer triage gates and runner flakes. |
+| `api_key` | No (Optional) | `''` | Enterprise API key for custom on-premise or VPC deployments. |
 | `base_branch` | No | `main` | Base branch to compare incoming pull request diff against. |
 | `auto_polish` | No | `true` | Automatically run repo-native linters and auto-commit clean code. |
 | `fail_on_slop` | No | `true` | Fail the status check if unmitigated AI slop patterns are detected. |
+| `github_token` | No | `${{ github.token }}` | GitHub token for querying workflow check runs and commit status. |
 | `api_endpoint` | No | `https://ribbsaetersystems.com/api/v1/verify` | Custom API endpoint for on-premise or VPC enterprise appliances. |
 
 ### Outputs
@@ -163,6 +166,9 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 | `slop_score` | `number` | Calculated slop ratio percentage (0% = clean invariant, 100% = pure slop). |
 | `lines_reduced` | `number` | Total percentage of bloated, hallucinated lines stripped from diff. |
 | `invariants_verified` | `number` | Count of architectural invariants verified green. |
+| `ci_classification` | `string` | Categorization of PR check status: `ALL_GREEN`, `TRIAGE_GATED`, `INFRA_FLAKE`, or `CODE_DEFECT`. |
+| `flaky_jobs_count` | `number` | Total upstream runner timeouts or toolchain flakes isolated. |
+| `gated_jobs_count` | `number` | Total maintainer triage gates (awaiting labels/approvals) isolated. |
 
 ---
 
@@ -209,11 +215,11 @@ AI coding agents (Cursor, Copilot, Claude Code) increased commit volume by 300%,
 
 ## 💼 Commercial Licensing & Pricing
 
-| Tier | Investment | Seat & Account Scope | Concurrency | Capabilities Included | Direct Checkout |
+| Tier | Investment | Seat & Scope | Concurrency | Capabilities Included | Direct Checkout |
 | :--- | :--- | :--- | :--- | :--- | :---: |
-| **Solo Engineer** | **$19 / month** | **Strictly 1 Developer**<br>*(Personal GitHub handle)* | 1 runner | Unlimited local CLI audits · Personal repository PR audits · Diff minimization engine | [**Subscribe ($19/mo)**](https://buy.stripe.com/5kQ7sN6Pi06Q2vc4plfQI00) |
-| **Engineering Team** | **$79 / seat / mo** | **3 to 25 Developers**<br>*(1 GitHub Organization · Min 3 seats)* | 10 runners | Everything in Solo · GitHub Action runner · Auto-polish & auto-commit engine · Team invariant rules | [**Deploy Team ($79/seat)**](https://buy.stripe.com/28E28tb5y9Hq5Ho3lhfQI01) |
-| **Enterprise Core** | **$2,500 / month**<br>*(Annual Contract)* | **Up to 100 Developers**<br>*(Unlimited within VPC)* | Unlimited | Everything in Team · On-Prem / VPC self-hosted runner · Custom architectural invariant rules · NIS2 & CISO audit logs · Dedicated SLA | [**Inquire Core**](https://ribbsaetersystems.com/contact?tier=enterprise) |
+| **Sovereign Community** | **Free Forever ($0)** | **Open-Source & Solo Repos** | Standard | AST diff parser · Local invariant gatekeeper · Zero-test-deletion guard · Auto-polish linter | [**Install Free**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
+| **ZeroSlop™ Pro** | **$29 / month** | **Senior Devs & Teams**<br>*(Any GitHub Org)* | Unlimited | Everything in Community + **Autonomous CI Flake & Triage Classifier** · Pre-Merge Status Matrix · Upstream Runner Dropout Isolation · Priority Desk | [**Subscribe Pro ($29/mo)**](https://buy.stripe.com/eVq8wO86xbXk9fsbUEc7u02) |
+| **ZeroSlop™ Enterprise** | **$1,999 / month** | **Enterprise Engineering Orgs**<br>*(Unlimited seats & repos)* | Unlimited Dedicated | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom Wire Protocol Invariants · Multi-Repo Fleet Analytics · Air-Gapped Runners · 24/7 SLA | [**Deploy Enterprise ($1,999/mo)**](https://buy.stripe.com/9B6cN4fyZ7H44ZcgaUc7u03) |
 
 Provision license keys and explore the live interactive simulator at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
 

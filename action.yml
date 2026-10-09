@@ -22,6 +22,18 @@ inputs:
     description: 'Fail the action if unmitigated AI slop or invariant violations are detected'
     required: false
     default: 'true'
+  ci_diagnostics:
+    description: 'Enable Pro CI Intelligence & Flake Classifier (categorizes checks into Contributor Green vs Maintainer Gates vs Upstream Flakes)'
+    required: false
+    default: 'false'
+  license_key:
+    description: 'ZeroSlop Pro/Enterprise License Key (from Stripe Checkout)'
+    required: false
+    default: ''
+  github_token:
+    description: 'GitHub token for querying pull request checks status (defaults to github.token)'
+    required: false
+    default: ''
   api_endpoint:
     description: 'ZeroSlop verification API endpoint (for custom on-premise or VPC deployments)'
     required: false
@@ -34,6 +46,12 @@ outputs:
     description: 'Total percentage of bloated lines eliminated'
   invariants_verified:
     description: 'Count of architectural invariants proved green'
+  ci_classification:
+    description: 'Overall classification of CI runs: ALL_GREEN, TRIAGE_GATED, INFRA_FLAKE, or CODE_DEFECT'
+  flaky_jobs_count:
+    description: 'Number of upstream runner timeouts or toolchain flakes isolated'
+  gated_jobs_count:
+    description: 'Number of maintainer triage gates isolated'
 
 runs:
   using: 'node20'

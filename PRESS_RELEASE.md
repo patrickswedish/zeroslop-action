@@ -50,10 +50,9 @@ Unlike conceptual AI tools, ZeroSlop's invariant verification engine was hardene
 ### Availability & Pricing
 ZeroSlop is available immediately on the GitHub Marketplace:
 
-* **Sovereign Community Mode (Free / Open-Core)**: 100% out of the box with zero external configuration or API keys required. Runs locally inside GitHub Actions runners.
-* **Solo Engineer**: **$19 / month** for unlimited individual audits and diff minimization.
-* **Engineering Team**: **$79 / seat / month** with organization-wide auto-commit, team invariant rules, and priority runners.
-* **Enterprise Core**: **$2,500 / month** for on-premise VPC appliances, custom invariant rule authoring, dedicated SLAs, and NIS2/CISO audit compliance.
+* **Sovereign Community Mode (Free Forever)**: 100% out of the box with zero external configuration or API keys required. Runs locally inside GitHub Actions runners.
+* **ZeroSlop™ Pro**: **$29 / month** with Autonomous CI Flake Classifier, Maintainer Triage Gate Isolation, Upstream Runner Drop Filtering, Pre-Merge Status Matrix, and Priority Support Desk.
+* **ZeroSlop™ Enterprise**: **$1,999 / month** for dedicated VPC Invariant Enclave, multi-repo fleet analytics, custom wire invariant rule authoring, air-gapped runners, 24/7 sovereign SLAs, and NIS2/CISO audit compliance.
 
 To deploy ZeroSlop in under 60 seconds, visit [**github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) or explore the interactive diff simulator at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
 
