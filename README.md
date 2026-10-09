@@ -138,8 +138,8 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 | **Docker** | `docker/mcp-gateway` | Systems Gateway · Go | Connection protocol routing & transport handshake verification | **Merged Upstream · [PR #553](https://github.com/docker/mcp-gateway/pull/553)** |
 | **PyTorch** | `pytorch/pytorch` | Deep Learning · C++/Python | JIT compiler lowering & tensor storage invariant verification | **Merged Upstream · [PR #193660](https://github.com/pytorch/pytorch/pull/193660)** |
 | **TheBushidoCollective** | `TheBushidoCollective/han` | CLI Tooling · Rust | Windows project-path compatibility with Claude Code slug conventions | **Merged Upstream · [PR #105](https://github.com/TheBushidoCollective/han/pull/105)** |
+| **eBay** | `eBay/NuRaft` | Distributed Consensus · C++17 | Rejection of concurrent snapshot sync requests during asynchronous finalization race | **Merged Upstream · [PR #663](https://github.com/eBay/NuRaft/pull/663)** |
 | **Cloudflare** | `cloudflare/workers-sdk` | Edge Runtime · TypeScript | Raw TCP socket streaming & backpressure handling for rejected WebSocket upgrades | **CI 100% Green · [PR #15205](https://github.com/cloudflare/workers-sdk/pull/15205)** |
-| **eBay** | `eBay/NuRaft` | Distributed Consensus · C++17 | Rejection of concurrent snapshot sync requests during asynchronous finalization race | **Maintainer Approved · 100% Green · [PR #663](https://github.com/eBay/NuRaft/pull/663)** |
 | **Supabase** | `supabase/supavisor` | Connection Pooler · Elixir | PostgreSQL cancellation synchronization across backend connection reuse | **CI 100% Green · [PR #1149](https://github.com/supabase/supavisor/pull/1149)** |
 
 ---
