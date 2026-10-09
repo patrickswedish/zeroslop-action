@@ -71,9 +71,9 @@ Modern AI coding agents (Claude Code, Cursor, Devin, Copilot) generate extraordi
 
 ---
 
-## 🚀 60-Second Quickstart
+## 🚀 60-Second Quickstart (Frictionless · Zero-Config)
 
-Add this single workflow file to your repository at `.github/workflows/zeroslop.yml`:
+ZeroSlop runs **100% out of the box in Sovereign Community Mode** with zero external network calls or required API keys. Add this single workflow file to your repository at `.github/workflows/zeroslop.yml`:
 
 ```yaml
 name: ZeroSlop Invariant Gatekeeper
@@ -95,15 +95,15 @@ jobs:
       - name: Run ZeroSlop Gatekeeper
         uses: patrickswedish/zeroslop-action@v1
         with:
-          api_key: ${{ secrets.RIBBSAETER_KEY }}
           auto_polish: true
           fail_on_slop: true
+          # api_key: ${{ secrets.RIBBSAETER_KEY }} # Optional: unlocks Enterprise cloud audit logs & telemetry
 ```
 
-### Provisioning Your License Key
+### Community Mode vs. Enterprise Fleet Key
 
-Generate your instant API key at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop) and save it in your GitHub repository secrets:
-* **Settings** → **Secrets and variables** → **Actions** → **New repository secret** → `RIBBSAETER_KEY`.
+* **Sovereign Community Mode (Default · Zero-Config)**: Executes locally inside your GitHub runner with zero external API calls. Enforces AST diff budgets, Zero Test Deletion Guard, and exit-code validation on every pull request out of the box.
+* **Enterprise Fleet Key**: To unlock centralized organizational audit logs, SLA compliance dashboards, and team telemetry across dozens of repositories, generate your key at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop) and store it as `RIBBSAETER_KEY` in your repository or organization secrets.
 
 ---
 
