@@ -79,6 +79,6 @@ The competent commercial courts of the **Canton of Zurich, Switzerland** shall h
 ### 9. Contact Information
 For commercial licensing, enterprise master service agreements (MSA), or legal inquiries:
 **Ribbsaeter Systems Legal & Enterprise Governance**  
-Email: [patrickribbsaeterai@gmail.com](mailto:patrickribbsaeterai@gmail.com)  
+Email: [contact@ribbsaetersystems.com](mailto:contact@ribbsaetersystems.com)  
 Website: [https://ribbsaetersystems.com/zeroslop](https://ribbsaetersystems.com/zeroslop)  
 Headquarters: Zurich, Switzerland · Amsterdam · Eindhoven

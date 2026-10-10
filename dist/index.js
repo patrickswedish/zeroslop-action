@@ -272,7 +272,11 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
     }
 
     try {
-      const url = new URL(endpoint);
+      const normalizedEndpoint = String(endpoint || 'https://ribbsaetersystems.com/api/v1/verify').replace(
+        /^https?:\/\/www\.ribbsaetersystems\.com/i,
+        'https://ribbsaetersystems.com'
+      );
+      const url = new URL(normalizedEndpoint);
       const data = JSON.stringify(payload);
       const headers = {
         'Content-Type': 'application/json',

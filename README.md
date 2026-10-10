@@ -244,12 +244,12 @@ Immediately after checkout via Stripe, you are redirected to your private activa
 For teams with dozens of repositories, you do not need to configure secrets one by one. In your GitHub Organization settings, add `ZEROSLOP_API_KEY` under Organization Secrets and grant access to **"All repositories"**. Every repository in your organization automatically inherits ZeroSlop pre-flight protection.
 
 ### How do I get support or request custom invariant rules?
-Direct founder and senior engineering support is available via [**patrickribbsaeterai@gmail.com**](mailto:patrickribbsaeterai@gmail.com). For media, press inquiries, and editorial kits, contact [**patrickribbsaeterai@gmail.com**](mailto:patrickribbsaeterai@gmail.com). Every inquiry is reviewed and answered by senior production engineers within 24 hours.
+Direct founder and senior engineering support is available via [**contact@ribbsaetersystems.com**](mailto:contact@ribbsaetersystems.com). For media, press inquiries, and editorial kits, contact [**press@ribbsaetersystems.com**](mailto:press@ribbsaetersystems.com). Every inquiry is reviewed and answered by senior production engineers within 24 hours.
 
 ### Direct Inquiries & Desks
-- **Technical & License Support**: [patrickribbsaeterai@gmail.com](mailto:patrickribbsaeterai@gmail.com)
-- **Media & Press Relations**: [patrickribbsaeterai@gmail.com](mailto:patrickribbsaeterai@gmail.com)
-- **Enterprise Architecture**: [patrickribbsaeterai@gmail.com](mailto:patrickribbsaeterai@gmail.com)
+- **Technical & License Support**: [contact@ribbsaetersystems.com](mailto:contact@ribbsaetersystems.com)
+- **Media & Press Relations**: [press@ribbsaetersystems.com](mailto:press@ribbsaetersystems.com)
+- **Enterprise Architecture**: [contact@ribbsaetersystems.com](mailto:contact@ribbsaetersystems.com)
 
 ---
 
