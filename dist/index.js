@@ -5,7 +5,7 @@
  * PROPRIETARY AND CONFIDENTIAL.
  * Distributed under the Ribbsaeter Systems Proprietary Software Client License Agreement.
  *
- * Architecture: Sovereign Invariant Airlock, Commercial Trial Gate & Pro CI Intelligence Classifier
+ * Architecture: Sovereign Invariant Airlock, 1-PR Free Try Gate & Pro CI Intelligence Classifier
  * Zug · Zurich · Amsterdam · Eindhoven
  */
 
@@ -37,10 +37,6 @@ function writeSummary(markdown) {
   }
 }
 
-/**
- * Inspect GitHub Event Payload to determine Repository Visibility (Private vs Public)
- * and Pull Request Number.
- */
 function getGitHubEventContext() {
   let isPrivate = process.env.ZEROSLOP_REPO_PRIVATE === 'true';
   let prNumber = null;
@@ -69,10 +65,6 @@ function getGitHubEventContext() {
   return { isPrivate, repoVisibility, prNumber };
 }
 
-/**
- * Ephemeral Diff Computation
- * Extracts pull request changes against the target base branch.
- */
 function getPullRequestDiff(baseBranch) {
   let diffStat = '';
   let fullDiff = '';
@@ -93,9 +85,6 @@ function getPullRequestDiff(baseBranch) {
   return { diffStat, fullDiff };
 }
 
-/**
- * Local Deterministic Invariant Fallback Evaluation
- */
 function evaluateLocalInvariants(fullDiff) {
   const hasSlopMarker =
     fullDiff.includes('DO_NOT_MERGE_SLOP') ||
@@ -137,9 +126,6 @@ function evaluateLocalInvariants(fullDiff) {
   };
 }
 
-/**
- * Known Maintainer Triage Gate patterns
- */
 const TRIAGE_GATE_PATTERNS = [
   /missing required label/i,
   /must have the ['"](?:verified|ready|ready-run-all-tests|run-ci)['"] label/i,
@@ -156,9 +142,6 @@ const TRIAGE_GATE_PATTERNS = [
   /awaiting approval/i
 ];
 
-/**
- * Known Infrastructure Flake patterns
- */
 const INFRA_FLAKE_PATTERNS = [
   /ssh exited with code 101/i,
   /the runner has lost communication/i,
@@ -224,7 +207,7 @@ async function fetchCiChecks(repo, sha, token) {
         path: `/repos/${repo}/commits/${sha}/check-runs?per_page=100`,
         method: 'GET',
         headers: {
-          'User-Agent': 'ZeroSlop-CI-Diagnostics/2.1.0 (Ribbsaeter Systems)',
+          'User-Agent': 'ZeroSlop-CI-Diagnostics/2.2.0 (Ribbsaeter Systems)',
           Authorization: `token ${token}`,
           Accept: 'application/vnd.github.v3+json'
         },
@@ -264,7 +247,7 @@ async function fetchCiChecks(repo, sha, token) {
 
 /**
  * Dispatch Ephemeral Diff & Usage Telemetry to Ribbsaeter Systems Invariant Cloud
- * Enforces 10-PR Private Commercial Repo Trial & 50-PR/mo Public Open-Source Quota.
+ * Enforces strict 1-PR Free Evaluation Try per GitHub Account. After 1 PR, account is locked until paid.
  */
 function verifyWithCloudEngine(endpoint, apiKey, payload) {
   return new Promise((resolve) => {
@@ -274,10 +257,10 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
       return resolve({
         success: true,
         quotaExceeded: false,
-        mode: apiKey && apiKey.startsWith('RST_TEST_') ? 'licensed' : payload.is_private ? 'trial_private' : 'free_public',
+        mode: apiKey && apiKey.startsWith('RST_TEST_') ? 'licensed' : 'single_evaluation',
         runsUsed: 1,
-        runsLimit: apiKey && apiKey.startsWith('RST_TEST_') ? null : payload.is_private ? 10 : 50,
-        runsRemaining: apiKey && apiKey.startsWith('RST_TEST_') ? null : payload.is_private ? 9 : 49,
+        runsLimit: apiKey && apiKey.startsWith('RST_TEST_') ? null : 1,
+        runsRemaining: apiKey && apiKey.startsWith('RST_TEST_') ? null : 0,
         slopScore: localEval.slopScore,
         engineeringScore: localEval.engineeringScore,
         linesReduced: localEval.linesReduced,
@@ -294,8 +277,8 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
       const headers = {
         'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(data),
-        'User-Agent': 'ZeroSlop-Action-Client/2.1.0 (Ribbsaeter Systems)',
-        'X-ZeroSlop-Client-Version': '2.1.0'
+        'User-Agent': 'ZeroSlop-Action-Client/2.2.0 (Ribbsaeter Systems)',
+        'X-ZeroSlop-Client-Version': '2.2.0'
       };
       if (apiKey && apiKey.trim() !== '') {
         headers.Authorization = `Bearer ${apiKey.trim()}`;
@@ -317,23 +300,25 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
             try {
               const response = JSON.parse(body);
 
-              // HTTP 402 Payment Required -> Trial or Monthly Free Quota Reached
+              // HTTP 402 Payment Required -> 1/1 Free Try Used -> Account Locked Until Paid
               if (res.statusCode === 402 || response.quota_exceeded === true) {
                 return resolve({
                   success: false,
                   quotaExceeded: true,
-                  reason: response.reason || (payload.is_private ? 'PRIVATE_TRIAL_EXHAUSTED' : 'PUBLIC_MONTHLY_QUOTA_EXHAUSTED'),
-                  mode: response.mode || (payload.is_private ? 'trial_private' : 'free_public'),
-                  runsUsed: response.runs_used ?? (payload.is_private ? 10 : 50),
-                  runsLimit: response.runs_limit ?? (payload.is_private ? 10 : 50),
+                  reason: response.reason || 'ACCOUNT_LOCKED_REQUIRES_LICENSE',
+                  mode: 'account_locked',
+                  runsUsed: response.runs_used ?? 1,
+                  runsLimit: response.runs_limit ?? 1,
                   runsRemaining: 0,
                   slopScore: 0,
                   engineeringScore: 100,
                   linesReduced: '0%',
                   invariantsVerified: '0%',
                   isGreen: false,
-                  verificationId: `vfy_quota_${crypto.randomBytes(6).toString('hex')}`,
-                  message: response.message || 'Free Trial Quota Reached. Please upgrade to ZeroSlop Pro ($29/mo).'
+                  verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
+                  message:
+                    response.message ||
+                    'Your 1/1 Free Evaluation Pull Request has been used. This GitHub account is now locked until a paid ZeroSlop license key is activated.'
                 });
               }
 
@@ -342,10 +327,10 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
                 return resolve({
                   success: true,
                   quotaExceeded: false,
-                  mode: response.mode || (apiKey ? 'licensed' : payload.is_private ? 'trial_private' : 'free_public'),
+                  mode: response.mode || (apiKey ? 'licensed' : 'single_evaluation'),
                   runsUsed: response.runs_used ?? 1,
-                  runsLimit: response.runs_limit ?? (apiKey ? null : payload.is_private ? 10 : 50),
-                  runsRemaining: response.runs_remaining ?? null,
+                  runsLimit: response.runs_limit ?? (apiKey ? null : 1),
+                  runsRemaining: response.runs_remaining ?? (apiKey ? null : 0),
                   slopScore,
                   engineeringScore: response.engineering_score ?? (100 - slopScore),
                   linesReduced: response.lines_reduced ?? localEval.linesReduced,
@@ -356,15 +341,35 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
                 });
               }
             } catch {
-              // Fall through to local invariant fallback if JSON parse fails
+              // Fall through
+            }
+
+            // If unlicensed and server did not authorize the 1-PR try, lock account
+            if (!apiKey) {
+              return resolve({
+                success: false,
+                quotaExceeded: true,
+                reason: 'ACCOUNT_LOCKED_REQUIRES_LICENSE',
+                mode: 'account_locked',
+                runsUsed: 1,
+                runsLimit: 1,
+                runsRemaining: 0,
+                slopScore: 0,
+                engineeringScore: 100,
+                linesReduced: '0%',
+                invariantsVerified: '0%',
+                isGreen: false,
+                verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
+                message: 'ZeroSlop License Key required. Activate Pro ($29/mo) or Enterprise ($1,999/mo).'
+              });
             }
 
             resolve({
               success: true,
               quotaExceeded: false,
-              mode: apiKey ? 'licensed' : payload.is_private ? 'trial_private' : 'free_public',
+              mode: 'licensed',
               runsUsed: 1,
-              runsLimit: apiKey ? null : payload.is_private ? 10 : 50,
+              runsLimit: null,
               runsRemaining: null,
               slopScore: localEval.slopScore,
               engineeringScore: localEval.engineeringScore,
@@ -379,12 +384,30 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
       );
 
       req.on('error', () => {
+        if (!apiKey) {
+          return resolve({
+            success: false,
+            quotaExceeded: true,
+            reason: 'ACCOUNT_LOCKED_REQUIRES_LICENSE',
+            mode: 'account_locked',
+            runsUsed: 1,
+            runsLimit: 1,
+            runsRemaining: 0,
+            slopScore: 0,
+            engineeringScore: 100,
+            linesReduced: '0%',
+            invariantsVerified: '0%',
+            isGreen: false,
+            verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
+            message: 'Online license verification required. Please provide a valid ZeroSlop license key (RST_LIVE_...).'
+          });
+        }
         resolve({
           success: true,
           quotaExceeded: false,
-          mode: apiKey ? 'licensed' : payload.is_private ? 'trial_private' : 'free_public',
+          mode: 'licensed',
           runsUsed: 1,
-          runsLimit: apiKey ? null : payload.is_private ? 10 : 50,
+          runsLimit: null,
           runsRemaining: null,
           slopScore: localEval.slopScore,
           engineeringScore: localEval.engineeringScore,
@@ -398,12 +421,30 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
 
       req.on('timeout', () => {
         req.destroy();
+        if (!apiKey) {
+          return resolve({
+            success: false,
+            quotaExceeded: true,
+            reason: 'ACCOUNT_LOCKED_REQUIRES_LICENSE',
+            mode: 'account_locked',
+            runsUsed: 1,
+            runsLimit: 1,
+            runsRemaining: 0,
+            slopScore: 0,
+            engineeringScore: 100,
+            linesReduced: '0%',
+            invariantsVerified: '0%',
+            isGreen: false,
+            verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
+            message: 'Online license verification timed out. Please provide a valid ZeroSlop license key (RST_LIVE_...).'
+          });
+        }
         resolve({
           success: true,
           quotaExceeded: false,
-          mode: apiKey ? 'licensed' : payload.is_private ? 'trial_private' : 'free_public',
+          mode: 'licensed',
           runsUsed: 1,
-          runsLimit: apiKey ? null : payload.is_private ? 10 : 50,
+          runsLimit: null,
           runsRemaining: null,
           slopScore: localEval.slopScore,
           engineeringScore: localEval.engineeringScore,
@@ -419,19 +460,20 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
       req.end();
     } catch {
       resolve({
-        success: true,
-        quotaExceeded: false,
-        mode: apiKey ? 'licensed' : payload.is_private ? 'trial_private' : 'free_public',
+        success: false,
+        quotaExceeded: true,
+        reason: 'ACCOUNT_LOCKED_REQUIRES_LICENSE',
+        mode: 'account_locked',
         runsUsed: 1,
-        runsLimit: apiKey ? null : payload.is_private ? 10 : 50,
-        runsRemaining: null,
-        slopScore: localEval.slopScore,
-        engineeringScore: localEval.engineeringScore,
-        linesReduced: localEval.linesReduced,
-        invariantsVerified: localEval.invariantsVerified,
-        isGreen: localEval.isGreen,
+        runsLimit: 1,
+        runsRemaining: 0,
+        slopScore: 0,
+        engineeringScore: 100,
+        linesReduced: '0%',
+        invariantsVerified: '0%',
+        isGreen: false,
         verificationId: `vfy_err_${crypto.randomBytes(8).toString('hex')}`,
-        message: localEval.message
+        message: 'ZeroSlop License Key required.'
       });
     }
   });
@@ -455,18 +497,13 @@ async function run() {
 
   const { isPrivate, repoVisibility } = getGitHubEventContext();
   const repoName = process.env.GITHUB_REPOSITORY || 'unknown/repo';
-  const isCommunityMode = !apiKey || apiKey.trim() === '';
+  const githubOrg = repoName.includes('/') ? repoName.split('/')[0] : repoName;
+  const isUnlicensed = !apiKey || apiKey.trim() === '';
 
-  if (isCommunityMode) {
-    if (isPrivate) {
-      console.log(`🔒 Private Commercial Repository Detected (${repoName}).`);
-      console.log('   Running under ZeroSlop™ 10-PR Commercial Evaluation Trial.');
-      console.log(`   Upgrade to Unlimited Pro ($29/mo) anytime at: ${PRICING_URL}\n`);
-    } else {
-      console.log(`🌐 Public Open-Source Repository Detected (${repoName}).`);
-      console.log('   Running in Free Community Invariant Mode (50 PR Audits / Month Quota).');
-      console.log(`   Unlock Active Auto-Close & Pro CI Flake Diagnostics ($29/mo): ${PRICING_URL}\n`);
-    }
+  if (isUnlicensed) {
+    console.log(`ℹ️  No License Key Detected for @${githubOrg} (${repoName}).`);
+    console.log('   Checking 1-PR Lifetime Free Try eligibility...');
+    console.log(`   Commercial licenses ($29/mo Pro · $1,999/mo Enterprise): ${PRICING_URL}\n`);
   } else {
     console.log('🔑 Sovereign License Key Detected. Activating ZeroSlop™ Pro Invariant Airlock (Unlimited Quota).\n');
   }
@@ -503,13 +540,13 @@ async function run() {
     }
   }
 
-  console.log('\n[ZeroSlop] Verifying Invariants & Quota Status with Sovereign Cloud Core...');
+  console.log('\n[ZeroSlop] Verifying Invariants & Account License Status with Sovereign Cloud Core...');
   const payload = {
     repo: repoName,
     repository: repoName,
     is_private: isPrivate,
     visibility: repoVisibility,
-    mode: isCommunityMode ? 'community' : 'licensed',
+    mode: isUnlicensed ? 'community' : 'licensed',
     ref: process.env.GITHUB_REF || 'refs/heads/main',
     sha: process.env.GITHUB_SHA || 'unknown',
     diff_hash: diffHash,
@@ -520,35 +557,35 @@ async function run() {
   const result = await verifyWithCloudEngine(apiEndpoint, apiKey, payload);
 
   // =========================================================================
-  // PAYWALL TRIGGER: WHEN 10-PR PRIVATE TRIAL OR 50-PR PUBLIC QUOTA EXIRES
+  // HARD ACCOUNT LOCK: AFTER THE 1 FREE EVALUATION PR TRY IS USED
   // =========================================================================
   if (result.quotaExceeded) {
     console.error('\n======================================================================');
-    console.error('🔒 ZEROSLOP™ FREE TRIAL / QUOTA LIMIT REACHED');
-    console.error(`   Repository: ${repoName} (${isPrivate ? 'Private Commercial' : 'Public'})`);
-    console.error(`   Usage: ${result.runsUsed} / ${result.runsLimit} Free PR Audits Used`);
+    console.error(`🔒 ZEROSLOP™ ACCOUNT LOCKED (@${githubOrg})`);
+    console.error(`   Status: 1 / 1 Lifetime Free Evaluation PR Already Used`);
     console.error(`   ${result.message}`);
+    console.error('   ZeroSlop does not offer recurring free tiers. Activate your license:');
     console.error(`   👉 Subscribe ZeroSlop Pro ($29/mo): ${PRO_CHECKOUT_URL}`);
     console.error(`   👉 Deploy Enterprise ($1,999/mo):   ${ENTERPRISE_CHECKOUT_URL}`);
     console.error('======================================================================\n');
 
     const paywallMarkdown = `
-## 🔒 ZeroSlop™ ${isPrivate ? 'Commercial Private Repo Trial Complete (`10 / 10` PRs Used)' : 'Monthly Free Quota Reached (`50 / 50` PRs Used)'}
+## 🔒 ZeroSlop™ Account Locked (\`1 / 1\` Free Evaluation Pull Request Used)
 
-> **Action Required to Keep Your Pull Request Airlock Active**  
-> Repository \`${repoName}\` has completed all **\`${result.runsUsed} / ${result.runsLimit}\`** complimentary ${isPrivate ? 'private commercial trial' : 'monthly community'} PR audits.
+> **Commercial License Required to Unlock \`@${githubOrg}\`**  
+> GitHub account **\`@${githubOrg}\`** (\`${repoName}\`) has already used its **1 complimentary evaluation pull request**. ZeroSlop is a sovereign commercial engineering product and does not offer recurring monthly free tiers.
 
-### ⚡ Instant 60-Second License Activation
+### ⚡ Unlock Continuous Pull Request Protection in 60 Seconds
 
-| Tier | Price | Quota & Capabilities | Instant Checkout |
+| Tier | Investment | Capabilities Included | Instant Activation |
 | :--- | :--- | :--- | :--- |
-| **ZeroSlop™ Pro** *(Most Popular)* | **\`$29 / month\`** | **Unlimited Private & Public PRs**, Active Auto-Close Airlock, Autonomous CI Flake Classifier, Maintainer Gate Isolation | **[Subscribe Pro ($29/mo) →](${PRO_CHECKOUT_URL})** |
+| **ZeroSlop™ Pro** *(Most Popular)* | **\`$29 / month\`** | **Unlimited Pull Requests (Private & Public)**, Active Auto-Close Airlock, Autonomous CI Flake Classifier, Maintainer Gate Isolation | **[Subscribe Pro ($29/mo) →](${PRO_CHECKOUT_URL})** |
 | **ZeroSlop™ Enterprise Core** | **\`$1,999 / month\`** | **Unlimited Engineers & Repos**, Dedicated VPC Invariant Enclave, Custom Rules, 24/7 Sovereign Engineering SLA | **[Deploy Enterprise →](${ENTERPRISE_CHECKOUT_URL})** |
 
-### How to Activate in 3 Steps:
-1. Click **[Subscribe Pro ($29/mo)](${PRO_CHECKOUT_URL})** (supports Apple Pay & corporate cards; zero account registration required).
-2. Copy your instant sovereign key (\`RST_LIVE_...\`) displayed on the confirmation screen.
-3. Add \`ZEROSLOP_API_KEY\` to your GitHub Repository or Organization **Settings → Secrets and variables → Actions** and pass \`api_key: \${{ secrets.ZEROSLOP_API_KEY }}\` in your workflow.
+### 3-Step Activation:
+1. Click **[Subscribe Pro ($29/mo)](${PRO_CHECKOUT_URL})** (Apple Pay & corporate cards supported; zero account registration required).
+2. Copy your instant sovereign production key (\`RST_LIVE_...\`) displayed on the confirmation screen.
+3. Add \`ZEROSLOP_API_KEY\` under GitHub **Settings → Secrets and variables → Actions** and pass \`api_key: \${{ secrets.ZEROSLOP_API_KEY }}\` in your workflow YAML.
 
 ---
 *Powered by [Ribbsaeter Systems](${PRICING_URL}) · Zug, Switzerland · Zero Source-Code Retention Policy.*
@@ -561,7 +598,6 @@ async function run() {
   setOutput('lines_reduced', result.linesReduced);
   setOutput('invariants_verified', result.invariantsVerified);
 
-  // Pro CI Diagnostics & Flake Classifier
   let ciSummarySection = '';
   let ciClassification = 'ALL_GREEN';
   let gatedCount = 0;
@@ -569,13 +605,12 @@ async function run() {
   let defectCount = 0;
   let passCount = 0;
 
-  if (ciDiagnostics && !isCommunityMode) {
+  if (ciDiagnostics && !isUnlicensed) {
     console.log('\n[ZeroSlop Pro] Running CI Intelligence & Flake Classifier...');
     const sha = process.env.GITHUB_SHA || '';
     const checks = await fetchCiChecks(repoName, sha, githubToken);
 
     if (checks && checks.length > 0) {
-      console.log(`[ZeroSlop Pro] Discovered ${checks.length} workflow checks for analysis.`);
       for (const check of checks) {
         const conclusion = (check.conclusion || '').toLowerCase();
         if (conclusion === 'success') {
@@ -610,7 +645,7 @@ async function run() {
 ### 🛰️ ZeroSlop™ Pro CI Diagnostics · Pre-Merge Status Matrix
 
 | Category | Checks | Status | Contributor Impact | Upstream Root Cause |
-| :--- | :---: | :--- | :--- | :--- |
+| :--- | :---: | :---: | :--- | :--- |
 | 🟢 **Contributor Invariants** | \`${passCount}\` | **100% Passed** | 🟢 Clean Code | Tests, types, linters, and compilers clean. |
 | 🔒 **Maintainer Triage Gates** | \`${gatedCount}\` | **Awaiting Label** | 🟢 Unaffected | Requires maintainer authorization label (\`run-ci\`, etc.). |
 | ⚠️ **Upstream Infra Flakes** | \`${flakeCount}\` | **Isolated Flake** | 🟢 Unaffected | Runner lost communication, SSH drop, or timeout. |
@@ -620,10 +655,6 @@ async function run() {
       setOutput('ci_classification', 'ALL_GREEN');
       setOutput('flaky_jobs_count', '0');
       setOutput('gated_jobs_count', '0');
-      ciSummarySection = `
-### 🛰️ ZeroSlop™ Pro CI Diagnostics · Pre-Flight Invariant Airlock
-> 🟢 **Pre-Flight Stage Active**: Pull request diff verified clean. Downstream CI jobs are guarded by ZeroSlop airlock.
-`;
     }
   } else {
     setOutput('ci_classification', 'ALL_GREEN');
@@ -631,24 +662,13 @@ async function run() {
     setOutput('gated_jobs_count', '0');
   }
 
-  // Built-in Upsell & Quota Banner for Free / Trial Users
-  let quotaAndUpsellBanner = '';
-  if (isCommunityMode) {
-    if (isPrivate) {
-      quotaAndUpsellBanner = `
-### 🎁 Commercial Private Repo Trial: \`${result.runsUsed} / ${result.runsLimit}\` Free PR Audits Used
-> **\`${Math.max(0, (result.runsLimit || 10) - (result.runsUsed || 1))}\` free trial audits remaining** on private repository \`${repoName}\`.  
-> Prevent CI interruption and unlock **Unlimited Private PR Audits**, **Active Auto-Close Airlock**, and **Pro CI Flake Diagnostics**:  
-> 👉 **[Activate ZeroSlop™ Pro ($29/mo) in 30 Seconds →](${PRO_CHECKOUT_URL})** &nbsp;|&nbsp; **[Enterprise Unlimited ($1,999/mo) →](${ENTERPRISE_CHECKOUT_URL})**
+  let singleEvalBanner = '';
+  if (isUnlicensed) {
+    singleEvalBanner = `
+### 🔒 Single Free Evaluation Complete (\`1 / 1\` Lifetime Try Used for \`@${githubOrg}\`)
+> This was your **1 complimentary evaluation pull request**. Your GitHub account (\`@${githubOrg}\`) will be **locked on your next pull request** until an active license key is added.  
+> 👉 **[Activate ZeroSlop™ Pro ($29/mo) in 30 Seconds →](${PRO_CHECKOUT_URL})** &nbsp;|&nbsp; **[Deploy Enterprise ($1,999/mo) →](${ENTERPRISE_CHECKOUT_URL})**
 `;
-    } else {
-      quotaAndUpsellBanner = `
-### 💡 Upgrade to ZeroSlop™ Pro (\`$29/mo\`)
-> Running on **Free Open-Source Quota (\`${result.runsUsed} / ${result.runsLimit}\` PR audits used this month)**.  
-> Using ZeroSlop at work? Unlock **Private Commercial Repositories**, **Unlimited Monthly Audits**, **Active Auto-Close Gatekeeping**, and the **Autonomous CI Flake Classifier**:  
-> 👉 **[Upgrade to ZeroSlop™ Pro ($29/mo) →](${PRO_CHECKOUT_URL})** &nbsp;|&nbsp; **[Explore Plans on Ribbsaeter Systems →](${PRICING_URL})**
-`;
-    }
   }
 
   console.log('\n======================================================================');
@@ -656,8 +676,8 @@ async function run() {
     console.log('✅ ZERO SLOP DETECTED. ALL ARCHITECTURAL INVARIANTS GREEN.');
     console.log('   PR conforms to the Ribbsaeter Systems Zero-Defect Standard.');
     console.log(`   Verification Reference: ${result.verificationId}`);
-    if (isCommunityMode && result.runsLimit) {
-      console.log(`   Quota Status: ${result.runsUsed} / ${result.runsLimit} (${isPrivate ? 'Private Repo Free Trial' : 'Monthly Open-Source Quota'})`);
+    if (isUnlicensed) {
+      console.log(`   ⚠️  1 / 1 Free Evaluation PR Used. Account @${githubOrg} requires a paid license key for the next PR: ${PRO_CHECKOUT_URL}`);
     }
   } else {
     console.log('⚠️  Potential AI slop patterns or unmitigated diff expansion detected.');
@@ -677,7 +697,7 @@ async function run() {
 | **AI Slop Score** | \`${result.slopScore}%\` | \`0%\` | ${result.isGreen ? '🟢 Clean' : '🔴 Action Required'} |
 | **Invariants Verified** | \`${result.invariantsVerified}\` | \`100%\` | 🟢 Enforced |
 | **Diff Minimization** | \`${result.linesReduced}\` | \`≥ 80%\` | 🟢 Surgical |
-| **Plan / Quota Status** | \`${isCommunityMode ? `${result.runsUsed}/${result.runsLimit} (${isPrivate ? 'Private Trial' : 'Free Monthly'})` : '⚡ Pro Unlimited'}\` | \`Active\` | 🟢 Verified |
+| **License Status** | \`${isUnlicensed ? '1 / 1 Free Try Used (Locks Next PR)' : '⚡ Pro Unlimited'}\` | \`Active\` | 🟢 Verified |
 
 ${
   result.isGreen
@@ -687,9 +707,9 @@ This pull request satisfies the **ZeroSlop™ Invariant Standard**. Code is math
 ZeroSlop identified diff bloat or invariant degradation. Refine the diff to preserve minimal core invariants before requesting maintainer review.`
 }
 ${ciSummarySection}
-${quotaAndUpsellBanner}
+${singleEvalBanner}
 ---
-*Mode: ${isCommunityMode ? (isPrivate ? '🎁 Commercial Private Trial (10 PRs)' : '🛡️ Community Open-Source Edition (50 PRs/mo)') : '⚡ Pro Sovereign Invariant Airlock'} · Verification Ref: \`${result.verificationId}\` · Zero Code Retention Policy Enforced · Copyright © 2026 Patrick Ribbsaeter / [Ribbsaeter Systems](https://ribbsaetersystems.com/zeroslop).*
+*Mode: ${isUnlicensed ? '🎁 Single Evaluation Run (1/1 Used — Account Locks on Next PR)' : '⚡ Pro Sovereign Invariant Airlock'} · Verification Ref: \`${result.verificationId}\` · Zero Code Retention Policy Enforced · Copyright © 2026 Patrick Ribbsaeter / [Ribbsaeter Systems](https://ribbsaetersystems.com/zeroslop).*
 `;
 
   writeSummary(summaryMarkdown);

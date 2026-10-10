@@ -221,8 +221,8 @@ AI coding agents (Cursor, Copilot, Claude Code) increased commit volume by 300%,
 
 | Tier | Investment | Quota & Scope | Concurrency | Capabilities Included | Direct Checkout |
 | :--- | :--- | :--- | :--- | :--- | :---: |
-| **Community & Trial** | **$0** | **Public Open-Source (50 PRs/mo)**<br>*(+ 10-PR Private Commercial Trial)* | Standard | AST diff parser · Local invariant gatekeeper · Zero-test-deletion guard · Auto-polish linter | [**Start Free**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
-| **ZeroSlop™ Pro** | **$29 / month** | **Unlimited Private & Public PRs**<br>*(Any GitHub Org)* | Unlimited | Everything in Community + **Unlimited Private Repo Audits** · **Active Auto-Close Airlock** · **Autonomous CI Flake & Triage Classifier** · Pre-Merge Status Matrix · Priority Desk | [**Subscribe Pro ($29/mo)**](https://buy.stripe.com/eVq8wO86xbXk9fsbUEc7u02) |
+| **Single Evaluation Try** | **$0 (1 PR Try)** | **1 Pull Request Audit**<br>*(One-Time Account Test · Locks After 1 PR)* | Standard | AST diff parser · Invariant gatekeeper · Zero-test-deletion guard · Auto-polish linter | [**Try 1 PR Free**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
+| **ZeroSlop™ Pro** | **$29 / month** | **Unlimited Private & Public PRs**<br>*(Any GitHub Org)* | Unlimited | Full Continuous Access + **Unlimited Repo Audits** · **Active Auto-Close Airlock** · **Autonomous CI Flake & Triage Classifier** · Pre-Merge Status Matrix · Priority Desk | [**Subscribe Pro ($29/mo)**](https://buy.stripe.com/eVq8wO86xbXk9fsbUEc7u02) |
 | **ZeroSlop™ Enterprise** | **$1,999 / month** | **Enterprise Engineering Orgs**<br>*(Unlimited seats & repos)* | Unlimited Dedicated | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom Wire Protocol Invariants · Multi-Repo Fleet Analytics · Air-Gapped Runners · 24/7 SLA | [**Deploy Enterprise ($1,999/mo)**](https://buy.stripe.com/9B6cN4fyZ7H44ZcgaUc7u03) |
 
 Provision license keys and explore the live interactive simulator at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
