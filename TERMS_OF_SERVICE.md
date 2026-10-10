@@ -19,12 +19,12 @@ All algorithms, AST patterns, reduction matrices, heuristics, designs, documenta
 
 ---
 
-### 2. Commercial Subscriptions & Authorized Use
+### 2. Commercial Subscriptions & Single Evaluation Try
 Subject to timely payment of applicable subscription fees and continuous adherence to these Terms, Ribbsaeter Systems grants Customer a limited, non-exclusive, non-transferable, revocable license to execute the Service within Customer's designated GitHub repositories.
 
-* **Solo Engineer Tier**: Authorized for one (1) developer account across personal and open-source repositories.
-* **Engineering Team Tier**: Authorized for up to the contracted number of seats across organization repositories.
-* **Enterprise Core Tier**: Authorized for organization-wide deployment, including self-hosted runner integration and custom architectural invariant rules.
+* **Single Evaluation Try (`$0` · 1 Free Pull Request Try)**: Every GitHub account or organization is granted strictly **one (1) complimentary pull request evaluation try** (`1 / 1 Free Try`, lifetime, zero monthly resets) to test ZeroSlop™ on a real pull request. Immediately after the first pull request evaluation completes, the GitHub account is locked from further runs until an active commercial license is provisioned.
+* **ZeroSlop™ Pro Tier (`$29 / month`)**: Authorized for unlimited public and private repository pull request evaluations, active auto-close airlock enforcement, autonomous CI flake classification, and maintainer triage gate isolation.
+* **ZeroSlop™ Enterprise Tier (`$1,999 / month`)**: Authorized for unlimited organization-wide seats and repositories, dedicated VPC invariant enclave deployment, self-hosted air-gapped runner integration, custom architectural invariant rules, and 24/7 principal architect SLA.
 
 Customer shall ensure that API keys (`RST_LIVE_xxx`) are treated as confidential credentials and not disclosed, committed to public repositories, or shared with unauthorized third parties.
 
@@ -79,6 +79,6 @@ The competent commercial courts of the **Canton of Zurich, Switzerland** shall h
 ### 9. Contact Information
 For commercial licensing, enterprise master service agreements (MSA), or legal inquiries:
 **Ribbsaeter Systems Legal & Enterprise Governance**  
-Email: [legal@ribbsaetersystems.com](mailto:legal@ribbsaetersystems.com)  
+Email: [patrickribbsaeterai@gmail.com](mailto:patrickribbsaeterai@gmail.com)  
 Website: [https://ribbsaetersystems.com/zeroslop](https://ribbsaetersystems.com/zeroslop)  
 Headquarters: Zurich, Switzerland · Amsterdam · Eindhoven

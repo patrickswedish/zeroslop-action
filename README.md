@@ -76,9 +76,9 @@ Modern AI coding agents (Claude Code, Cursor, Devin, Copilot) generate extraordi
 
 ---
 
-## 🚀 60-Second Quickstart (Frictionless · Zero-Config)
+## 🚀 60-Second Quickstart (1-PR Free Evaluation Try + Instant Pro Key)
 
-ZeroSlop runs **100% out of the box in Sovereign Community Mode** with zero external network calls or required API keys. Add this single workflow file to your repository at `.github/workflows/zeroslop.yml`:
+Download and test ZeroSlop on **1 pull request for free** out of the box, or pass your **`ZEROSLOP_API_KEY`** for continuous unlimited protection. Add this workflow file to your repository at `.github/workflows/zeroslop.yml`:
 
 ```yaml
 name: ZeroSlop Invariant Gatekeeper
@@ -102,13 +102,13 @@ jobs:
         with:
           auto_polish: true
           fail_on_slop: true
-          # api_key: ${{ secrets.RIBBSAETER_KEY }} # Optional: unlocks Enterprise cloud audit logs & telemetry
+          api_key: ${{ secrets.ZEROSLOP_API_KEY }} # Optional for 1st PR try; required from PR #2+
 ```
 
-### Community Mode vs. Enterprise Fleet Key
+### 1-PR Free Evaluation Try vs. Commercial License Key
 
-* **Sovereign Community Mode (Default · Zero-Config)**: Executes locally inside your GitHub runner with zero external API calls. Enforces AST diff budgets, Zero Test Deletion Guard, and exit-code validation on every pull request out of the box.
-* **Enterprise Fleet Key**: To unlock centralized organizational audit logs, SLA compliance dashboards, and team telemetry across dozens of repositories, generate your key at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop) and store it as `RIBBSAETER_KEY` in your repository or organization secrets.
+* **Single Evaluation Try (1st Pull Request Free)**: Every GitHub account or organization receives **1 complimentary pull request audit** with zero configuration required. One surgical, 100% green pull request merge proves the ZeroSlop standard. After 1 pull request, your account is locked until a commercial license key is activated.
+* **ZeroSlop™ Pro (`$29/mo`) & Enterprise (`$1,999/mo`) License Key**: Unlocks continuous, unlimited pull request protection across private and public repositories, Active Auto-Close enforcement, and the Autonomous CI Flake & Triage Classifier. Provision your key in 30 seconds at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop) and store it as `ZEROSLOP_API_KEY` in your repository or organization secrets.
 
 <div align="center">
   <br/>
@@ -200,8 +200,8 @@ AI coding agents (Cursor, Copilot, Claude Code) increased commit volume by 300%,
 | **PR Review Churn** | 15–20 hours / week per senior dev | Under 2 hours / week (pre-flight verified) | **60+ hours reclaimed per sprint** |
 | **PR Cycle Turnaround** | 4.2 days average review bottleneck | 45 minutes to merge | **85% faster release cadence** |
 | **CI Failures on PRs** | 14+ failing public CI checks per draft | 100% green compiler checks on first push | **Zero public CI debugging waste** |
-| **Annual Review Payroll** | **$160,000 / year** burned ($80/hr senior salary) | **$9,480 / year** ($79/seat × 10 engineers) | **$150,520 net annual payroll saved** |
-| **Financial Return** | Continuous velocity erosion | **18.2x Annual ROI** | **Payback Period: < 48 Hours** |
+| **Annual Review Payroll** | **$160,000 / year** burned ($80/hr senior salary) | **$348 / year** ($29/mo Pro) or **$1,999/mo** (Enterprise) | **$150,000+ net annual payroll saved** |
+| **Financial Return** | Continuous velocity erosion | **18.2x+ Annual ROI** | **Payback Period: < 48 Hours** |
 
 ---
 
@@ -231,14 +231,17 @@ Provision license keys and explore the live interactive simulator at [**ribbsaet
 
 ## ❓ Frequently Asked Questions (FAQ)
 
+### How does the 1-PR Free Evaluation Try work?
+Every GitHub account or organization receives **1 complimentary pull request audit** upon installing ZeroSlop from the GitHub Marketplace. One clean, surgical pull request merge is enough to prove the ZeroSlop standard. After your 1st pull request, your account is locked until you activate a **ZeroSlop™ Pro ($29/mo)** or **Enterprise ($1,999/mo)** license key. ZeroSlop does not offer recurring monthly free tiers.
+
 ### How do I activate my license key after purchasing?
-Immediately after checkout via Stripe, you are redirected to your private activation screen displaying your sovereign API key (`RST_LIVE_xxx`). Copy this key, navigate to your GitHub Repository or Organization **Settings → Secrets and variables → Actions**, create a secret named `ZEROSLOP_API_KEY`, and paste the workflow YAML. Your pull requests are protected in under 60 seconds.
+Immediately after checkout via Stripe, you are redirected to your private activation screen displaying your sovereign API key (`RST_LIVE_xxx`). Copy this key, navigate to your GitHub Repository or Organization **Settings → Secrets and variables → Actions**, create a secret named `ZEROSLOP_API_KEY`, and pass `api_key: ${{ secrets.ZEROSLOP_API_KEY }}` in your workflow YAML. Your pull requests are unlocked in under 60 seconds.
 
 ### Does ZeroSlop store, retain, or train on our proprietary code?
 **Strictly zero code retention.** ZeroSlop evaluates pull request diffs ephemerally in a volatile Node 20 RAM enclave. Your source code is never written to disk, never stored in a database, and never used to train machine learning models. We log strictly mathematical invariant telemetry (lines purged, invariant pass/fail).
 
-### How does the Team Tier protect all repositories in our organization?
-For teams with dozens of repositories, you do not need to configure them one by one. In your GitHub Organization settings, add `ZEROSLOP_API_KEY` under Organization Secrets and grant access to **"All repositories"**. Every repository in your organization automatically inherits ZeroSlop pre-flight protection.
+### How does ZeroSlop protect all repositories in our organization?
+For teams with dozens of repositories, you do not need to configure secrets one by one. In your GitHub Organization settings, add `ZEROSLOP_API_KEY` under Organization Secrets and grant access to **"All repositories"**. Every repository in your organization automatically inherits ZeroSlop pre-flight protection.
 
 ### How do I get support or request custom invariant rules?
 Direct founder and senior engineering support is available via [**patrickribbsaeterai@gmail.com**](mailto:patrickribbsaeterai@gmail.com). For media, press inquiries, and editorial kits, contact [**patrickribbsaeterai@gmail.com**](mailto:patrickribbsaeterai@gmail.com). Every inquiry is reviewed and answered by senior production engineers within 24 hours.

@@ -7,7 +7,7 @@ branding:
 
 inputs:
   api_key:
-    description: 'Ribbsaeter Systems ZeroSlop API key (Optional for Community Invariant Mode; required for Enterprise Cloud)'
+    description: 'Ribbsaeter Systems ZeroSlop API key (Optional for 1-PR Free Evaluation Try; required after 1st PR for Pro & Enterprise)'
     required: false
     default: ''
   base_branch:

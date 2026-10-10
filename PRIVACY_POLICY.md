@@ -63,6 +63,6 @@ For defense contractors, sovereign banks, and healthcare institutions with stric
 For data privacy inquiries, enterprise Data Processing Agreements (DPA), or CISO security questionnaires:
 **Data Protection & Security Governance**  
 Ribbsaeter Systems  
-Email: [privacy@ribbsaetersystems.com](mailto:privacy@ribbsaetersystems.com)  
+Email: [patrickribbsaeterai@gmail.com](mailto:patrickribbsaeterai@gmail.com)  
 Website: [https://ribbsaetersystems.com/zeroslop](https://ribbsaetersystems.com/zeroslop)  
 Zurich, Switzerland · Amsterdam · Eindhoven
