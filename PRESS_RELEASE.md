@@ -59,7 +59,7 @@ To deploy ZeroSlop in under 60 seconds, visit [**github.com/marketplace/actions/
 ---
 
 ### Media & Press Relations Desk
-* **Press Inquiries**: [press@ribbsaetersystems.com](mailto:press@ribbsaetersystems.com)
-* **Technical & Business Enquiries**: [contact@ribbsaetersystems.com](mailto:contact@ribbsaetersystems.com)
+* **Press Inquiries**: [patrickribbsaeterai@gmail.com](mailto:patrickribbsaeterai@gmail.com)
+* **Technical & Business Enquiries**: [patrickribbsaeterai@gmail.com](mailto:patrickribbsaeterai@gmail.com)
 * **Founder Profile**: [patrickribbsaeter.com](https://www.patrickribbsaeter.com/) · [linkedin.com/in/patrickribbsaeter](https://www.linkedin.com/patrickribbsaeter) · [github.com/patrickswedish](https://github.com/patrickswedish)
 * **Official Website**: [ribbsaetersystems.com](https://www.ribbsaetersystems.com/)
