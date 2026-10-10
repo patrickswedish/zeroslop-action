@@ -229,6 +229,19 @@ Provision license keys and explore the live interactive simulator at [**ribbsaet
 
 ---
 
+## ⚡ High-Ticket Advisory: Frontier AI Systems & GPU Performance Sprints
+
+Beyond autonomous CI invariant protection, Ribbsaeter Systems operates an elite, confidential advisory practice for frontier AI research labs, sovereign cloud operators, high-frequency quant funds, and scale-ups:
+
+* **GPU Cluster & KV Cache Performance Sprint ($75,000 – $150,000 flat / 2-week turnaround)**:  
+  Direct multi-node GPU cluster intervention. Surgical reduction of multi-gigabyte KV cache memory footprints across H100/H200/B200 clusters, Triton/CUDA operator fusion, disaggregated prefill/decode pipeline architecture, and custom compiler lowerings. Merged, green production PRs with benchmark proofs delivered in 14 days.
+* **Principal Systems Architecture Retainer ($35,000 – $65,000 / month)**:  
+  Direct access to Patrick Ribbsaeter for core distributed memory hierarchies, low-level CPython 3.14t free-threading (PEP 703) migrations, and mission-critical compiler invariants across OpenAI Triton, LLVM, Meta Velox, and DuckDB.
+
+Inquire confidentially: [**contact@ribbsaetersystems.com**](mailto:contact@ribbsaetersystems.com) · Subject: `[FRONTIER-AI-ADVISORY]` · [Explore Frontier AI Practice](https://ribbsaetersystems.com/services/ai-infrastructure)
+
+---
+
 ## ❓ Frequently Asked Questions (FAQ)
 
 ### How does the 1-PR Free Evaluation Try work?

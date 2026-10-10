@@ -30,6 +30,7 @@ ZeroSlop solves this crisis by introducing a drop-in pre-flight airlock into the
 ### Proven in the World's Most Demanding Codebases
 Unlike conceptual AI tools, ZeroSlop's invariant verification engine was hardened directly against the world’s most demanding production systems. Sovereign pull requests powered by this exact methodology have been merged upstream across 17 tier-1 foundations:
 
+* **OpenAI Triton** (`triton-lang/triton` #8574): CPython 3.14t free-threading PEP 703 multi-phase GIL-free initialization via `Py_mod_gil`.
 * **LLVM** (`llvm/llvm-project` #215076): X86 SelectionDAG vector integer division lowering.
 * **Meta Velox** (`facebookincubator/velox` #18529): Vectorized TopNRowNumber in-memory rank ordering.
 * **DuckDB** (`duckdb/duckdb` #26443): Analytical PIVOT IN zero-argument expression preservation.
@@ -55,6 +56,16 @@ ZeroSlop is available immediately on the GitHub Marketplace:
 * **ZeroSlop™ Enterprise**: **$1,999 / month** for dedicated VPC Invariant Enclave, multi-repo fleet analytics, custom wire invariant rule authoring, air-gapped runners, 24/7 sovereign SLAs, and NIS2/CISO audit compliance.
 
 To deploy ZeroSlop in under 60 seconds, visit [**github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) or explore the interactive diff simulator at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
+
+---
+
+### Frontier AI Practice: GPU Cluster & KV Cache Performance Sprints
+In addition to autonomous CI invariant protection, Ribbsaeter Systems operates an elite advisory practice for frontier AI research labs, sovereign compute clusters, and quantitative trading institutions:
+
+* **GPU Cluster & KV Cache Performance Sprint ($75,000 – $150,000 flat / 2-week turnaround)**: Multi-node GPU memory optimization, multi-gigabyte KV cache footprint reduction across H100/H200/B200 clusters, Triton/CUDA operator fusion, disaggregated prefill/decode serving architectures, and compiler lowerings. Delivered as merged, benchmarked production PRs in 14 days.
+* **Principal Systems Architecture Retainer ($35,000 – $65,000 / month)**: Strategic systems guidance, CPython 3.14t free-threading migrations, and low-level compiler invariants directly with Patrick Ribbsaeter.
+
+Confidential inquiries: [contact@ribbsaetersystems.com](mailto:contact@ribbsaetersystems.com) · Subject: `[FRONTIER-AI-ADVISORY]` · [Explore Practice](https://ribbsaetersystems.com/services/ai-infrastructure)
 
 ---
 
