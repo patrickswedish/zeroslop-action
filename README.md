@@ -274,7 +274,7 @@ Direct founder and senior engineering support is available via [**contact@ribbsa
 
 ### Systems. Intelligence. Product. Business.
 
-[Personal Website](https://www.patrickribbsaeter.com/) · [Ribbsaeter Systems](https://www.ribbsaetersystems.com/) · [ZeroSlop™ Portal](https://www.ribbsaetersystems.com/zeroslop) · [LinkedIn](https://www.linkedin.com/patrickribbsaeter) · [GitHub Profile](https://github.com/patrickswedish)
+[Personal Website](https://www.patrickribbsaeter.com/) · [Ribbsaeter Systems](https://www.ribbsaetersystems.com/) · [ZeroSlop™ Portal](https://www.ribbsaetersystems.com/zeroslop) · [LinkedIn](https://www.linkedin.com/in/patrickribbsaeter) · [GitHub Profile](https://github.com/patrickswedish)
 
 <br/>
 
