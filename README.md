@@ -124,27 +124,24 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 
 | Organization | Repository | Domain & Stack | Engineering Focus | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| **Hugging Face** | `huggingface/diffusers` | Generative AI · Python | InpaintProcessor 3-tuple return contract preservation when mask is None | **Merged Upstream · [PR #14481](https://github.com/huggingface/diffusers/pull/14481)** |
 | **Meta** | `facebookincubator/velox` | Vectorized Kernels · C++20 | TopNRowNumber in-memory rank ordering correctness & partition stream parity | **Merged Upstream · [PR #18529](https://github.com/facebookincubator/velox/pull/18529)** |
-| **DuckDB** | `duckdb/duckdb` | Analytical DB · C++ | PIVOT IN list zero-argument row() expression preservation & null dereference guard | **Merged Upstream · [PR #26443](https://github.com/duckdb/duckdb/pull/26443)** |
-| **Valkey** | `valkey-io/valkey` | Distributed Storage · C99 | Cluster key-slot resolution & client cache validation for commands touching arbitrary keys | **Merged Upstream · [PR #4424](https://github.com/valkey-io/valkey/pull/4424)** |
-| **Apache** | `apache/datafusion` | Query Engine · Rust | Execution-layer schema conformance across in-memory execution and aggregation | **Shipped Upstream · [PR #24394](https://github.com/apache/datafusion/pull/24394)** |
-| **Apache** | `apache/datafusion` | Query Engine · Rust | PushDownFilter clippy mutable_key_type allow annotations for Expr hash sets | **In Review · 39/39 Checks Green · Closes #26181 · [PR #26189](https://github.com/apache/datafusion/pull/26189)** |
+| **Apache** | `apache/datafusion` | Query Engine · Rust | Execution-layer schema conformance across in-memory execution and aggregation | **Merged & Shipped · [PR #24394](https://github.com/apache/datafusion/pull/24394)** |
 | **LLVM** | `llvm/llvm-project` | Compiler Backend · C++ | X86 SelectionDAG non-power-of-two vector integer division vectorization & lowering | **Merged Upstream · [PR #215076](https://github.com/llvm/llvm-project/pull/215076)** |
-| **Microsoft** | `microsoft/pyright` | Type Evaluator · TypeScript | Inherited asymmetric descriptor detection across effective MRO behavior | **Merged Upstream · [PR #11605](https://github.com/microsoft/pyright/pull/11605)** |
+| **Hugging Face** | `huggingface/diffusers` | Generative AI · Python | InpaintProcessor 3-tuple return contract preservation when mask is None | **Merged Upstream · [PR #14481](https://github.com/huggingface/diffusers/pull/14481)** |
+| **Valkey** | `valkey-io/valkey` | Distributed Storage · C99 | Cluster key-slot resolution & client cache validation for commands touching arbitrary keys | **Merged Upstream · [PR #4424](https://github.com/valkey-io/valkey/pull/4424)** |
 | **Microsoft** | `microsoft/agent-governance-toolkit` | AI Governance · Python | Fail-closed approval-chain correctness for zero-required-stage configurations | **Merged Upstream · [PR #3448](https://github.com/microsoft/agent-governance-toolkit/pull/3448)** |
 | **Microsoft** | `microsoft/typespec` | Compiler Tooling · TypeScript | Playground state synchronization and deterministic regression coverage | **Merged Upstream · [PR #11660](https://github.com/microsoft/typespec/pull/11660)** |
-| **Rust** | `rust-lang/rust` | Systems Compiler · Rust | Type lowering invariant preservation across trait resolution bounds | **Merged Upstream · [PR #161202](https://github.com/rust-lang/rust/pull/161202)** |
-| **Tokio** | `tokio-rs/tokio` | Async Runtime · Rust | Current-thread paused time wake tracking & zero-syscall timer preservation | **In Review · 100% Green · [PR #8595](https://github.com/tokio-rs/tokio/pull/8595)** |
+| **eBay** | `eBay/NuRaft` | Distributed Consensus · C++17 | Rejection of concurrent snapshot sync requests during asynchronous finalization race | **Merged Upstream · [PR #663](https://github.com/eBay/NuRaft/pull/663)** |
+| **Meta** | `facebook/pyrefly` | Static Analysis · Rust | Python descriptor protocol inference & bound method attribute resolution | **Merged Upstream · [PR #4476](https://github.com/facebook/pyrefly/pull/4476)** |
+| **TheBushidoCollective** | `TheBushidoCollective/han` | CLI Tooling · Rust | Windows project-path compatibility with Claude Code slug conventions | **Merged Upstream · [PR #105](https://github.com/TheBushidoCollective/han/pull/105)** |
+| **Tokio** | `tokio-rs/tokio` | Async Runtime · Rust | Current-thread paused time wake tracking & zero-syscall timer preservation | **In Review · 75/75 Green · [PR #8595](https://github.com/tokio-rs/tokio/pull/8595)** |
 | **OpenAI** | `triton-lang/triton` | Compiler Backend · C++/Python | Nanobind static build free-threaded PEP 703 GIL slot declaration | **In Review · 100% Green · [PR #12221](https://github.com/triton-lang/triton/pull/12221)** |
+| **Apache** | `apache/datafusion` | Query Engine · Rust | PushDownFilter clippy mutable_key_type allow annotations for Expr hash sets | **In Review · 39/39 Checks Green · [PR #26189](https://github.com/apache/datafusion/pull/26189)** |
+| **Microsoft** | `microsoft/pyright` | Type Evaluator · TypeScript | Inherited asymmetric descriptor detection across effective MRO behavior | **In Review · 4 Approvals · [PR #11605](https://github.com/microsoft/pyright/pull/11605)** |
+| **Cloudflare** | `cloudflare/workers-sdk` | Edge Runtime · TypeScript | Raw TCP socket streaming & backpressure handling for rejected WebSocket upgrades | **In Review · 100% Green · [PR #15205](https://github.com/cloudflare/workers-sdk/pull/15205)** |
 | **AWS** | `firecracker-microvm/firecracker` | MicroVM Hypervisor · Rust | Resolved clippy infallible_destructuring_match on TimerFd in release builds | **In Review · DCO Green · [PR #6262](https://github.com/firecracker-microvm/firecracker/pull/6262)** |
 | **ClickHouse** | `ClickHouse/ClickHouse` | Real-Time DBMS · C++20 | Bounds validation on parallel replicas legacy query plan limit | **In Review · 100% Green · [PR #114954](https://github.com/ClickHouse/ClickHouse/pull/114954)** |
-| **Docker** | `docker/mcp-gateway` | Systems Gateway · Go | Connection protocol routing & transport handshake verification | **Merged Upstream · [PR #553](https://github.com/docker/mcp-gateway/pull/553)** |
-| **PyTorch** | `pytorch/pytorch` | Deep Learning · C++/Python | JIT compiler lowering & tensor storage invariant verification | **Merged Upstream · [PR #193660](https://github.com/pytorch/pytorch/pull/193660)** |
-| **TheBushidoCollective** | `TheBushidoCollective/han` | CLI Tooling · Rust | Windows project-path compatibility with Claude Code slug conventions | **Merged Upstream · [PR #105](https://github.com/TheBushidoCollective/han/pull/105)** |
-| **eBay** | `eBay/NuRaft` | Distributed Consensus · C++17 | Rejection of concurrent snapshot sync requests during asynchronous finalization race | **Merged Upstream · [PR #663](https://github.com/eBay/NuRaft/pull/663)** |
-| **Cloudflare** | `cloudflare/workers-sdk` | Edge Runtime · TypeScript | Raw TCP socket streaming & backpressure handling for rejected WebSocket upgrades | **CI 100% Green · [PR #15205](https://github.com/cloudflare/workers-sdk/pull/15205)** |
-| **Supabase** | `supabase/supavisor` | Connection Pooler · Elixir | PostgreSQL cancellation synchronization across backend connection reuse | **CI 100% Green · [PR #1149](https://github.com/supabase/supavisor/pull/1149)** |
+| **Supabase** | `supabase/supavisor` | Connection Pooler · Elixir | PostgreSQL cancellation synchronization across backend connection reuse | **In Review · 100% Green · [PR #1149](https://github.com/supabase/supavisor/pull/1149)** |
 
 ---
 
@@ -222,8 +219,8 @@ AI coding agents (Cursor, Copilot, Claude Code) increased commit volume by 300%,
 | Tier | Investment | Quota & Scope | Concurrency | Capabilities Included | Direct Checkout |
 | :--- | :--- | :--- | :--- | :--- | :---: |
 | **Single Evaluation Try** | **$0 (1 PR Try)** | **1 Pull Request Audit**<br>*(One-Time Account Test · Locks After 1 PR)* | Standard | AST diff parser · Invariant gatekeeper · Zero-test-deletion guard · Auto-polish linter | [**Try 1 PR Free**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
-| **ZeroSlop™ Pro** | **$29 / month** | **Unlimited Private & Public PRs**<br>*(Any GitHub Org)* | Unlimited | Full Continuous Access + **Unlimited Repo Audits** · **Active Auto-Close Airlock** · **Autonomous CI Flake & Triage Classifier** · Pre-Merge Status Matrix · Priority Desk | [**Subscribe Pro ($29/mo)**](https://buy.stripe.com/eVq8wO86xbXk9fsbUEc7u02) |
-| **ZeroSlop™ Enterprise** | **$1,999 / month** | **Enterprise Engineering Orgs**<br>*(Unlimited seats & repos)* | Unlimited Dedicated | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom Wire Protocol Invariants · Multi-Repo Fleet Analytics · Air-Gapped Runners · 24/7 SLA | [**Deploy Enterprise ($1,999/mo)**](https://buy.stripe.com/9B6cN4fyZ7H44ZcgaUc7u03) |
+| **ZeroSlop™ Pro** | **$29 / month** | **Unlimited Private & Public PRs**<br>*(Any GitHub Org)* | Unlimited | Full Continuous Access + **Unlimited Repo Audits** · **Active Auto-Close Airlock** · **Autonomous CI Flake & Triage Classifier** · Pre-Merge Status Matrix · Priority Desk | [**Subscribe Pro ($29/mo)**](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
+| **ZeroSlop™ Enterprise** | **$1,999 / month** | **Enterprise Engineering Orgs**<br>*(Unlimited seats & repos)* | Unlimited Dedicated | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom Wire Protocol Invariants · Multi-Repo Fleet Analytics · Air-Gapped Runners · 24/7 SLA | [**Deploy Enterprise ($1,999/mo)**](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
 
 Provision license keys and explore the live interactive simulator at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
 

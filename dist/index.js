@@ -14,8 +14,8 @@ const fs = require('fs');
 const https = require('https');
 const crypto = require('crypto');
 
-const PRO_CHECKOUT_URL = 'https://buy.stripe.com/eVq8wO86xbXk9fsbUEc7u02';
-const ENTERPRISE_CHECKOUT_URL = 'https://buy.stripe.com/9B6cN4fyZ7H44ZcgaUc7u03';
+const PRO_CHECKOUT_URL = 'https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02';
+const ENTERPRISE_CHECKOUT_URL = 'https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03';
 const PRICING_URL = 'https://ribbsaetersystems.com/zeroslop#pricing';
 
 function getInput(name, fallback = '') {
