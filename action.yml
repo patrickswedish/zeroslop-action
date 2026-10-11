@@ -37,7 +37,7 @@ inputs:
   api_endpoint:
     description: 'ZeroSlop verification API endpoint (for custom on-premise or VPC deployments)'
     required: false
-    default: 'https://ribbsaetersystems.com/api/v1/verify'
+    default: 'https://www.ribbsaetersystems.com/api/v1/verify'
 
 outputs:
   slop_score:

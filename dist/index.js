@@ -85,11 +85,62 @@ function getPullRequestDiff(baseBranch) {
   return { diffStat, fullDiff };
 }
 
+function checkMarkdownHygiene(text) {
+  const issues = [];
+  if (!text) return issues;
+
+  // Check for escaped backtick artifacts (\`)
+  if (text.includes('\\`')) {
+    issues.push('Found escaped backtick (\\`) artifact');
+  }
+
+  // Check for raw non-printable control characters (ASCII < 32 excluding \n, \r, \t)
+  if (/[\x00-\x08\x0B\x0C\x0E-\x1F]/.test(text)) {
+    issues.push('Found raw non-printable control characters');
+  }
+
+  // Check for shell escaping artifacts before words/identifiers
+  const shellEscapes = text.match(/\\[a-zA-Z_0-9]+/g);
+  if (shellEscapes) {
+    const suspicious = shellEscapes.filter((s) => !['\\n', '\\r', '\\t'].includes(s));
+    if (suspicious.length > 0) {
+      issues.push(`Found shell escaping artifacts: ${suspicious.slice(0, 3).join(', ')}`);
+    }
+  }
+
+  // Check for robotic AI conversational slop phrases
+  const lower = text.toLowerCase();
+  const slopPhrases = [
+    'as an ai language model',
+    'certainly, here is',
+    'certainly! here is',
+    'here is the updated code',
+    'i hope this helps',
+    'feel free to ask if you have any questions',
+    'let me know if you need any further'
+  ];
+  for (const phrase of slopPhrases) {
+    if (lower.includes(phrase)) {
+      issues.push(`Detected robotic conversational slop phrase: "${phrase}"`);
+    }
+  }
+
+  return issues;
+}
+
 function evaluateLocalInvariants(fullDiff) {
   const hasSlopMarker =
     fullDiff.includes('DO_NOT_MERGE_SLOP') ||
     fullDiff.includes('TODO: Implement later when AI is smarter') ||
     fullDiff.includes('// AI-generated boilerplate copy 1');
+
+  const hygieneIssues = checkMarkdownHygiene(fullDiff);
+  const hasHygieneDefect = hygieneIssues.length > 0;
+  if (hasHygieneDefect) {
+    for (const issue of hygieneIssues) {
+      console.warn(`[ZeroSlop] Markdown / Text Hygiene Violation: ${issue}`);
+    }
+  }
 
   let hasTestDeletions = false;
   const lines = fullDiff.split('\n');
@@ -112,16 +163,19 @@ function evaluateLocalInvariants(fullDiff) {
     console.warn(`[ZeroSlop] Invariant Violation: Detected ${testDeletions} deleted test lines with 0 replacement assertions.`);
   }
 
-  const isGreen = !hasSlopMarker && !hasTestDeletions;
-  const slopScore = isGreen ? 0 : hasSlopMarker ? 85 : 75;
+  const isGreen = !hasSlopMarker && !hasTestDeletions && !hasHygieneDefect;
+  const slopScore = isGreen ? 0 : hasSlopMarker ? 85 : hasHygieneDefect ? 40 : 75;
   return {
     isGreen,
     slopScore,
     engineeringScore: 100 - slopScore,
     linesReduced: isGreen ? '94%' : '0%',
     invariantsVerified: isGreen ? '100%' : '0%',
+    hygieneIssues,
     message: isGreen
-      ? 'Sovereign Invariant Gate Verified. No AI slop or test regressions detected.'
+      ? 'Sovereign Invariant Gate Verified. No AI slop, text formatting defects, or test regressions detected.'
+      : hasHygieneDefect
+      ? `Markdown/Text hygiene defects detected: ${hygieneIssues.join('; ')}`
       : 'Potential AI slop or unauthorized test deletions detected.'
   };
 }
@@ -249,6 +303,41 @@ async function fetchCiChecks(repo, sha, token) {
  * Dispatch Ephemeral Diff & Usage Telemetry to Ribbsaeter Systems Invariant Cloud
  * Enforces strict 1-PR Free Evaluation Try per GitHub Account. After 1 PR, account is locked until paid.
  */
+function httpPostWithRedirects(targetUrl, postData, headers, timeoutMs = 15000, maxRedirects = 3) {
+  return new Promise((resolve, reject) => {
+    const url = new URL(targetUrl);
+    const req = https.request(
+      {
+        hostname: url.hostname,
+        port: url.port || 443,
+        path: url.pathname + (url.search || ''),
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Content-Length': Buffer.byteLength(postData)
+        },
+        timeout: timeoutMs
+      },
+      (res) => {
+        if ([301, 302, 307, 308].includes(res.statusCode) && res.headers.location && maxRedirects > 0) {
+          const nextUrl = new URL(res.headers.location, targetUrl);
+          return resolve(httpPostWithRedirects(nextUrl, postData, headers, timeoutMs, maxRedirects - 1));
+        }
+        let body = '';
+        res.on('data', (chunk) => (body += chunk));
+        res.on('end', () => resolve({ statusCode: res.statusCode, body }));
+      }
+    );
+    req.on('error', reject);
+    req.on('timeout', () => {
+      req.destroy();
+      reject(new Error('Request timed out'));
+    });
+    req.write(postData);
+    req.end();
+  });
+}
+
 function verifyWithCloudEngine(endpoint, apiKey, payload) {
   return new Promise((resolve) => {
     const localEval = evaluateLocalInvariants(payload.diff || '');
@@ -272,15 +361,13 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
     }
 
     try {
-      const normalizedEndpoint = String(endpoint || 'https://ribbsaetersystems.com/api/v1/verify').replace(
-        /^https?:\/\/www\.ribbsaetersystems\.com/i,
-        'https://ribbsaetersystems.com'
+      const normalizedEndpoint = String(endpoint || 'https://www.ribbsaetersystems.com/api/v1/verify').replace(
+        /^https?:\/\/ribbsaetersystems\.com/i,
+        'https://www.ribbsaetersystems.com'
       );
-      const url = new URL(normalizedEndpoint);
       const data = JSON.stringify(payload);
       const headers = {
         'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(data),
         'User-Agent': 'ZeroSlop-Action-Client/2.2.0 (Ribbsaeter Systems)',
         'X-ZeroSlop-Client-Version': '2.2.0'
       };
@@ -288,75 +375,20 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
         headers.Authorization = `Bearer ${apiKey.trim()}`;
       }
 
-      const req = https.request(
-        {
-          hostname: url.hostname,
-          port: url.port || 443,
-          path: url.pathname,
-          method: 'POST',
-          headers,
-          timeout: 15000
-        },
-        (res) => {
-          let body = '';
-          res.on('data', (chunk) => (body += chunk));
-          res.on('end', () => {
-            try {
-              const response = JSON.parse(body);
+      httpPostWithRedirects(normalizedEndpoint, data, headers, 15000)
+        .then(({ statusCode, body }) => {
+          try {
+            const response = JSON.parse(body);
 
-              // HTTP 402 Payment Required -> 1/1 Free Try Used -> Account Locked Until Paid
-              if (res.statusCode === 402 || response.quota_exceeded === true) {
-                return resolve({
-                  success: false,
-                  quotaExceeded: true,
-                  reason: response.reason || 'ACCOUNT_LOCKED_REQUIRES_LICENSE',
-                  mode: 'account_locked',
-                  runsUsed: response.runs_used ?? 1,
-                  runsLimit: response.runs_limit ?? 1,
-                  runsRemaining: 0,
-                  slopScore: 0,
-                  engineeringScore: 100,
-                  linesReduced: '0%',
-                  invariantsVerified: '0%',
-                  isGreen: false,
-                  verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
-                  message:
-                    response.message ||
-                    'Your 1/1 Free Evaluation Pull Request has been used. This GitHub account is now locked until a paid ZeroSlop license key is activated.'
-                });
-              }
-
-              if (res.statusCode >= 200 && res.statusCode < 300) {
-                const slopScore = response.slop_score ?? localEval.slopScore;
-                return resolve({
-                  success: true,
-                  quotaExceeded: false,
-                  mode: response.mode || (apiKey ? 'licensed' : 'single_evaluation'),
-                  runsUsed: response.runs_used ?? 1,
-                  runsLimit: response.runs_limit ?? (apiKey ? null : 1),
-                  runsRemaining: response.runs_remaining ?? (apiKey ? null : 0),
-                  slopScore,
-                  engineeringScore: response.engineering_score ?? (100 - slopScore),
-                  linesReduced: response.lines_reduced ?? localEval.linesReduced,
-                  invariantsVerified: String(response.invariants_verified ?? localEval.invariantsVerified),
-                  isGreen: slopScore === 0 && localEval.isGreen,
-                  verificationId: response.verification_id ?? `vfy_${crypto.randomBytes(8).toString('hex')}`,
-                  message: response.message ?? localEval.message
-                });
-              }
-            } catch {
-              // Fall through
-            }
-
-            // If unlicensed and server did not authorize the 1-PR try, lock account
-            if (!apiKey) {
+            // HTTP 402 Payment Required -> 1/1 Free Try Used -> Account Locked Until Paid
+            if (statusCode === 402 || response.quota_exceeded === true) {
               return resolve({
                 success: false,
                 quotaExceeded: true,
-                reason: 'ACCOUNT_LOCKED_REQUIRES_LICENSE',
+                reason: response.reason || 'ACCOUNT_LOCKED_REQUIRES_LICENSE',
                 mode: 'account_locked',
-                runsUsed: 1,
-                runsLimit: 1,
+                runsUsed: response.runs_used ?? 1,
+                runsLimit: response.runs_limit ?? 1,
                 runsRemaining: 0,
                 slopScore: 0,
                 engineeringScore: 100,
@@ -364,104 +396,105 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
                 invariantsVerified: '0%',
                 isGreen: false,
                 verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
-                message: 'ZeroSlop License Key required. Activate Pro ($29/mo) or Enterprise ($1,999/mo).'
+                message:
+                  response.message ||
+                  'Your 1/1 Free Evaluation Pull Request has been used. This GitHub account is now locked until a paid ZeroSlop license key is activated.'
               });
             }
 
-            resolve({
-              success: true,
-              quotaExceeded: false,
-              mode: 'licensed',
+            if (statusCode >= 200 && statusCode < 300) {
+              const slopScore = response.slop_score ?? localEval.slopScore;
+              return resolve({
+                success: true,
+                quotaExceeded: false,
+                mode: response.mode || (apiKey ? 'licensed' : 'single_evaluation'),
+                runsUsed: response.runs_used ?? 1,
+                runsLimit: response.runs_limit ?? (apiKey ? null : 1),
+                runsRemaining: response.runs_remaining ?? (apiKey ? null : 0),
+                slopScore,
+                engineeringScore: response.engineering_score ?? (100 - slopScore),
+                linesReduced: response.lines_reduced ?? localEval.linesReduced,
+                invariantsVerified: String(response.invariants_verified ?? localEval.invariantsVerified),
+                isGreen: slopScore === 0 && localEval.isGreen,
+                verificationId: response.verification_id ?? `vfy_${crypto.randomBytes(8).toString('hex')}`,
+                message: response.message ?? localEval.message
+              });
+            }
+          } catch {
+            // Fall through
+          }
+
+          // If unlicensed and server did not authorize the 1-PR try, lock account
+          if (!apiKey) {
+            return resolve({
+              success: false,
+              quotaExceeded: true,
+              reason: 'ACCOUNT_LOCKED_REQUIRES_LICENSE',
+              mode: 'account_locked',
               runsUsed: 1,
-              runsLimit: null,
-              runsRemaining: null,
-              slopScore: localEval.slopScore,
-              engineeringScore: localEval.engineeringScore,
-              linesReduced: localEval.linesReduced,
-              invariantsVerified: localEval.invariantsVerified,
-              isGreen: localEval.isGreen,
-              verificationId: `vfy_fallback_${crypto.randomBytes(8).toString('hex')}`,
-              message: localEval.message
+              runsLimit: 1,
+              runsRemaining: 0,
+              slopScore: 0,
+              engineeringScore: 100,
+              linesReduced: '0%',
+              invariantsVerified: '0%',
+              isGreen: false,
+              verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
+              message: 'ZeroSlop License Key required. Activate Pro ($29/mo) or Enterprise ($1,999/mo).'
             });
-          });
-        }
-      );
+          }
 
-      req.on('error', () => {
-        if (!apiKey) {
-          return resolve({
-            success: false,
-            quotaExceeded: true,
-            reason: 'ACCOUNT_LOCKED_REQUIRES_LICENSE',
-            mode: 'account_locked',
+          resolve({
+            success: true,
+            quotaExceeded: false,
+            mode: 'licensed',
             runsUsed: 1,
-            runsLimit: 1,
-            runsRemaining: 0,
-            slopScore: 0,
-            engineeringScore: 100,
-            linesReduced: '0%',
-            invariantsVerified: '0%',
-            isGreen: false,
-            verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
-            message: 'Online license verification required. Please provide a valid ZeroSlop license key (RST_LIVE_...).'
+            runsLimit: null,
+            runsRemaining: null,
+            slopScore: localEval.slopScore,
+            engineeringScore: localEval.engineeringScore,
+            linesReduced: localEval.linesReduced,
+            invariantsVerified: localEval.invariantsVerified,
+            isGreen: localEval.isGreen,
+            verificationId: `vfy_fallback_${crypto.randomBytes(8).toString('hex')}`,
+            message: localEval.message
           });
-        }
-        resolve({
-          success: true,
-          quotaExceeded: false,
-          mode: 'licensed',
-          runsUsed: 1,
-          runsLimit: null,
-          runsRemaining: null,
-          slopScore: localEval.slopScore,
-          engineeringScore: localEval.engineeringScore,
-          linesReduced: localEval.linesReduced,
-          invariantsVerified: localEval.invariantsVerified,
-          isGreen: localEval.isGreen,
-          verificationId: `vfy_offline_${crypto.randomBytes(8).toString('hex')}`,
-          message: localEval.message
-        });
-      });
-
-      req.on('timeout', () => {
-        req.destroy();
-        if (!apiKey) {
-          return resolve({
-            success: false,
-            quotaExceeded: true,
-            reason: 'ACCOUNT_LOCKED_REQUIRES_LICENSE',
-            mode: 'account_locked',
+        })
+        .catch(() => {
+          if (!apiKey) {
+            return resolve({
+              success: false,
+              quotaExceeded: true,
+              reason: 'ACCOUNT_LOCKED_REQUIRES_LICENSE',
+              mode: 'account_locked',
+              runsUsed: 1,
+              runsLimit: 1,
+              runsRemaining: 0,
+              slopScore: 0,
+              engineeringScore: 100,
+              linesReduced: '0%',
+              invariantsVerified: '0%',
+              isGreen: false,
+              verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
+              message: 'Online license verification required. Please provide a valid ZeroSlop license key (RST_LIVE_...).'
+            });
+          }
+          resolve({
+            success: true,
+            quotaExceeded: false,
+            mode: 'licensed',
             runsUsed: 1,
-            runsLimit: 1,
-            runsRemaining: 0,
-            slopScore: 0,
-            engineeringScore: 100,
-            linesReduced: '0%',
-            invariantsVerified: '0%',
-            isGreen: false,
-            verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
-            message: 'Online license verification timed out. Please provide a valid ZeroSlop license key (RST_LIVE_...).'
+            runsLimit: null,
+            runsRemaining: null,
+            slopScore: localEval.slopScore,
+            engineeringScore: localEval.engineeringScore,
+            linesReduced: localEval.linesReduced,
+            invariantsVerified: localEval.invariantsVerified,
+            isGreen: localEval.isGreen,
+            verificationId: `vfy_offline_${crypto.randomBytes(8).toString('hex')}`,
+            message: localEval.message
           });
-        }
-        resolve({
-          success: true,
-          quotaExceeded: false,
-          mode: 'licensed',
-          runsUsed: 1,
-          runsLimit: null,
-          runsRemaining: null,
-          slopScore: localEval.slopScore,
-          engineeringScore: localEval.engineeringScore,
-          linesReduced: localEval.linesReduced,
-          invariantsVerified: localEval.invariantsVerified,
-          isGreen: localEval.isGreen,
-          verificationId: `vfy_timeout_${crypto.randomBytes(8).toString('hex')}`,
-          message: localEval.message
         });
-      });
-
-      req.write(data);
-      req.end();
     } catch {
       resolve({
         success: false,
