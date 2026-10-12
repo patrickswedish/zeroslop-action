@@ -43,6 +43,15 @@ Unlike conceptual AI tools, ZeroSlop's invariant verification engine was hardene
 
 ---
 
+### Hardened on Compilers. Built for Everyday Commercial Stacks.
+While ZeroSlop was battle-tested and proven directly against the world's most unforgiving compiler backends and GPU runtimes, its primary economic impact is in everyday commercial software engineering:
+
+* **TypeScript, Node.js & React**: Automatically strips away up to 94% of hallucinated adapters, dead wrappers, and bloated mock utilities before peers or managers are tagged.
+* **Python, Go & Rust Microservices**: Mechanically halts deleted regression tests, catches broken interface contracts, and auto-commits repository-native formatting.
+* **From 4.2-Day Bottlenecks to 20-Minute Merges**: Brings senior staff architect rigor to junior and mid-level PRs, allowing engineering leads to stop acting as human linters and get back to shipping core features.
+
+---
+
 ### Founder Statement
 > *"More code is not more productivity. In systems engineering, the gold standard has always been the smallest durable correction that preserves all system invariants,"* said **Patrick Ribbsaeter**, Founder and Systems Architect at Ribbsaeter Systems.
 >
