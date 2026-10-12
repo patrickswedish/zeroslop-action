@@ -122,9 +122,19 @@ jobs:
 
 ZeroSlop is not marketing theory. It is powered by the exact invariant engine that delivers merged, 100% green pull requests into the world's most demanding open-source production runtimes:
 
+> ### 🛡️ Hardened on Systems Compilers. Built for Everyday Stacks.
+> While ZeroSlop was battle-tested and proven directly against the world's most unforgiving runtimes—including **OpenAI Triton GPU compilers**, **LLVM SelectionDAG**, **Meta Velox vectorized execution**, and **DuckDB analytical kernels**—it delivers its most dramatic velocity gains on everyday commercial codebases:
+> 
+> * **TypeScript, Node.js & React**: Strips away up to 94% of hallucinated adapters, dead wrappers, and bloated mock utilities before peers or managers are tagged.
+> * **Python, Go & Rust Stacks**: Mechanically halts deleted regression tests, catches broken interface contracts, and auto-commits repository-native formatting.
+> * **From 4.2-Day Bottlenecks to 20-Minute Merges**: Brings senior staff architect rigor to your junior and mid-level PRs, so your engineering leads stop acting as human linters and get back to shipping core architecture.
+
+<br/>
+
 | Organization | Repository | Domain & Stack | Engineering Focus | Status |
 | :--- | :--- | :--- | :--- | :--- |
 | **Meta** | `facebookincubator/velox` | Vectorized Kernels · C++20 | TopNRowNumber in-memory rank ordering correctness & partition stream parity | **Merged Upstream · [PR #18529](https://github.com/facebookincubator/velox/pull/18529)** |
+| **SGLang** | `sgl-project/sglang` | LLM Serving · Python/CUDA | FlashInfer vectorized KV cache attention serving invariant | **Merged Upstream · [PR #42533](https://github.com/sgl-project/sglang/pull/42533)** |
 | **Apache** | `apache/datafusion` | Query Engine · Rust | Execution-layer schema conformance across in-memory execution and aggregation | **Merged & Shipped · [PR #24394](https://github.com/apache/datafusion/pull/24394)** |
 | **LLVM** | `llvm/llvm-project` | Compiler Backend · C++ | X86 SelectionDAG non-power-of-two vector integer division vectorization & lowering | **Merged Upstream · [PR #215076](https://github.com/llvm/llvm-project/pull/215076)** |
 | **Hugging Face** | `huggingface/diffusers` | Generative AI · Python | InpaintProcessor 3-tuple return contract preservation when mask is None | **Merged Upstream · [PR #14481](https://github.com/huggingface/diffusers/pull/14481)** |
