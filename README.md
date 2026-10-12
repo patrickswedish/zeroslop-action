@@ -104,7 +104,8 @@ jobs:
         with:
           auto_polish: true
           fail_on_slop: true
-          api_key: ${{ secrets.ZEROSLOP_API_KEY }} # Optional for 1st PR try; required from PR #2+
+          # Optional for 1st PR try; required from PR #2+
+          api_key: ${{ secrets.ZEROSLOP_API_KEY }}
 ```
 
 ### 🏅 Official "Protected by ZeroSlop™" Repository Badge
@@ -114,7 +115,10 @@ Add the official sovereign badge to your repository's `README.md` to signal to c
 [![ZeroSlop Airlock: SOVEREIGN](https://www.ribbsaetersystems.com/api/v1/badge?repo=patrickswedish/zeroslop-action)](https://www.ribbsaetersystems.com/zeroslop)
 
 ```markdown
-[![ZeroSlop Airlock: SOVEREIGN](https://www.ribbsaetersystems.com/api/v1/badge?repo=OWNER/REPO)](https://www.ribbsaetersystems.com/zeroslop)
+[![ZeroSlop Airlock][zeroslop-badge]][zeroslop-url]
+
+[zeroslop-badge]: https://ribbsaetersystems.com/api/v1/badge
+[zeroslop-url]: https://ribbsaetersystems.com/zeroslop
 ```
 
 ### 1-PR Free Evaluation Try vs. Commercial License Key
