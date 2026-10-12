@@ -71,8 +71,10 @@ Modern AI coding agents (Claude Code, Cursor, Devin, Copilot) generate extraordi
 ### How The Sovereign Engine Operates:
 
 1. **AST Invariant Isolation**: Parses incoming PR diffs to locate the single root-cause invariant, systematically peeling away up to **94% of hallucinated wrappers and defensive AI bloat**.
-2. **Local Compiler Enclave**: Runs compiler checks, type evaluation, and regression test suites ephemerally in RAM before burning shared CI minutes.
-3. **Autonomous Polish & Commit**: Executes repository-native formatters and linters (Prettier, Ruff, Clippy, ESLint, gofmt) and cleanly commits the polish back to the PR branch automatically.
+2. **10-Shield Deterministic CWE Security Airlock**: Mechanically intercepts high-risk AI-generated security vulnerabilities before human review—blocking SQL/vector injection (`CWE-89`), seeded/hardcoded credentials & plaintext auth (`CWE-798`/`CWE-256`), unbound caller identity / IDOR (`CWE-639`), command/code injection (`CWE-78`/`CWE-94`), unsafe deserialization (`CWE-502`), SSRF (`CWE-918`), silent error masking (`CWE-390`), and CI workflow "Pwn Requests" (`CWE-426`).
+3. **Zero-Click Cross-Layer Blast Radius & Reachability**: Maps architectural impact across `API Entrypoints ➔ Auth Boundaries ➔ AI Pipelines ➔ Persistence/Vector Sinks` directly inside the native GitHub PR summary—eliminating bloated external SaaS dashboards and click-heavy review tools.
+4. **Prompt-Injection & Trojan-Source Immunity (`CVE-2021-42574`)**: Unlike conversational LLM review bots that can be jailbroken by adversarial instructions hidden inside PR diffs, ZeroSlop's deterministic airlock is mathematically immune to prompt injection and actively blocks bidirectional Unicode attacks.
+5. **Local Compiler Enclave & Autonomous Polish**: Runs compiler checks, type evaluation, and repository-native formatters (Prettier, Ruff, Clippy, ESLint, gofmt) ephemerally in RAM before burning shared CI minutes.
 
 ---
 
@@ -187,22 +189,40 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 | `slop_score` | `number` | Calculated slop ratio percentage (0% = clean invariant, 100% = pure slop). |
 | `lines_reduced` | `number` | Total percentage of bloated, hallucinated lines stripped from diff. |
 | `invariants_verified` | `number` | Count of architectural invariants verified green. |
+| `security_findings_count` | `number` | Total deterministic CWE security vulnerabilities intercepted (`CWE-89`, `CWE-798`, `CWE-639`, etc.). |
+| `critical_cwe_count` | `number` | Count of CRITICAL severity CWE security findings blocked at the gate. |
+| `blast_radius_layers` | `number` | Count of architectural layers impacted by the pull request diff. |
 | `ci_classification` | `string` | Categorization of PR check status: `ALL_GREEN`, `TRIAGE_GATED`, `INFRA_FLAKE`, or `CODE_DEFECT`. |
 | `flaky_jobs_count` | `number` | Total upstream runner timeouts or toolchain flakes isolated. |
 | `gated_jobs_count` | `number` | Total maintainer triage gates (awaiting labels/approvals) isolated. |
 
 ---
 
-## 🔒 Security & Privacy Architecture
+## 🔒 10-Shield CWE Security & Zero-Click Blast Radius Architecture
 
-ZeroSlop is engineered for security-conscious engineering teams and regulated enterprises:
+ZeroSlop is engineered for security-conscious engineering teams, sovereign AI labs, and regulated enterprises that refuse to trust probabilistic LLM review chatbots with production security:
 
+* **10-Shield Deterministic CWE Airlock**: Blocks the top empirical AI-generated vulnerabilities before code reaches human review—including SQL/vector injection (`CWE-89`), hardcoded/seeded credentials & plaintext password checks (`CWE-798`/`CWE-256`), unbound caller identity / IDOR (`CWE-639`), OS command & `eval` injection (`CWE-78`/`CWE-94`), silent exception masking (`CWE-390`), XSS (`CWE-79`), unsafe deserialization (`CWE-502`), SSRF & disabled TLS (`CWE-918`/`CWE-295`), and GitHub Actions workflow injection ("Pwn Requests", `CWE-426`).
+* **Zero-Click Cross-Layer Blast Radius**: Automatically maps multi-file diffs across architectural boundaries (`API Contracts ➔ Auth & Session ➔ AI/LLM Pipeline ➔ Persistence/Vector Sinks`) and evaluates end-to-end exploit reachability right inside the GitHub PR summary—with **zero external SaaS dashboards or extra clicks required**.
+* **Adversarial Prompt-Injection & Trojan-Source Immunity (`CVE-2021-42574`)**: Because conversational AI code reviewers ingest raw PR diffs into LLM context windows, they are susceptible to indirect prompt injection hidden in comments. ZeroSlop's deterministic invariant engine cannot be jailbroken and actively blocks Trojan Source bidirectional Unicode and reviewer override payloads.
 * **Zero Code Retention**: Your proprietary codebase is **never stored, retained, cached, or used for AI model training**. Diffs are analyzed ephemerally in volatile RAM and purged immediately upon response return.
 * **Zero Supply Chain Overhead**: Packaged as a self-contained Node.js 20 runner with zero runtime dependencies. No third-party npm package vulnerabilities.
 * **Enterprise Compliance**: Designed to meet Swiss FADP, European GDPR, and NIS2 DevSecOps supply-chain standards.
 * **Security & Responsible Disclosure**: Comprehensive reporting SLAs and policies documented in [SECURITY.md](SECURITY.md).
 
----
+### ⚔️ Category Showdown: ZeroSlop™ Airlock vs. AI Review Chatbots & Legacy SAST
+
+Competitors tell you *"the future isn't writing code—it's reviewing it and prioritizing it"* while herding your engineers into 80-PR Kanban queues, multi-tab "ChangeStack" portals, and 1,999-finding security charts. Senior engineers were hired to ship systems—not click through external SaaS dashboards or read 25 bot comments per PR.
+
+| Architectural Capability | 🛡️ ZeroSlop™ Sovereign Airlock | 🤖 AI Review Chatbots (CodeRabbit, Greptile, Qodo) | 🐢 Legacy SAST Scanners (SonarQube, Snyk) |
+| :--- | :--- | :--- | :--- |
+| **Developer Workflow & UI** | **✓ Zero-Click Native GitHub Summary** (Zero external SaaS dashboards or logins) | ✕ Herds devs into external SaaS portals, ChangeStacks & 80-PR Kanban queues | ✕ Separate enterprise portal with high false-positive alert fatigue |
+| **Cross-Layer Blast Radius** | **✓ Automatic `Entrypoint ➔ Auth ➔ Persistence Sink` reachability in PR** | ⚠️ Requires manual clicking across SaaS UI tabs to inspect file groups | ✕ Isolated file-level lint alerts without architectural layer context |
+| **10-Shield CWE Enforcement** | **✓ Deterministically blocks SQLi, Seeded Creds, IDOR, SSRF & CI Pwn Requests** | ⚠️ Probabilistic LLM commentary; leaves 1,999 unfixed findings in charts | ⚠️ Slow post-hoc scans; blind to AI-specific wrapper & workflow patterns |
+| **Prompt-Injection Immunity** | **✓ 100% Deterministic Engine** — Cannot be jailbroken by PR comments | ✕ Vulnerable to indirect prompt injection hidden inside PR diffs | ✓ Deterministic rules, but blind to AI prompt-override payloads |
+| **AI Slop & Wrapper Distillation** | **✓ Strips 94% of hallucinated wrappers & blocks deleted test assertions** | ✕ Adds more AI commentary on top of AI slop without shrinking the diff | ✕ Zero awareness of LLM wrapper bloat or conversational debris |
+| **CI Flake vs. Triage Gate Isolation** | **✓ Separates Contributor Code Defects from Runner Flakes & Triage Gates** | ✕ Blind to upstream runner flakes vs. maintainer approval labels | ✕ No GitHub Actions check-run triage classification |
+| **Source Code Privacy & Retention** | **✓ Strictly Zero Code Retention** (Ephemeral RAM Enclave · Swiss/GDPR) | ⚠️ Ships proprietary diffs to third-party LLM providers & SaaS stores | ⚠️ Persists full source code snapshots in cloud databases |
 
 ---
 
@@ -229,8 +249,8 @@ AI coding agents (Cursor, Copilot, Claude Code) increased commit volume by 300%,
 | **Staff & Senior Engineers** | Getting slammed with 20 review comments for bloated AI helpers. | **Surgical Invariant Output**: Strips 180-line diffs down to the 4 lines that preserve contracts. Auto-commits clean formatting before peers review. Zero CI humiliation. |
 | **Tech Leads & EMs** | PR queue backlogs; senior engineers acting as human linters. | **70% Shorter PR Cycles**: Clears review bottlenecks so teams spend sprint capacity shipping user features instead of untangling boilerplate. |
 | **VPs of Engineering** | Hiring more engineers slows release cadence; high cost of delay. | **Measurable Velocity Boost**: Reclaim 60+ senior hours per sprint. Turn generative AI code into verified production throughput with 18x annual return. |
-| **CTOs & Chief Architects** | Long-term architectural decay and subtle AI memory/concurrency leaks. | **Hard Invariants Over AI Guesses**: Mathematically proves interface contracts, memory ownership, and async bounds against structural debt. |
-| **CISOs & Compliance** | IP leakage to public model training; supply-chain vulnerabilities. | **Zero Code Retention Guarantee**: Ephemeral RAM execution. Zero third-party npm supply-chain dependencies. Swiss FADP, EU GDPR, and NIS2 DevSecOps compliant. |
+| **CTOs & Chief Architects** | Long-term architectural decay and subtle AI memory/concurrency leaks. | **Hard Invariants & Zero-Click Blast Radius**: Mathematically proves interface contracts and maps cross-layer exploit reachability directly in GitHub without external SaaS dashboard bloat. |
+| **CISOs & AppSec Directors** | AI-introduced CWE flaws, prompt-injected review bots, and IP leakage. | **10-Shield CWE Airlock & Zero Code Retention**: Blocks SQLi, hardcoded keys, IDOR, SSRF, and CI Pwn Requests deterministically in ephemeral RAM. 100% immune to reviewer prompt injection. |
 
 ---
 
@@ -238,9 +258,9 @@ AI coding agents (Cursor, Copilot, Claude Code) increased commit volume by 300%,
 
 | Tier | Investment | Seats & Scope | Concurrency | Capabilities Included | Direct Checkout |
 | :--- | :--- | :--- | :--- | :--- | :---: |
-| **Single Evaluation Try** | **$0 (1 PR Try)** | **1 Developer · 1 PR Audit**<br>*(One-Time Account Test · Locks After 1 PR)* | Standard | AST diff parser · Invariant gatekeeper · Zero-test-deletion guard · Auto-polish linter | [**Try 1 PR Free**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
-| **ZeroSlop™ Pro** | **$29 / month** | **1 Pro Developer Account**<br>*(Single Seat · Unlimited Repos · Zero Local Installs)* | Unlimited | Full Continuous Access + **Unlimited Repo Audits** · **Active Auto-Close Airlock** · **Autonomous CI Flake & Triage Classifier** · Pre-Merge Status Matrix · Priority Desk | [**Subscribe Pro ($29/mo)**](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
-| **ZeroSlop™ Enterprise Core** | **$1,999 / month** | **Per 100 Active Developers**<br>*(100-Dev Block · Dedicated VPC · Unlimited Repos)* | Unlimited Dedicated | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom Wire Protocol Invariants · Multi-Repo Fleet Analytics · Air-Gapped Runners · 24/7 SLA | [**Deploy Enterprise ($1,999/mo)**](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+| **Single Evaluation Try** | **$0 (1 PR Try)** | **1 Developer · 1 PR Audit**<br>*(One-Time Account Test · Locks After 1 PR)* | Standard | AST diff parser · 10-Shield CWE Security Airlock · Zero-Click Blast Radius · Zero-test-deletion guard | [**Try 1 PR Free**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
+| **ZeroSlop™ Pro** | **$29 / month** | **1 Pro Developer Account**<br>*(Single Seat · Unlimited Repos · Zero Local Installs)* | Unlimited | Full Continuous Access + **Unlimited Repo Audits** · **10-Shield CWE Security Airlock** · **Zero-Click Cross-Layer Blast Radius** · **Active Auto-Close Airlock** · **Autonomous CI Flake & Triage Classifier** | [**Subscribe Pro ($29/mo)**](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
+| **ZeroSlop™ Enterprise Core** | **$1,999 / month** | **Per 100 Active Developers**<br>*(100-Dev Block · Dedicated VPC · Unlimited Repos)* | Unlimited Dedicated | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom CWE & Wire Protocol Invariants · Multi-Repo Fleet Analytics · Air-Gapped Runners · 24/7 SLA | [**Deploy Enterprise ($1,999/mo)**](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
 
 ### ⚡ Self-Serve Headcount Scaling (Zero Sales Calls · Instant Activation)
 
