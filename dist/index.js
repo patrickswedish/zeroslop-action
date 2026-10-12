@@ -400,6 +400,35 @@ function evaluateLocalInvariants(fullDiff) {
         remediation: 'Strip hidden bidirectional Unicode characters and remove adversarial reviewer override instructions.'
       });
     }
+
+    // SHIELD 11: CWE-829 AI Package Slopsquatting & Unpinned Supply-Chain Dependency
+    const hasUnpinnedSupplyChain =
+      (/package\.json$/i.test(currentFile) && /"[^"]+"\s*:\s*"(?:\*|latest|git\+http:\/\/|http:\/\/)/i.test(addedCode)) ||
+      (/\.github\/workflows\//i.test(currentFile) && /\buses:\s*[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+@(?:main|master|HEAD|latest)\b/i.test(addedCode)) ||
+      /\bpip\s+install\s+--extra-index-url\s+http:/i.test(addedCode);
+
+    if (hasUnpinnedSupplyChain) {
+      recordFinding({
+        ruleId: 'ZS-SEC-011',
+        cwe: 'CWE-829',
+        severity: 'HIGH',
+        title: 'Unpinned Supply-Chain Dependency or Floating Action Reference (Slopsquatting Risk)',
+        file: currentFile,
+        remediation: 'Pin all dependencies and GitHub Actions to deterministic semantic versions or commit SHAs and disallow unencrypted HTTP registries.'
+      });
+    }
+
+    // SHIELD 12: CWE-400 Unbounded Polling Timer / Resource Exhaustion
+    if (!inTestFile && /\bsetInterval\s*\([^,]+,\s*(?:0|1|5|10)\s*\)/i.test(addedCode)) {
+      recordFinding({
+        ruleId: 'ZS-SEC-012',
+        cwe: 'CWE-400',
+        severity: 'MEDIUM',
+        title: 'Sub-10ms Tight Polling Timer Resource Exhaustion',
+        file: currentFile,
+        remediation: 'Enforce bounded polling intervals with exponential backoff and explicit cleanup.'
+      });
+    }
   }
 
   if (testDeletions > 25 && testAdditions === 0) {

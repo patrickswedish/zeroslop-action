@@ -38,6 +38,14 @@ inputs:
     description: 'ZeroSlop verification API endpoint (for custom on-premise or VPC deployments)'
     required: false
     default: 'https://www.ribbsaetersystems.com/api/v1/verify'
+  post_pr_comment:
+    description: 'Automatically post/update a single in-place ZeroSlop Sovereign Audit Verdict comment on the Pull Request'
+    required: false
+    default: 'true'
+  auto_close_slop:
+    description: 'Automatically close Pull Requests that fail with severe AI slop (>=60%) or CRITICAL CWE vulnerabilities (Pro/Enterprise)'
+    required: false
+    default: 'false'
 
 outputs:
   slop_score:
