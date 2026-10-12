@@ -94,7 +94,7 @@ ZeroSlop is available immediately on the GitHub Marketplace:
 
 * **Single Evaluation Try ($0 · 1 Pull Request Try)**: Download for free and test ZeroSlop on 1 live pull request with zero configuration required. After 1 pull request, the account locks until a commercial subscription is activated.
 * **ZeroSlop™ Pro**: **$29 / month** with Unlimited Private & Public Pull Requests, Active Auto-Close Airlock (<60/100), Autonomous CI Flake Classifier, Maintainer Triage Gate Isolation, Pre-Merge Status Matrix, and Priority Support Desk.
-* **ZeroSlop™ Enterprise**: **$1,999 / month flat** for dedicated VPC Invariant Enclave, multi-repo fleet analytics, custom wire invariant rule authoring, air-gapped runners, 24/7 sovereign SLAs, and NIS2/CISO audit compliance.
+* **ZeroSlop™ Enterprise**: **$1,999 / month per 100 developers** (self-serve scaling in 100-developer blocks: 100 devs = $1,999/mo; 200 devs = $3,998/mo; 1,000 devs = $19,990/mo) for dedicated VPC Invariant Enclave, multi-repo fleet analytics, custom wire invariant rule authoring, air-gapped runners, 24/7 sovereign SLAs, and NIS2/CISO audit compliance.
 
 To deploy ZeroSlop in under 60 seconds, visit [**github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) or explore the interactive diff simulator at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
 
