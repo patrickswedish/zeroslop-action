@@ -71,8 +71,8 @@ Modern AI coding agents (Claude Code, Cursor, Devin, Copilot) generate extraordi
 ### How The Sovereign Engine Operates:
 
 1. **AST Invariant Isolation**: Parses incoming PR diffs to locate the single root-cause invariant, systematically peeling away up to **94% of hallucinated wrappers and defensive AI bloat**.
-2. **10-Shield Deterministic CWE Security Airlock**: Mechanically intercepts high-risk AI-generated security vulnerabilities before human review—blocking SQL/vector injection (`CWE-89`), seeded/hardcoded credentials & plaintext auth (`CWE-798`/`CWE-256`), unbound caller identity / IDOR (`CWE-639`), command/code injection (`CWE-78`/`CWE-94`), unsafe deserialization (`CWE-502`), SSRF (`CWE-918`), silent error masking (`CWE-390`), and CI workflow "Pwn Requests" (`CWE-426`).
-3. **Zero-Click Cross-Layer Blast Radius & Reachability**: Maps architectural impact across `API Entrypoints ➔ Auth Boundaries ➔ AI Pipelines ➔ Persistence/Vector Sinks` directly inside the native GitHub PR summary—eliminating bloated external SaaS dashboards and click-heavy review tools.
+2. **12-Shield Deterministic CWE Security Airlock**: Mechanically intercepts high-risk AI-generated security vulnerabilities before human review—blocking SQL/vector injection (`CWE-89`), seeded/hardcoded credentials & plaintext auth (`CWE-798`/`CWE-256`), unbound caller identity / IDOR (`CWE-639`), command/code injection (`CWE-78`/`CWE-94`), unsafe deserialization (`CWE-502`), SSRF (`CWE-918`), silent error masking (`CWE-390`), CI workflow "Pwn Requests" (`CWE-426`), AI package "Slopsquatting" (`CWE-829`), and unbounded loop/timer resource exhaustion (`CWE-400`).
+3. **Zero-Click Cross-Layer Blast Radius & Mermaid Dependency Graph**: Maps architectural impact across `API Entrypoints ➔ Auth Boundaries ➔ AI Pipelines ➔ Persistence/Vector Sinks` with an embedded Mermaid diagram directly inside the native GitHub PR summary and a **Single Self-Updating PR Verdict Card**—eliminating bloated external SaaS dashboards and click-heavy review tools.
 4. **Prompt-Injection & Trojan-Source Immunity (`CVE-2021-42574`)**: Unlike conversational LLM review bots that can be jailbroken by adversarial instructions hidden inside PR diffs, ZeroSlop's deterministic airlock is mathematically immune to prompt injection and actively blocks bidirectional Unicode attacks.
 5. **Local Compiler Enclave & Autonomous Polish**: Runs compiler checks, type evaluation, and repository-native formatters (Prettier, Ruff, Clippy, ESLint, gofmt) ephemerally in RAM before burning shared CI minutes.
 
@@ -105,6 +105,16 @@ jobs:
           auto_polish: true
           fail_on_slop: true
           api_key: ${{ secrets.ZEROSLOP_API_KEY }} # Optional for 1st PR try; required from PR #2+
+```
+
+### 🏅 Official "Protected by ZeroSlop™" Repository Badge
+
+Add the official sovereign badge to your repository's `README.md` to signal to contributors, maintainers, and enterprise buyers that every pull request is gated by the 12-Shield CWE & Invariant Airlock:
+
+[![ZeroSlop Airlock: SOVEREIGN](https://www.ribbsaetersystems.com/api/v1/badge?repo=patrickswedish/zeroslop-action)](https://www.ribbsaetersystems.com/zeroslop)
+
+```markdown
+[![ZeroSlop Airlock: SOVEREIGN](https://www.ribbsaetersystems.com/api/v1/badge?repo=OWNER/REPO)](https://www.ribbsaetersystems.com/zeroslop)
 ```
 
 ### 1-PR Free Evaluation Try vs. Commercial License Key
@@ -173,14 +183,16 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 
 | Input | Required | Default | Description |
 | :--- | :---: | :--- | :--- |
-| `license_key` | No (Optional) | `''` | ZeroSlop Pro/Enterprise License Key (from Stripe Checkout). Unlocks CI Diagnostics and centralized fleet telemetry. |
+| `api_key` | No (Optional) | `''` | ZeroSlop Pro/Enterprise License Key (`RST_LIVE_...` or `zs_live_...`). Optional for 1st PR Free Try; required from PR #2+. |
+| `license_key` | No (Optional) | `''` | Alias for `api_key`. |
+| `post_pr_comment` | No | `true` | Automatically maintain a single self-updating Sovereign Verdict Card comment in the PR timeline (with embedded Mermaid Blast Radius map). |
+| `auto_close_slop` | No | `false` | Automatically close Pull Requests that fail with severe AI slop (`>=60%`) or CRITICAL CWE vulnerabilities (Pro/Enterprise). |
 | `ci_diagnostics` | No | `false` | Enable Pro CI Intelligence & Flake Classifier. Automatically isolates contributor green code from maintainer triage gates and runner flakes. |
-| `api_key` | No (Optional) | `''` | Enterprise API key for custom on-premise or VPC deployments. |
 | `base_branch` | No | `main` | Base branch to compare incoming pull request diff against. |
 | `auto_polish` | No | `true` | Automatically run repo-native linters and auto-commit clean code. |
-| `fail_on_slop` | No | `true` | Fail the status check if unmitigated AI slop patterns are detected. |
-| `github_token` | No | `${{ github.token }}` | GitHub token for querying workflow check runs and commit status. |
-| `api_endpoint` | No | `https://ribbsaetersystems.com/api/v1/verify` | Custom API endpoint for on-premise or VPC enterprise appliances. |
+| `fail_on_slop` | No | `true` | Fail the status check if unmitigated AI slop or CWE security vulnerabilities are detected. |
+| `github_token` | No | `${{ github.token }}` | GitHub token for querying workflow check runs and updating the single PR Verdict Card. |
+| `api_endpoint` | No | `https://www.ribbsaetersystems.com/api/v1/verify` | Custom API endpoint for on-premise or VPC enterprise appliances. |
 
 ### Outputs
 
@@ -198,17 +210,17 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 
 ---
 
-## 🔒 10-Shield CWE Security & Zero-Click Blast Radius Architecture
+## 🔒 12-Shield CWE Security & Zero-Click Blast Radius Architecture
 
 ZeroSlop is engineered for security-conscious engineering teams, sovereign AI labs, and regulated enterprises that refuse to trust probabilistic LLM review chatbots with production security:
 
-* **10-Shield Deterministic CWE Airlock**: Blocks the top empirical AI-generated vulnerabilities before code reaches human review—including SQL/vector injection (`CWE-89`), hardcoded/seeded credentials & plaintext password checks (`CWE-798`/`CWE-256`), unbound caller identity / IDOR (`CWE-639`), OS command & `eval` injection (`CWE-78`/`CWE-94`), silent exception masking (`CWE-390`), XSS (`CWE-79`), unsafe deserialization (`CWE-502`), SSRF & disabled TLS (`CWE-918`/`CWE-295`), and GitHub Actions workflow injection ("Pwn Requests", `CWE-426`).
-* **Zero-Click Cross-Layer Blast Radius**: Automatically maps multi-file diffs across architectural boundaries (`API Contracts ➔ Auth & Session ➔ AI/LLM Pipeline ➔ Persistence/Vector Sinks`) and evaluates end-to-end exploit reachability right inside the GitHub PR summary—with **zero external SaaS dashboards or extra clicks required**.
+* **12-Shield Deterministic CWE Airlock**: Blocks the top empirical AI-generated vulnerabilities before code reaches human review—including SQL/vector injection (`CWE-89`), hardcoded/seeded credentials & plaintext password checks (`CWE-798`/`CWE-256`), unbound caller identity / IDOR (`CWE-639`), OS command & `eval` injection (`CWE-78`/`CWE-94`), silent exception masking (`CWE-390`), XSS (`CWE-79`), unsafe deserialization (`CWE-502`), SSRF & disabled TLS (`CWE-918`/`CWE-295`), GitHub Actions workflow injection ("Pwn Requests", `CWE-426`), AI package "Slopsquatting" (`CWE-829`), and unbounded loop/timer resource exhaustion (`CWE-400`).
+* **Zero-Click Cross-Layer Blast Radius & Mermaid Dependency Graph**: Automatically maps multi-file diffs across architectural boundaries (`API Contracts ➔ Auth & Session ➔ AI/LLM Pipeline ➔ Persistence/Vector Sinks`) and renders an interactive Mermaid reachability diagram right inside the GitHub PR summary and single PR Verdict Card—with **zero external SaaS dashboards or extra clicks required**.
 * **Adversarial Prompt-Injection & Trojan-Source Immunity (`CVE-2021-42574`)**: Because conversational AI code reviewers ingest raw PR diffs into LLM context windows, they are susceptible to indirect prompt injection hidden in comments. ZeroSlop's deterministic invariant engine cannot be jailbroken and actively blocks Trojan Source bidirectional Unicode and reviewer override payloads.
-* **Zero Code Retention**: Your proprietary codebase is **never stored, retained, cached, or used for AI model training**. Diffs are analyzed ephemerally in volatile RAM and purged immediately upon response return.
+* **Zero Code Retention**: Your proprietary codebase is **never stored, retained, cached, or used for AI model training**. Diffs are analyzed ephemerally in volatile RAM and purged immediately upon response return. Read the full [**Enterprise Zero-Retention Security & Procurement Brief →**](https://www.ribbsaetersystems.com/zeroslop/security).
 * **Zero Supply Chain Overhead**: Packaged as a self-contained Node.js 20 runner with zero runtime dependencies. No third-party npm package vulnerabilities.
 * **Enterprise Compliance**: Designed to meet Swiss FADP, European GDPR, and NIS2 DevSecOps supply-chain standards.
-* **Security & Responsible Disclosure**: Comprehensive reporting SLAs and policies documented in [SECURITY.md](SECURITY.md).
+* **Security & Responsible Disclosure**: Comprehensive reporting SLAs and policies documented in [SECURITY.md](SECURITY.md) and [ribbsaetersystems.com/zeroslop/security](https://www.ribbsaetersystems.com/zeroslop/security).
 
 ### ⚔️ Category Showdown: ZeroSlop™ Airlock vs. AI Review Chatbots & Legacy SAST
 
@@ -216,9 +228,9 @@ Competitors tell you *"the future isn't writing code—it's reviewing it and pri
 
 | Architectural Capability | 🛡️ ZeroSlop™ Sovereign Airlock | 🤖 AI Review Chatbots (CodeRabbit, Greptile, Qodo) | 🐢 Legacy SAST Scanners (SonarQube, Snyk) |
 | :--- | :--- | :--- | :--- |
-| **Developer Workflow & UI** | **✓ Zero-Click Native GitHub Summary** (Zero external SaaS dashboards or logins) | ✕ Herds devs into external SaaS portals, ChangeStacks & 80-PR Kanban queues | ✕ Separate enterprise portal with high false-positive alert fatigue |
-| **Cross-Layer Blast Radius** | **✓ Automatic `Entrypoint ➔ Auth ➔ Persistence Sink` reachability in PR** | ⚠️ Requires manual clicking across SaaS UI tabs to inspect file groups | ✕ Isolated file-level lint alerts without architectural layer context |
-| **10-Shield CWE Enforcement** | **✓ Deterministically blocks SQLi, Seeded Creds, IDOR, SSRF & CI Pwn Requests** | ⚠️ Probabilistic LLM commentary; leaves 1,999 unfixed findings in charts | ⚠️ Slow post-hoc scans; blind to AI-specific wrapper & workflow patterns |
+| **Developer Workflow & UI** | **✓ Zero-Click Native GitHub Summary + 1 In-Place PR Card** (Zero external SaaS dashboards) | ✕ Herds devs into external SaaS portals, ChangeStacks & 80-PR Kanban queues | ✕ Separate enterprise portal with high false-positive alert fatigue |
+| **Cross-Layer Blast Radius** | **✓ Automatic Mermaid `Entrypoint ➔ Auth ➔ Persistence Sink` reachability in PR** | ⚠️ Requires manual clicking across SaaS UI tabs to inspect file groups | ✕ Isolated file-level lint alerts without architectural layer context |
+| **12-Shield CWE Enforcement** | **✓ Deterministically blocks SQLi, Seeded Creds, IDOR, SSRF, Pwn Requests & Slopsquatting** | ⚠️ Probabilistic LLM commentary; leaves 1,999 unfixed findings in charts | ⚠️ Slow post-hoc scans; blind to AI-specific wrapper & workflow patterns |
 | **Prompt-Injection Immunity** | **✓ 100% Deterministic Engine** — Cannot be jailbroken by PR comments | ✕ Vulnerable to indirect prompt injection hidden inside PR diffs | ✓ Deterministic rules, but blind to AI prompt-override payloads |
 | **AI Slop & Wrapper Distillation** | **✓ Strips 94% of hallucinated wrappers & blocks deleted test assertions** | ✕ Adds more AI commentary on top of AI slop without shrinking the diff | ✕ Zero awareness of LLM wrapper bloat or conversational debris |
 | **CI Flake vs. Triage Gate Isolation** | **✓ Separates Contributor Code Defects from Runner Flakes & Triage Gates** | ✕ Blind to upstream runner flakes vs. maintainer approval labels | ✕ No GitHub Actions check-run triage classification |

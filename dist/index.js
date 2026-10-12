@@ -864,11 +864,146 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
   });
 }
 
+function githubApiRequest(method, apiPath, token, payload = null) {
+  return new Promise((resolve) => {
+    if (!token) return resolve({ statusCode: 0, data: null });
+    const bodyStr = payload ? JSON.stringify(payload) : null;
+    const headers = {
+      'User-Agent': 'ZeroSlop-Sovereign-Airlock/2.4.0 (Ribbsaeter Systems)',
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    };
+    if (bodyStr) {
+      headers['Content-Type'] = 'application/json';
+      headers['Content-Length'] = Buffer.byteLength(bodyStr);
+    }
+    const req = https.request(
+      {
+        hostname: 'api.github.com',
+        path: apiPath,
+        method,
+        headers,
+        timeout: 10000
+      },
+      (res) => {
+        let raw = '';
+        res.on('data', (chunk) => (raw += chunk));
+        res.on('end', () => {
+          try {
+            resolve({ statusCode: res.statusCode, data: raw ? JSON.parse(raw) : null });
+          } catch {
+            resolve({ statusCode: res.statusCode, data: null });
+          }
+        });
+      }
+    );
+    req.on('error', () => resolve({ statusCode: 0, data: null }));
+    req.on('timeout', () => {
+      req.destroy();
+      resolve({ statusCode: 0, data: null });
+    });
+    if (bodyStr) req.write(bodyStr);
+    req.end();
+  });
+}
+
+const VERDICT_COMMENT_MARKER = '<!-- zeroslop-sovereign-airlock-verdict -->';
+
+async function upsertPullRequestVerdictComment(repo, prNumber, token, markdownBody) {
+  if (!token || !repo || !prNumber) return;
+  try {
+    const bodyWithMarker = `${VERDICT_COMMENT_MARKER}\n${markdownBody}`;
+    const listRes = await githubApiRequest('GET', `/repos/${repo}/issues/${prNumber}/comments?per_page=100`, token);
+    if (listRes.statusCode >= 200 && listRes.statusCode < 300 && Array.isArray(listRes.data)) {
+      const existing = listRes.data.filter((c) => typeof c.body === 'string' && c.body.includes(VERDICT_COMMENT_MARKER));
+      if (existing.length > 0) {
+        const primary = existing[0];
+        await githubApiRequest('PATCH', `/repos/${repo}/issues/comments/${primary.id}`, token, {
+          body: bodyWithMarker
+        });
+        for (let i = 1; i < existing.length; i++) {
+          await githubApiRequest('DELETE', `/repos/${repo}/issues/comments/${existing[i].id}`, token);
+        }
+        console.log(`[ZeroSlop] Updated in-place Sovereign Verdict Card on PR #${prNumber} (Comment ID: ${primary.id}).`);
+        return;
+      }
+    }
+    const createRes = await githubApiRequest('POST', `/repos/${repo}/issues/${prNumber}/comments`, token, {
+      body: bodyWithMarker
+    });
+    if (createRes.statusCode >= 200 && createRes.statusCode < 300) {
+      console.log(`[ZeroSlop] Posted single Sovereign Verdict Card on PR #${prNumber}.`);
+    }
+  } catch (err) {
+    console.log(`[ZeroSlop] Note: Could not post PR comment (${err.message}). Step Summary still written.`);
+  }
+}
+
+async function autoClosePullRequestIfSlop(repo, prNumber, token, reason) {
+  if (!token || !repo || !prNumber) return;
+  try {
+    const res = await githubApiRequest('PATCH', `/repos/${repo}/pulls/${prNumber}`, token, {
+      state: 'closed'
+    });
+    if (res.statusCode >= 200 && res.statusCode < 300) {
+      console.log(`[ZeroSlop Airlock] Auto-closed PR #${prNumber} due to: ${reason}`);
+    }
+  } catch (err) {
+    console.log(`[ZeroSlop] Note: Auto-close skipped (${err.message}).`);
+  }
+}
+
+function buildMermaidBlastRadiusGraph(blastRadius, securityFindings) {
+  const layers = blastRadius?.impactedLayers || [];
+  if (layers.length === 0) {
+    return `\`\`\`mermaid
+flowchart LR
+  PR["Pull Request Diff"] --> CORE["Core Domain Invariants (0 Files)"]
+  style CORE fill:#064e3b,stroke:#10b981,color:#ecfdf5
+\`\`\``;
+  }
+
+  const lines = ['```mermaid', 'flowchart LR', '  PR["Pull Request Diff"]'];
+  layers.forEach((l, idx) => {
+    const nodeId = `L${idx}`;
+    const safeLayerName = String(l.layer).replace(/"/g, "'");
+    const statusLabel =
+      l.riskLevel === 'CRITICAL'
+        ? 'CRITICAL CWE'
+        : l.riskLevel === 'ELEVATED'
+        ? 'ELEVATED'
+        : 'CLEAN';
+    lines.push(`  PR --> ${nodeId}["${safeLayerName} (${l.files.length} file${l.files.length === 1 ? '' : 's'} · ${statusLabel})"]`);
+    if (l.riskLevel === 'CRITICAL') {
+      lines.push(`  style ${nodeId} fill:#7f1d1d,stroke:#ef4444,color:#fef2f2`);
+    } else if (l.riskLevel === 'ELEVATED') {
+      lines.push(`  style ${nodeId} fill:#78350f,stroke:#f59e0b,color:#fffbeb`);
+    } else {
+      lines.push(`  style ${nodeId} fill:#064e3b,stroke:#10b981,color:#ecfdf5`);
+    }
+  });
+
+  if (securityFindings && securityFindings.length > 0) {
+    const cweList = Array.from(new Set(securityFindings.map((f) => f.cwe))).join(', ');
+    lines.push(`  GATE["Airlock Verdict: BLOCKED (${cweList})"]`);
+    lines.push('  style GATE fill:#7f1d1d,stroke:#ef4444,color:#fef2f2');
+  } else {
+    lines.push('  GATE["Airlock Verdict: 100% SOVEREIGN GREEN"]');
+    lines.push('  style GATE fill:#064e3b,stroke:#10b981,color:#ecfdf5');
+  }
+  layers.forEach((_, idx) => {
+    lines.push(`  L${idx} --> GATE`);
+  });
+  lines.push('```');
+  return lines.join('\n');
+}
+
 async function run() {
   console.log('======================================================================');
   console.log('🛡️  ZeroSlop™ by Ribbsaeter Systems — Sovereign PR Invariant Airlock');
   console.log('    Zug · Zurich · Amsterdam · Eindhoven');
-  console.log('    Zero Code Retention · 10-Shield CWE Security · Blast Radius Engine');
+  console.log('    Zero Code Retention · 12-Shield CWE Security · Blast Radius Engine');
   console.log('======================================================================\n');
 
   const apiKey = getInput('api_key') || getInput('license_key');
@@ -878,9 +1013,11 @@ async function run() {
   const failOnSlop = getInput('fail_on_slop', 'true') === 'true';
   const ciDiagnostics = getInput('ci_diagnostics', 'false') === 'true' || Boolean(licenseKey) || Boolean(apiKey);
   const githubToken = getInput('github_token') || process.env.GITHUB_TOKEN;
-  const apiEndpoint = getInput('api_endpoint', 'https://ribbsaetersystems.com/api/v1/verify');
+  const apiEndpoint = getInput('api_endpoint', 'https://www.ribbsaetersystems.com/api/v1/verify');
+  const postPrComment = getInput('post_pr_comment', 'true') !== 'false';
+  const autoCloseSlop = getInput('auto_close_slop', 'false') === 'true';
 
-  const { isPrivate, repoVisibility } = getGitHubEventContext();
+  const { isPrivate, repoVisibility, prNumber } = getGitHubEventContext();
   const repoName = process.env.GITHUB_REPOSITORY || 'unknown/repo';
   const githubOrg = repoName.includes('/') ? repoName.split('/')[0] : repoName;
   const isUnlicensed = !apiKey || apiKey.trim() === '';
@@ -925,7 +1062,7 @@ async function run() {
     }
   }
 
-  console.log('\n[ZeroSlop] Verifying Invariants, 10-Shield CWE Security & Account License Status...');
+  console.log('\n[ZeroSlop] Verifying Invariants, 12-Shield CWE Security & Account License Status...');
   const payload = {
     repo: repoName,
     repository: repoName,
@@ -964,7 +1101,7 @@ async function run() {
 
 | Tier | Investment | Capabilities Included | Instant Activation |
 | :--- | :--- | :--- | :--- |
-| **ZeroSlop™ Pro** *(Most Popular)* | **\`$29 / month\`** | **Unlimited Pull Requests (Private & Public)**, 10-Shield CWE Security Airlock, Zero-Click Blast Radius, Autonomous CI Flake Classifier | **[Subscribe Pro ($29/mo) →](${PRO_CHECKOUT_URL})** |
+| **ZeroSlop™ Pro** *(Most Popular)* | **\`$29 / month\`** | **Unlimited Pull Requests (Private & Public)**, 12-Shield CWE Security Airlock, Zero-Click Blast Radius, Autonomous CI Flake Classifier | **[Subscribe Pro ($29/mo) →](${PRO_CHECKOUT_URL})** |
 | **ZeroSlop™ Enterprise Core** | **\`$1,999 / month\`** | **100 Developer Seats & Unlimited Repos**, Dedicated VPC Invariant Enclave, Custom CWE Rules, 24/7 Sovereign Engineering SLA | **[Deploy Enterprise →](${ENTERPRISE_CHECKOUT_URL})** |
 
 ### 3-Step Activation:
@@ -973,9 +1110,12 @@ async function run() {
 3. Add \`ZEROSLOP_API_KEY\` under GitHub **Settings → Secrets and variables → Actions** and pass \`api_key: \${{ secrets.ZEROSLOP_API_KEY }}\` in your workflow YAML.
 
 ---
-*Powered by [Ribbsaeter Systems](${PRICING_URL}) · Zug, Switzerland · Zero Source-Code Retention Policy.*
+*Powered by [Ribbsaeter Systems](${PRICING_URL}) · Zug, Switzerland · [Zero Source-Code Retention Policy](https://www.ribbsaetersystems.com/zeroslop/security).*
 `;
     writeSummary(paywallMarkdown);
+    if (postPrComment && prNumber) {
+      await upsertPullRequestVerdictComment(repoName, prNumber, githubToken, paywallMarkdown);
+    }
     process.exit(1);
   }
 
@@ -1024,9 +1164,13 @@ async function run() {
         '\n'
       : '';
 
+  const mermaidGraph = buildMermaidBlastRadiusGraph(blastRadius, securityFindings);
+
   securityAndBlastRadiusSection = `
-### 🎯 Zero-Click Architectural Blast Radius & 10-Shield CWE Airlock
+### 🎯 Zero-Click Architectural Blast Radius & 12-Shield CWE Airlock
 > **Exploit Reachability Path**: ${blastRadius.reachabilitySummary}
+
+${mermaidGraph}
 
 | Architectural Layer | Files Touched | Security Posture | Impacted Surface |
 | :--- | :---: | :---: | :--- |
@@ -1109,7 +1253,7 @@ ${cweFindingsTable}`;
   console.log('\n======================================================================');
   if (result.isGreen) {
     console.log('✅ ZERO SLOP & ZERO CWE VULNERABILITIES DETECTED. ALL INVARIANTS GREEN.');
-    console.log('   PR conforms to the Ribbsaeter Systems Zero-Defect & CWE Airlock Standard.');
+    console.log('   PR conforms to the Ribbsaeter Systems Zero-Defect & 12-Shield CWE Standard.');
     console.log(`   Architectural Layers Audited: ${blastRadius.impactedLayers?.length || 1} | CWE Findings: 0`);
     console.log(`   Verification Reference: ${result.verificationId}`);
     if (isUnlicensed) {
@@ -1122,17 +1266,20 @@ ${cweFindingsTable}`;
   }
   console.log('======================================================================\n');
 
+  const badgeUrl = `https://www.ribbsaetersystems.com/api/v1/badge?repo=${encodeURIComponent(repoName)}`;
   const summaryMarkdown = `
 ## 🛡️ ZeroSlop™ Invariant & CWE Security Audit · ${result.isGreen ? 'PASSED (100% Green)' : 'BLOCKED — ACTION REQUIRED'}
 
-> **The Sovereign Standard for Zero AI Slop & Deterministic CWE Security in Pull Requests**  
-> Powered by [Ribbsaeter Systems](https://ribbsaetersystems.com/zeroslop) · Zug, Switzerland
+[![ZeroSlop Airlock: SOVEREIGN](${badgeUrl})](https://www.ribbsaetersystems.com/zeroslop)
+
+> **The Sovereign Standard for Zero AI Slop & Deterministic 12-Shield CWE Security in Pull Requests**  
+> Powered by [Ribbsaeter Systems](https://www.ribbsaetersystems.com/zeroslop) · [Zero Source-Code Retention Guarantee](https://www.ribbsaetersystems.com/zeroslop/security)
 
 | Metric | Measured Value | Standard | Status |
 | :--- | :--- | :--- | :--- |
 | **Engineering Score** | \`${result.engineeringScore ?? (100 - result.slopScore)} / 100\` | \`≥ 60 / 100\` | ${result.isGreen ? '🟢 Approved' : '🔴 Action Required'} |
 | **AI Slop Score** | \`${result.slopScore}%\` | \`0%\` | ${result.isGreen ? '🟢 Clean' : '🔴 Action Required'} |
-| **10-Shield CWE Security** | \`${securityFindings.length} Vulnerabilities\` | \`0 CWEs\` | ${securityFindings.length === 0 ? '🟢 100% Secure' : `🔴 ${securityFindings.length} Blocked`} |
+| **12-Shield CWE Security** | \`${securityFindings.length} Vulnerabilities\` | \`0 CWEs\` | ${securityFindings.length === 0 ? '🟢 12/12 Passed' : `🔴 ${securityFindings.length} Blocked`} |
 | **Blast Radius Surface** | \`${blastRadius.impactedLayers?.length || 0} Layer(s) / ${blastRadius.totalFilesChanged || 0} File(s)\` | \`Contained\` | ${blastRadius.crossLayerReachability ? '🔴 Cross-Layer Sink' : '🟢 Isolated'} |
 | **Invariants Verified** | \`${result.invariantsVerified}\` | \`100%\` | 🟢 Enforced |
 | **Diff Minimization** | \`${result.linesReduced}\` | \`≥ 80%\` | 🟢 Surgical |
@@ -1141,18 +1288,36 @@ ${cweFindingsTable}`;
 ${
   result.isGreen
     ? `### ✨ Verdict: Pull Request Approved for Merge
-This pull request satisfies the **ZeroSlop™ Invariant & 10-Shield CWE Standard**. Code is mathematically minimal, compilers are clean, and zero CWE vulnerabilities or AI bloat were introduced.`
+This pull request satisfies the **ZeroSlop™ Invariant & 12-Shield CWE Standard**. Code is mathematically minimal, compilers are clean, and zero CWE vulnerabilities or AI bloat were introduced.`
     : `### ⚠️ Attention: Security or Invariant Remediation Required
 ${result.message}`
 }
 ${securityAndBlastRadiusSection}
 ${ciSummarySection}
 ${singleEvalBanner}
+<details>
+<summary>🏅 <b>Add the Official "Protected by ZeroSlop™" Badge to your README.md</b></summary>
+
+Copy and paste this snippet into your repository's \`README.md\` to show contributors and enterprise buyers that every pull request is gated by the ZeroSlop™ 12-Shield CWE Airlock:
+
+\`\`\`markdown
+[![ZeroSlop Airlock: SOVEREIGN](https://www.ribbsaetersystems.com/api/v1/badge?repo=${repoName})](https://www.ribbsaetersystems.com/zeroslop)
+\`\`\`
+</details>
+
 ---
-*Mode: ${isUnlicensed ? '🎁 Single Evaluation Run (1/1 Used — Account Locks on Next PR)' : '⚡ Pro Sovereign Invariant Airlock'} · Verification Ref: \`${result.verificationId}\` · Zero Code Retention Policy Enforced · Copyright © 2026 Patrick Ribbsaeter / [Ribbsaeter Systems](https://ribbsaetersystems.com/zeroslop).*
+*Mode: ${isUnlicensed ? '🎁 Single Evaluation Run (1/1 Used — Account Locks on Next PR)' : '⚡ Pro Sovereign Invariant Airlock'} · Verification Ref: \`${result.verificationId}\` · [Zero Code Retention Policy Enforced](https://www.ribbsaetersystems.com/zeroslop/security) · Copyright © 2026 Patrick Ribbsaeter / [Ribbsaeter Systems](https://www.ribbsaetersystems.com/zeroslop).*
 `;
 
   writeSummary(summaryMarkdown);
+
+  if (postPrComment && prNumber) {
+    await upsertPullRequestVerdictComment(repoName, prNumber, githubToken, summaryMarkdown);
+  }
+
+  if (!result.isGreen && autoCloseSlop && prNumber && (result.slopScore >= 60 || criticalCweCount > 0)) {
+    await autoClosePullRequestIfSlop(repoName, prNumber, githubToken, result.message);
+  }
 
   if (!result.isGreen && failOnSlop) {
     console.error('❌ ZeroSlop gatekeeper failed due to detected AI slop or CWE security vulnerability.');

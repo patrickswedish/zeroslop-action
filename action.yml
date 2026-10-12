@@ -31,9 +31,9 @@ inputs:
     required: false
     default: ''
   github_token:
-    description: 'GitHub token for querying pull request checks status (defaults to github.token)'
+    description: 'GitHub token for querying pull request checks and posting the single in-place Sovereign Verdict comment (defaults to github.token)'
     required: false
-    default: ''
+    default: ${{ github.token }}
   api_endpoint:
     description: 'ZeroSlop verification API endpoint (for custom on-premise or VPC deployments)'
     required: false
