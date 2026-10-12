@@ -2,7 +2,7 @@
 
 # Ribbsaeter Systems Launches ZeroSlop™ on GitHub Marketplace to Solve the Enterprise "AI Code Slop" Crisis
 
-**ZURICH, SWITZERLAND & SILICON VALLEY — October 9, 2026** — Ribbsaeter Systems, an independent systems engineering and software studio, today announced the official flagship release of **ZeroSlop™** on the **GitHub Marketplace** ([github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems)).
+**ZURICH, SWITZERLAND & SILICON VALLEY — October 12, 2026** — Ribbsaeter Systems, an independent systems engineering and software studio, today announced the official flagship release of **ZeroSlop™** on the **GitHub Marketplace** ([github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems)).
 
 ZeroSlop is an autonomous pre-flight Pull Request Invariant Gatekeeper and diff minimization engine engineered specifically for engineering leaders, CTOs, and software teams navigating the post-AI development landscape.
 
@@ -13,7 +13,7 @@ Over the past 18 months, AI coding assistants (including Claude Code, Cursor, Gi
 
 * **Hallucinated Wrappers & Bloat**: AI agents regularly introduce 150+ lines of defensive adapters, dead guards, and mock utilities where a 4-line surgical edit was required.
 * **Unauthorized Test Deletions**: Under review pressure, automated agents and junior developers frequently weaken assertions or silently delete regression tests to force failing CI pipelines to green.
-* **The $150,000 Review Bottleneck**: Senior staff architects now spend an average of 15 to 20 hours per week acting as human linters—manually dissecting and rejecting bloated AI pull requests instead of building core product architecture.
+* **The $160,000 Review Bottleneck**: Senior staff architects now spend an average of 15 to 20 hours per week acting as human linters—manually dissecting and rejecting bloated AI pull requests instead of building core product architecture.
 
 ---
 
@@ -22,7 +22,7 @@ ZeroSlop solves this crisis by introducing a drop-in pre-flight airlock into the
 
 1. **AST Invariant Isolation**: Systematically peels away up to **94% of hallucinated wrappers and defensive AI bloat**, isolating the minimal durable correction that preserves architectural contracts.
 2. **Zero Test Deletion Guard**: Instantly halts and rejects any pull request that deletes, skips, or weakens existing test coverage.
-3. **Ephemeral RAM Enclave (Zero Code Retention)**: Source code is analyzed in volatile RAM and purged immediately upon return. Source code is never retained, never written to disk, and never used to train external models.
+3. **Ephemeral RAM Enclave (Zero Code Retention)**: Source code is analyzed in volatile Node 20 RAM and purged immediately upon return. Source code is never retained, never written to disk, and never used to train external models (strictly compliant with Swiss FADP, EU GDPR, and NIS2).
 4. **Autonomous Repo-Native Polish**: Runs existing formatters (Prettier, Ruff, Clippy, ESLint, gofmt) and cleanly commits the polish back to the PR branch, eliminating style debates.
 
 ---
@@ -30,14 +30,16 @@ ZeroSlop solves this crisis by introducing a drop-in pre-flight airlock into the
 ### Proven in the World's Most Demanding Codebases
 Unlike conceptual AI tools, ZeroSlop's invariant verification engine was hardened directly against the world’s most demanding production systems. Sovereign pull requests powered by this exact methodology have been merged upstream across 17 tier-1 foundations:
 
-* **OpenAI Triton** (`triton-lang/triton` #8574): CPython 3.14t free-threading PEP 703 multi-phase GIL-free initialization via `Py_mod_gil`.
-* **LLVM** (`llvm/llvm-project` #215076): X86 SelectionDAG vector integer division lowering.
-* **Meta Velox** (`facebookincubator/velox` #18529): Vectorized TopNRowNumber in-memory rank ordering.
-* **DuckDB** (`duckdb/duckdb` #26443): Analytical PIVOT IN zero-argument expression preservation.
-* **Hugging Face** (`huggingface/diffusers` #14481): Generative AI InpaintProcessor contract preservation.
-* **eBay NuRaft** (`eBay/NuRaft` #663): Distributed consensus concurrent snapshot finalization race resolution.
+* **OpenAI Triton** (`triton-lang/triton` #8574, #12221): CPython 3.14t free-threading PEP 703 multi-phase GIL-free initialization via `Py_mod_gil`.
+* **SGLang** (`sgl-project/sglang` #42533): Vectorized FlashInfer KV cache attention serving invariant.
+* **Meta Velox** (`facebookincubator/velox` #18529): Vectorized TopNRowNumber in-memory rank ordering parity (C++20).
+* **LLVM Compiler** (`llvm/llvm-project` #215076): X86 SelectionDAG vector integer division lowering (C++).
+* **DuckDB Engine** (`duckdb/duckdb` #26443): Analytical PIVOT IN zero-argument expression preservation (C++).
+* **Apache DataFusion** (`apache/datafusion` #24394, #26006): Execution-layer schema conformance & aggregation (Rust).
+* **Hugging Face** (`huggingface/diffusers` #14481): Generative AI InpaintProcessor contract preservation (Python).
+* **eBay NuRaft** (`eBay/NuRaft` #663): Distributed consensus concurrent snapshot finalization race resolution (C++17).
 * **Microsoft** (`pyright` #11605, `agent-governance-toolkit` #3448, `typespec` #11660).
-* **Valkey** (`valkey-io/valkey` #4424), **Apache DataFusion** (`apache/datafusion` #24394, #26006), **Rust** (`rust-lang/rust` #161202), and **Tokio** (`tokio-rs/tokio` #8595).
+* **Valkey** (`valkey-io/valkey` #4424), **Rust** (`rust-lang/rust` #161202), and **Tokio** (`tokio-rs/tokio` #8595).
 
 ---
 
@@ -48,12 +50,19 @@ Unlike conceptual AI tools, ZeroSlop's invariant verification engine was hardene
 
 ---
 
+### Hard Economic Business Case: 18.2x Annual ROI
+For a standard 10-engineer product or infrastructure team, unmitigated AI pull request review churn costs more than **$160,000 annually** in diverted senior engineering compensation ($80/hr across 40 wasted review hours per week).
+
+By intercepting and pre-validating every pull request through ZeroSlop before human review, organizations reclaim over **60 senior engineering hours per two-week sprint**. With ZeroSlop™ Pro at $29/mo and Enterprise at $1,999/mo, ZeroSlop generates over **$150,000** in net annual payroll savings—delivering an **18.2x annual return on investment** with full capital payback in under 48 hours.
+
+---
+
 ### Availability & Pricing
 ZeroSlop is available immediately on the GitHub Marketplace:
 
 * **Single Evaluation Try ($0 · 1 Pull Request Try)**: Download for free and test ZeroSlop on 1 live pull request with zero configuration required. After 1 pull request, the account locks until a commercial subscription is activated.
-* **ZeroSlop™ Pro**: **$29 / month** with Unlimited Private & Public Pull Requests, Active Auto-Close Airlock, Autonomous CI Flake Classifier, Maintainer Triage Gate Isolation, Pre-Merge Status Matrix, and Priority Support Desk.
-* **ZeroSlop™ Enterprise**: **$1,999 / month** for dedicated VPC Invariant Enclave, multi-repo fleet analytics, custom wire invariant rule authoring, air-gapped runners, 24/7 sovereign SLAs, and NIS2/CISO audit compliance.
+* **ZeroSlop™ Pro**: **$29 / month** with Unlimited Private & Public Pull Requests, Active Auto-Close Airlock (<60/100), Autonomous CI Flake Classifier, Maintainer Triage Gate Isolation, Pre-Merge Status Matrix, and Priority Support Desk.
+* **ZeroSlop™ Enterprise**: **$1,999 / month flat** for dedicated VPC Invariant Enclave, multi-repo fleet analytics, custom wire invariant rule authoring, air-gapped runners, 24/7 sovereign SLAs, and NIS2/CISO audit compliance.
 
 To deploy ZeroSlop in under 60 seconds, visit [**github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) or explore the interactive diff simulator at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
 
@@ -74,3 +83,4 @@ Confidential inquiries: [contact@ribbsaetersystems.com](mailto:contact@ribbsaete
 * **Technical & Business Enquiries**: [contact@ribbsaetersystems.com](mailto:contact@ribbsaetersystems.com)
 * **Founder Profile**: [patrickribbsaeter.com](https://www.patrickribbsaeter.com/) · [linkedin.com/in/patrickribbsaeter](https://www.linkedin.com/in/patrickribbsaeter) · [github.com/patrickswedish](https://github.com/patrickswedish)
 * **Official Website**: [ribbsaetersystems.com](https://www.ribbsaetersystems.com/)
+* **Official Press Release Portal**: [ribbsaetersystems.com/blog/zeroslop-pr-gatekeeper-official-release](https://ribbsaetersystems.com/blog/zeroslop-pr-gatekeeper-official-release)
