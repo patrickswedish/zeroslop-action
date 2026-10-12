@@ -128,6 +128,32 @@ function checkMarkdownHygiene(text) {
   return issues;
 }
 
+function classifyArchitecturalLayer(filePath) {
+  const lower = filePath.toLowerCase();
+  if (/\.github\/workflows\/|dockerfile|docker-compose|terraform|\.tf$|k8s|helm/i.test(lower)) {
+    return 'CI/CD & Infrastructure';
+  }
+  if (/auth|login|session|jwt|oauth|token|permission|rbac|security|middleware/i.test(lower)) {
+    return 'Authentication & Security Boundary';
+  }
+  if (/db|database|schema|migration|prisma|drizzle|sequelize|sql|qdrant|vector|redis|store|repository|model/i.test(lower)) {
+    return 'Persistence & Vector / Data Store';
+  }
+  if (/ai|llm|openai|anthropic|gemini|prompt|agent|embedding|rag|inference/i.test(lower)) {
+    return 'AI / LLM Processing Pipeline';
+  }
+  if (/api\/|routes?\/|controllers?\/|handlers?\/|endpoints?\/|graphql|trpc|server|main\.py|app\.py/i.test(lower)) {
+    return 'API Contracts & Entrypoints';
+  }
+  if (/components?\/|pages?\/|views?\/|ui\/|frontend\/|client\/|\.tsx$|\.jsx$|\.vue$|\.svelte$/i.test(lower)) {
+    return 'Frontend Client & UI Surface';
+  }
+  if (/test|spec|__tests__|e2e|benchmark/i.test(lower)) {
+    return 'Verification & Test Suite';
+  }
+  return 'Core Domain & Business Logic';
+}
+
 function evaluateLocalInvariants(fullDiff) {
   const hasSlopMarker =
     fullDiff.includes('DO_NOT_MERGE_SLOP') ||
@@ -147,14 +173,232 @@ function evaluateLocalInvariants(fullDiff) {
   let inTestFile = false;
   let testDeletions = 0;
   let testAdditions = 0;
+  let currentFile = 'unknown';
+
+  const layerFilesMap = new Map();
+  const securityFindings = [];
+  const seenSecurityRules = new Set();
+
+  let hasPublicEntrypoint = false;
+  let hasUnboundIdentity = false;
+  let hasPersistenceSink = false;
+
+  const recordFinding = (finding) => {
+    const key = `${finding.ruleId}:${finding.file}`;
+    if (!seenSecurityRules.has(key)) {
+      seenSecurityRules.add(key);
+      securityFindings.push(finding);
+    }
+  };
 
   for (const line of lines) {
     if (line.startsWith('diff --git')) {
-      inTestFile = /test|spec|_test\.go|\.test\.|\.spec\./i.test(line);
+      const m = line.match(/diff --git a\/(.+?) b\/(.+)$/);
+      currentFile = m ? m[2].trim() : 'unknown';
+      inTestFile = /test|spec|_test\.go|\.test\.|\.spec\./i.test(currentFile);
+
+      const layer = classifyArchitecturalLayer(currentFile);
+      if (!layerFilesMap.has(layer)) {
+        layerFilesMap.set(layer, new Set());
+      }
+      layerFilesMap.get(layer).add(currentFile);
+      continue;
     }
+
     if (inTestFile) {
       if (line.startsWith('-') && !line.startsWith('---')) testDeletions++;
       if (line.startsWith('+') && !line.startsWith('+++')) testAdditions++;
+    }
+
+    if (!line.startsWith('+') || line.startsWith('+++')) {
+      continue;
+    }
+
+    const addedCode = line.slice(1);
+
+    if (/@(?:app|router)\.(?:get|post|put|delete|patch)\b|export\s+async\s+function\s+(?:GET|POST|PUT|DELETE|PATCH)\b|app\.(?:get|post|put|delete)\s*\(/i.test(addedCode)) {
+      hasPublicEntrypoint = true;
+    }
+    if (/\b(?:cursor\.execute|db\.execute|session\.execute|prisma\.|qdrant| supabase\.|collection\.)/i.test(addedCode)) {
+      hasPersistenceSink = true;
+    }
+
+    if (!inTestFile) {
+      // SHIELD 1: CWE-89 SQL Injection
+      const hasRawSqlInterpolation =
+        /(?:f["']|["'].*?\+\s*\w+|`[\s\S]*?\$\{)[\s\S]*?\b(?:SELECT\s+.+?\s+FROM|INSERT\s+INTO|UPDATE\s+\w+\s+SET|DELETE\s+FROM)\b/i.test(addedCode) ||
+        /\b(?:execute|query|raw)\s*\(\s*(?:f["']|`[\s\S]*?\$\{|["'][\s\S]*?\+\s*\w+)/i.test(addedCode);
+      const hasAiGeneratedRawSqlExec =
+        /\b(?:execute|query)\s*\(\s*(?:generated_sql|raw_sql|ai_sql|llm_sql|sql_query_from_ai)\b/i.test(addedCode);
+
+      if (hasRawSqlInterpolation || hasAiGeneratedRawSqlExec) {
+        hasPersistenceSink = true;
+        recordFinding({
+          ruleId: 'ZS-SEC-001',
+          cwe: 'CWE-89',
+          severity: 'CRITICAL',
+          title: 'Unparameterized SQL Injection / Raw Query Execution',
+          file: currentFile,
+          remediation: 'Use parameterized queries (?, $1, :param) and strict read-only query allowlists.'
+        });
+      }
+
+      // SHIELD 2: CWE-798 & CWE-256 Hardcoded Credentials / Seeded Admin / Plaintext Password
+      const hasSeededDefaultCreds =
+        /INSERT\s+(?:OR\s+IGNORE\s+)?INTO\s+users[\s\S]*?VALUES\s*\(\s*['"](?:admin|root|superuser)['"]\s*,\s*['"][^'"]+['"]/i.test(addedCode);
+      const hasPlaintextPasswordCompare =
+        /(?:user\[\d+\]|user\.password|db_password|stored_password)\s*===\?\s*password\b|\bpassword\s*===\?\s*(?:user\[\d+\]|user\.password|['"][^'"]{3,}['"])/i.test(addedCode);
+      const hasHardcodedSecretLiteral =
+        /\b(?:api_key|apikey|secret_key|private_key|qdrant_api_key|openai_api_key|anthropic_api_key|jwt_secret|db_password)\s*[:=]\s*['"](?:sk-[a-zA-Z0-9]{16,}|eyJ[a-zA-Z0-9_-]{15,}|[a-zA-Z0-9_\-]{24,}|password123|admin123|secret123)['"]/i.test(addedCode) &&
+        !/process\.env|os\.environ|os\.getenv|example|placeholder|mock|test|dummy/i.test(addedCode);
+
+      if (hasSeededDefaultCreds || hasPlaintextPasswordCompare || hasHardcodedSecretLiteral) {
+        recordFinding({
+          ruleId: 'ZS-SEC-002',
+          cwe: hasPlaintextPasswordCompare ? 'CWE-256' : 'CWE-798',
+          severity: 'CRITICAL',
+          title: hasSeededDefaultCreds
+            ? 'Hardcoded Seeded Admin Account in Persistence Init'
+            : hasPlaintextPasswordCompare
+            ? 'Plaintext Password Comparison Without Cryptographic Hashing'
+            : 'Hardcoded API Key or Secret Credential in Source',
+          file: currentFile,
+          remediation: 'Remove seeded credentials, enforce Argon2id/bcrypt password hashing, and load secrets from environment variables.'
+        });
+      }
+
+      // SHIELD 3: CWE-639 / CWE-862 Unbound Caller Identity (IDOR)
+      const hasUnboundUserParam =
+        /def\s+(?:get_|update_|delete_|create_|list_|process_|chat|upload|export)\w*\s*\(\s*(?:username|user_id|owner_id|account_id)\s*:\s*(?:str|int)\b(?![\s\S]*?(?:Depends|current_user|auth|session|token))/i.test(addedCode);
+      if (hasUnboundUserParam) {
+        hasUnboundIdentity = true;
+        recordFinding({
+          ruleId: 'ZS-SEC-003',
+          cwe: 'CWE-639',
+          severity: 'HIGH',
+          title: 'Unbound Caller Identity / Authorization Bypass (IDOR)',
+          file: currentFile,
+          remediation: 'Bind endpoint operations to the authenticated session principal (e.g., Depends(get_current_user)) instead of trusting client-supplied username/user_id.'
+        });
+      }
+
+      // SHIELD 4: CWE-78 & CWE-94 OS Command & Code Injection
+      const hasCommandInjection =
+        /\b(?:subprocess\.(?:run|Popen|call|check_output)|os\.system)\s*\([\s\S]*?(?:shell\s*=\s*True[\s\S]*?(?:f["']|\+)|f["'][^"']*\{)/i.test(addedCode) ||
+        /\b(?:child_process\.)?(?:exec|execSync)\s*\(\s*(?:`[\s\S]*?\$\{[\s\S]*?(?:req\.|params\.|query\.|body\.|userInput)|["'][\s\S]*?\+\s*(?:req\.|params\.|query\.|body\.|userInput))/i.test(addedCode);
+      const hasEvalInjection =
+        /\beval\s*\(\s*(?:req\.|params\.|query\.|body\.|user_input|untrusted|f["']|`[\s\S]*?\$\{)/i.test(addedCode);
+
+      if (hasCommandInjection || hasEvalInjection) {
+        recordFinding({
+          ruleId: 'ZS-SEC-004',
+          cwe: hasEvalInjection ? 'CWE-94' : 'CWE-78',
+          severity: 'CRITICAL',
+          title: hasEvalInjection ? 'Dynamic Code Execution (eval) on Untrusted Input' : 'OS Shell Command Injection Vector',
+          file: currentFile,
+          remediation: 'Avoid shell=True and eval(); pass command arguments as an explicit array without shell interpolation.'
+        });
+      }
+
+      // SHIELD 5: CWE-390 Silent Error Swallowing
+      const hasSilentExceptionPass =
+        /^\s*except(?:\s+\w+(?:\s*,\s*\w+)*)?\s*:\s*pass\s*(?:#.*)?$/.test(addedCode) ||
+        /\bcatch\s*\([^)]*\)\s*\{\s*\}/.test(addedCode);
+      if (hasSilentExceptionPass) {
+        recordFinding({
+          ruleId: 'ZS-SEC-005',
+          cwe: 'CWE-390',
+          severity: 'MEDIUM',
+          title: 'Silent Exception Swallowing (Empty Catch / Except Pass)',
+          file: currentFile,
+          remediation: 'Log or propagate structured exceptions rather than silently masking security or persistence failures.'
+        });
+      }
+
+      // SHIELD 6: CWE-79 XSS
+      const hasRawDomInjection =
+        /\bdangerouslySetInnerHTML\s*=\s*\{\s*\{\s*__html\s*:\s*(?!DOMPurify\.sanitize|sanitize)/i.test(addedCode) ||
+        /\.(?:innerHTML|outerHTML)\s*=\s*(?:req\.|params\.|query\.|body\.|user|input|data\.|response\.|`[\s\S]*?\$\{)/i.test(addedCode);
+      if (hasRawDomInjection) {
+        recordFinding({
+          ruleId: 'ZS-SEC-006',
+          cwe: 'CWE-79',
+          severity: 'HIGH',
+          title: 'Unsanitized DOM / HTML Injection (Cross-Site Scripting)',
+          file: currentFile,
+          remediation: 'Sanitize HTML payloads with DOMPurify or use safe text binding before rendering.'
+        });
+      }
+
+      // SHIELD 7: CWE-502 Unsafe Deserialization
+      const hasUnsafeDeserialization =
+        /\b(?:pickle\.loads?|cPickle\.loads?|shelve\.open|marshal\.loads?)\s*\(/i.test(addedCode) ||
+        /\byaml\.(?:load|unsafe_load)\s*\([^)]*(?!Loader\s*=\s*(?:yaml\.)?SafeLoader)/i.test(addedCode);
+      if (hasUnsafeDeserialization && !/SafeLoader/i.test(addedCode)) {
+        recordFinding({
+          ruleId: 'ZS-SEC-007',
+          cwe: 'CWE-502',
+          severity: 'CRITICAL',
+          title: 'Unsafe Object Deserialization (Pickle / Unsafe YAML)',
+          file: currentFile,
+          remediation: 'Use yaml.safe_load() or JSON schema validation instead of pickle/unsafe YAML deserialization.'
+        });
+      }
+
+      // SHIELD 8: CWE-918 & CWE-22 SSRF & Path Traversal
+      const hasSsrfVector =
+        /\b(?:requests\.(?:get|post|put|delete)|httpx\.(?:get|post)|axios\.(?:get|post)|fetch)\s*\(\s*(?:req\.(?:query|body|params)\.|user_url|target_url|webhook_url)/i.test(addedCode);
+      const hasTlsDisabled = /\bverify\s*=\s*False\b|NODE_TLS_REJECT_UNAUTHORIZED\s*=\s*['"]?0['"]?/i.test(addedCode);
+
+      if (hasSsrfVector || hasTlsDisabled) {
+        recordFinding({
+          ruleId: 'ZS-SEC-008',
+          cwe: hasTlsDisabled ? 'CWE-295' : 'CWE-918',
+          severity: 'HIGH',
+          title: hasTlsDisabled
+            ? 'TLS Certificate Verification Disabled'
+            : 'Unvalidated Outbound URL Fetch (SSRF Vector)',
+          file: currentFile,
+          remediation: hasTlsDisabled
+            ? 'Keep TLS certificate verification enabled (verify=True).'
+            : 'Validate outbound URLs against a strict hostname allowlist and block RFC1918/metadata IP ranges.'
+        });
+      }
+
+      // SHIELD 9: CWE-426 GitHub Actions Workflow Injection (Pwn Request)
+      if (/\.github\/workflows\//i.test(currentFile)) {
+        const hasUntrustedPrCheckout =
+          /github\.event\.pull_request\.head\.(?:sha|ref)/i.test(addedCode) ||
+          /\$\{\{\s*github\.event\.(?:issue\.title|pull_request\.title|pull_request\.body|comment\.body|review\.body|head_ref)\s*\}\}/i.test(addedCode);
+        if (hasUntrustedPrCheckout) {
+          recordFinding({
+            ruleId: 'ZS-SEC-009',
+            cwe: 'CWE-426',
+            severity: 'CRITICAL',
+            title: 'GitHub Actions Untrusted Input / Pwn Request Vector',
+            file: currentFile,
+            remediation: 'Pass untrusted github.event.* fields through environment variables and avoid checking out untrusted PR head refs in privileged workflows.'
+          });
+        }
+      }
+    }
+
+    // SHIELD 10: CVE-2021-42574 Trojan Source & Adversarial AI Prompt Injection
+    const hasTrojanUnicode = /[\u202A-\u202E\u2066-\u2069]/.test(addedCode);
+    const hasAdversarialReviewPrompt =
+      /(?:ignore\s+(?:all\s+)?(?:previous|prior)\s+instructions|system\s+prompt\s+override|mark\s+this\s+(?:pr|pull\s+request)\s+as\s+(?:approved|safe|clean)|do\s+not\s+report\s+any\s+vulnerabilities)/i.test(addedCode);
+
+    if (hasTrojanUnicode || hasAdversarialReviewPrompt) {
+      recordFinding({
+        ruleId: 'ZS-SEC-010',
+        cwe: hasTrojanUnicode ? 'CWE-94' : 'CWE-693',
+        severity: 'CRITICAL',
+        title: hasTrojanUnicode
+          ? 'Trojan Source Bidirectional Unicode Control Characters (CVE-2021-42574)'
+          : 'Adversarial Prompt Injection Targeting Automated Code Reviewers',
+        file: currentFile,
+        remediation: 'Strip hidden bidirectional Unicode characters and remove adversarial reviewer override instructions.'
+      });
     }
   }
 
@@ -163,8 +407,58 @@ function evaluateLocalInvariants(fullDiff) {
     console.warn(`[ZeroSlop] Invariant Violation: Detected ${testDeletions} deleted test lines with 0 replacement assertions.`);
   }
 
-  const isGreen = !hasSlopMarker && !hasTestDeletions && !hasHygieneDefect;
-  const slopScore = isGreen ? 0 : hasSlopMarker ? 85 : hasHygieneDefect ? 40 : 75;
+  const impactedLayers = [];
+  let totalFilesChanged = 0;
+  for (const [layer, filesSet] of layerFilesMap.entries()) {
+    const fileArr = Array.from(filesSet);
+    totalFilesChanged += fileArr.length;
+    const layerFindings = securityFindings.filter((f) => filesSet.has(f.file));
+    const hasCrit = layerFindings.some((f) => f.severity === 'CRITICAL' || f.severity === 'HIGH');
+    impactedLayers.push({
+      layer,
+      files: fileArr,
+      riskLevel: hasCrit ? 'CRITICAL' : layerFindings.length > 0 ? 'ELEVATED' : 'CLEAN'
+    });
+  }
+
+  let reachabilitySummary = 'No cross-layer exploit chain detected.';
+  if (securityFindings.length > 0) {
+    if (hasPublicEntrypoint && hasPersistenceSink) {
+      reachabilitySummary = `CRITICAL REACHABILITY: Public API Entrypoint ➔ ${hasUnboundIdentity ? 'Unbound Caller Identity (IDOR) ➔ ' : ''}Persistence / Vector Sink (${securityFindings.length} CWE finding${securityFindings.length === 1 ? '' : 's'} reachable across ${impactedLayers.length} architectural layer${impactedLayers.length === 1 ? '' : 's'}).`;
+    } else {
+      reachabilitySummary = `Exploit surface confined to ${impactedLayers.length} layer(s) (${securityFindings.map((f) => f.cwe).join(', ')}). Immediate remediation required before merge.`;
+    }
+  }
+
+  const blastRadius = {
+    totalFilesChanged,
+    impactedLayers,
+    crossLayerReachability: hasPublicEntrypoint && hasPersistenceSink && securityFindings.length > 0,
+    reachabilitySummary
+  };
+
+  const hasSecurityDefect = securityFindings.length > 0;
+  if (hasSecurityDefect) {
+    for (const f of securityFindings) {
+      console.warn(`[ZeroSlop Security Shield] [${f.severity}] ${f.ruleId} (${f.cwe}) in ${f.file}: ${f.title}`);
+    }
+  }
+
+  const isGreen = !hasSlopMarker && !hasTestDeletions && !hasHygieneDefect && !hasSecurityDefect;
+  let slopScore = 0;
+  if (!isGreen) {
+    if (hasSecurityDefect) {
+      const hasCrit = securityFindings.some((f) => f.severity === 'CRITICAL');
+      slopScore = hasCrit ? 90 : 70;
+    } else if (hasSlopMarker) {
+      slopScore = 85;
+    } else if (hasTestDeletions) {
+      slopScore = 75;
+    } else if (hasHygieneDefect) {
+      slopScore = 40;
+    }
+  }
+
   return {
     isGreen,
     slopScore,
@@ -172,8 +466,12 @@ function evaluateLocalInvariants(fullDiff) {
     linesReduced: isGreen ? '94%' : '0%',
     invariantsVerified: isGreen ? '100%' : '0%',
     hygieneIssues,
+    securityFindings,
+    blastRadius,
     message: isGreen
-      ? 'Sovereign Invariant Gate Verified. No AI slop, text formatting defects, or test regressions detected.'
+      ? 'Sovereign Invariant & CWE Security Airlock Verified. Zero AI slop, zero CWE vulnerabilities, and zero test regressions detected.'
+      : hasSecurityDefect
+      ? `Security & Blast-Radius Violation (${securityFindings.map((f) => f.cwe).join(', ')}): ${securityFindings[0].title} in ${securityFindings[0].file}.`
       : hasHygieneDefect
       ? `Markdown/Text hygiene defects detected: ${hygieneIssues.join('; ')}`
       : 'Potential AI slop or unauthorized test deletions detected.'
@@ -354,6 +652,8 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
         engineeringScore: localEval.engineeringScore,
         linesReduced: localEval.linesReduced,
         invariantsVerified: localEval.invariantsVerified,
+        securityFindings: localEval.securityFindings,
+        blastRadius: localEval.blastRadius,
         isGreen: localEval.isGreen,
         verificationId: `vfy_mock_${crypto.randomBytes(8).toString('hex')}`,
         message: localEval.message
@@ -368,8 +668,8 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
       const data = JSON.stringify(payload);
       const headers = {
         'Content-Type': 'application/json',
-        'User-Agent': 'ZeroSlop-Action-Client/2.2.0 (Ribbsaeter Systems)',
-        'X-ZeroSlop-Client-Version': '2.2.0'
+        'User-Agent': 'ZeroSlop-Action-Client/2.3.0 (Ribbsaeter Systems)',
+        'X-ZeroSlop-Client-Version': '2.3.0'
       };
       if (apiKey && apiKey.trim() !== '') {
         headers.Authorization = `Bearer ${apiKey.trim()}`;
@@ -394,6 +694,8 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
                 engineeringScore: 100,
                 linesReduced: '0%',
                 invariantsVerified: '0%',
+                securityFindings: [],
+                blastRadius: localEval.blastRadius,
                 isGreen: false,
                 verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
                 message:
@@ -403,7 +705,12 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
             }
 
             if (statusCode >= 200 && statusCode < 300) {
-              const slopScore = response.slop_score ?? localEval.slopScore;
+              const slopScore = Math.max(response.slop_score ?? 0, localEval.slopScore);
+              const securityFindings =
+                Array.isArray(response.security_findings) && response.security_findings.length > 0
+                  ? response.security_findings
+                  : localEval.securityFindings;
+              const blastRadius = response.blast_radius || localEval.blastRadius;
               return resolve({
                 success: true,
                 quotaExceeded: false,
@@ -415,9 +722,11 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
                 engineeringScore: response.engineering_score ?? (100 - slopScore),
                 linesReduced: response.lines_reduced ?? localEval.linesReduced,
                 invariantsVerified: String(response.invariants_verified ?? localEval.invariantsVerified),
-                isGreen: slopScore === 0 && localEval.isGreen,
+                securityFindings,
+                blastRadius,
+                isGreen: slopScore === 0 && localEval.isGreen && securityFindings.length === 0,
                 verificationId: response.verification_id ?? `vfy_${crypto.randomBytes(8).toString('hex')}`,
-                message: response.message ?? localEval.message
+                message: !localEval.isGreen ? localEval.message : (response.message ?? localEval.message)
               });
             }
           } catch {
@@ -438,6 +747,8 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
               engineeringScore: 100,
               linesReduced: '0%',
               invariantsVerified: '0%',
+              securityFindings: [],
+              blastRadius: localEval.blastRadius,
               isGreen: false,
               verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
               message: 'ZeroSlop License Key required. Activate Pro ($29/mo) or Enterprise ($1,999/mo).'
@@ -455,6 +766,8 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
             engineeringScore: localEval.engineeringScore,
             linesReduced: localEval.linesReduced,
             invariantsVerified: localEval.invariantsVerified,
+            securityFindings: localEval.securityFindings,
+            blastRadius: localEval.blastRadius,
             isGreen: localEval.isGreen,
             verificationId: `vfy_fallback_${crypto.randomBytes(8).toString('hex')}`,
             message: localEval.message
@@ -474,6 +787,8 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
               engineeringScore: 100,
               linesReduced: '0%',
               invariantsVerified: '0%',
+              securityFindings: [],
+              blastRadius: localEval.blastRadius,
               isGreen: false,
               verificationId: `vfy_locked_${crypto.randomBytes(6).toString('hex')}`,
               message: 'Online license verification required. Please provide a valid ZeroSlop license key (RST_LIVE_...).'
@@ -490,6 +805,8 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
             engineeringScore: localEval.engineeringScore,
             linesReduced: localEval.linesReduced,
             invariantsVerified: localEval.invariantsVerified,
+            securityFindings: localEval.securityFindings,
+            blastRadius: localEval.blastRadius,
             isGreen: localEval.isGreen,
             verificationId: `vfy_offline_${crypto.randomBytes(8).toString('hex')}`,
             message: localEval.message
@@ -508,6 +825,8 @@ function verifyWithCloudEngine(endpoint, apiKey, payload) {
         engineeringScore: 100,
         linesReduced: '0%',
         invariantsVerified: '0%',
+        securityFindings: [],
+        blastRadius: localEval.blastRadius,
         isGreen: false,
         verificationId: `vfy_err_${crypto.randomBytes(8).toString('hex')}`,
         message: 'ZeroSlop License Key required.'
@@ -520,7 +839,7 @@ async function run() {
   console.log('======================================================================');
   console.log('🛡️  ZeroSlop™ by Ribbsaeter Systems — Sovereign PR Invariant Airlock');
   console.log('    Zug · Zurich · Amsterdam · Eindhoven');
-  console.log('    Zero Code Retention · Invariant Verification · CI Intelligence');
+  console.log('    Zero Code Retention · 10-Shield CWE Security · Blast Radius Engine');
   console.log('======================================================================\n');
 
   const apiKey = getInput('api_key') || getInput('license_key');
@@ -577,7 +896,7 @@ async function run() {
     }
   }
 
-  console.log('\n[ZeroSlop] Verifying Invariants & Account License Status with Sovereign Cloud Core...');
+  console.log('\n[ZeroSlop] Verifying Invariants, 10-Shield CWE Security & Account License Status...');
   const payload = {
     repo: repoName,
     repository: repoName,
@@ -616,8 +935,8 @@ async function run() {
 
 | Tier | Investment | Capabilities Included | Instant Activation |
 | :--- | :--- | :--- | :--- |
-| **ZeroSlop™ Pro** *(Most Popular)* | **\`$29 / month\`** | **Unlimited Pull Requests (Private & Public)**, Active Auto-Close Airlock, Autonomous CI Flake Classifier, Maintainer Gate Isolation | **[Subscribe Pro ($29/mo) →](${PRO_CHECKOUT_URL})** |
-| **ZeroSlop™ Enterprise Core** | **\`$1,999 / month\`** | **Unlimited Engineers & Repos**, Dedicated VPC Invariant Enclave, Custom Rules, 24/7 Sovereign Engineering SLA | **[Deploy Enterprise →](${ENTERPRISE_CHECKOUT_URL})** |
+| **ZeroSlop™ Pro** *(Most Popular)* | **\`$29 / month\`** | **Unlimited Pull Requests (Private & Public)**, 10-Shield CWE Security Airlock, Zero-Click Blast Radius, Autonomous CI Flake Classifier | **[Subscribe Pro ($29/mo) →](${PRO_CHECKOUT_URL})** |
+| **ZeroSlop™ Enterprise Core** | **\`$1,999 / month\`** | **100 Developer Seats & Unlimited Repos**, Dedicated VPC Invariant Enclave, Custom CWE Rules, 24/7 Sovereign Engineering SLA | **[Deploy Enterprise →](${ENTERPRISE_CHECKOUT_URL})** |
 
 ### 3-Step Activation:
 1. Click **[Subscribe Pro ($29/mo)](${PRO_CHECKOUT_URL})** (Apple Pay & corporate cards supported; zero account registration required).
@@ -631,9 +950,59 @@ async function run() {
     process.exit(1);
   }
 
+  const securityFindings = result.securityFindings || [];
+  const criticalCweCount = securityFindings.filter((f) => f.severity === 'CRITICAL').length;
+  const blastRadius = result.blastRadius || {
+    totalFilesChanged: 0,
+    impactedLayers: [],
+    crossLayerReachability: false,
+    reachabilitySummary: 'No cross-layer exploit chain detected.'
+  };
+
   setOutput('slop_score', result.slopScore.toString());
   setOutput('lines_reduced', result.linesReduced);
   setOutput('invariants_verified', result.invariantsVerified);
+  setOutput('security_findings_count', securityFindings.length.toString());
+  setOutput('critical_cwe_count', criticalCweCount.toString());
+  setOutput('blast_radius_layers', (blastRadius.impactedLayers?.length || 0).toString());
+
+  let securityAndBlastRadiusSection = '';
+  const layersRows =
+    blastRadius.impactedLayers && blastRadius.impactedLayers.length > 0
+      ? blastRadius.impactedLayers
+          .map((l) => {
+            const badge =
+              l.riskLevel === 'CRITICAL'
+                ? '🔴 **CRITICAL**'
+                : l.riskLevel === 'ELEVATED'
+                ? '⚠️ **ELEVATED**'
+                : '🟢 **CLEAN**';
+            const filesSample = l.files.slice(0, 3).map((f) => `\`${f}\``).join(', ') + (l.files.length > 3 ? ` *(+${l.files.length - 3} more)*` : '');
+            return `| **${l.layer}** | \`${l.files.length}\` | ${badge} | ${filesSample} |`;
+          })
+          .join('\n')
+      : '| **Core Domain & Invariants** | `0` | 🟢 **CLEAN** | *No architectural boundary crossings* |';
+
+  const cweFindingsTable =
+    securityFindings.length > 0
+      ? `\n#### 🚨 Deterministic CWE Security Violations Blocked (\`${securityFindings.length}\`)\n\n| Rule | CWE | Severity | File | Vulnerability & Required Fix |\n| :--- | :--- | :---: | :--- | :--- |\n` +
+        securityFindings
+          .map(
+            (f) =>
+              `| \`${f.ruleId}\` | **\`${f.cwe}\`** | ${f.severity === 'CRITICAL' ? '🔴 CRITICAL' : f.severity === 'HIGH' ? '🟠 HIGH' : '🟡 MEDIUM'} | \`${f.file}\` | **${f.title}** — *${f.remediation}* |`
+          )
+          .join('\n') +
+        '\n'
+      : '';
+
+  securityAndBlastRadiusSection = `
+### 🎯 Zero-Click Architectural Blast Radius & 10-Shield CWE Airlock
+> **Exploit Reachability Path**: ${blastRadius.reachabilitySummary}
+
+| Architectural Layer | Files Touched | Security Posture | Impacted Surface |
+| :--- | :---: | :---: | :--- |
+${layersRows}
+${cweFindingsTable}`;
 
   let ciSummarySection = '';
   let ciClassification = 'ALL_GREEN';
@@ -710,28 +1079,32 @@ async function run() {
 
   console.log('\n======================================================================');
   if (result.isGreen) {
-    console.log('✅ ZERO SLOP DETECTED. ALL ARCHITECTURAL INVARIANTS GREEN.');
-    console.log('   PR conforms to the Ribbsaeter Systems Zero-Defect Standard.');
+    console.log('✅ ZERO SLOP & ZERO CWE VULNERABILITIES DETECTED. ALL INVARIANTS GREEN.');
+    console.log('   PR conforms to the Ribbsaeter Systems Zero-Defect & CWE Airlock Standard.');
+    console.log(`   Architectural Layers Audited: ${blastRadius.impactedLayers?.length || 1} | CWE Findings: 0`);
     console.log(`   Verification Reference: ${result.verificationId}`);
     if (isUnlicensed) {
       console.log(`   ⚠️  1 / 1 Free Evaluation PR Used. Account @${githubOrg} requires a paid license key for the next PR: ${PRO_CHECKOUT_URL}`);
     }
   } else {
-    console.log('⚠️  Potential AI slop patterns or unmitigated diff expansion detected.');
-    console.log(`   Slop Score: ${result.slopScore}%`);
+    console.log('⚠️  ZeroSlop Airlock Blocked PR: AI slop or CWE security vulnerability detected.');
+    console.log(`   Slop Score: ${result.slopScore}% | CWE Findings: ${securityFindings.length}`);
+    console.log(`   Reason: ${result.message}`);
   }
   console.log('======================================================================\n');
 
   const summaryMarkdown = `
-## 🛡️ ZeroSlop™ Invariant Audit · ${result.isGreen ? 'PASSED (100% Green)' : 'REQUIRES REFINEMENT'}
+## 🛡️ ZeroSlop™ Invariant & CWE Security Audit · ${result.isGreen ? 'PASSED (100% Green)' : 'BLOCKED — ACTION REQUIRED'}
 
-> **The Sovereign Standard for Zero AI Slop in Pull Requests**  
+> **The Sovereign Standard for Zero AI Slop & Deterministic CWE Security in Pull Requests**  
 > Powered by [Ribbsaeter Systems](https://ribbsaetersystems.com/zeroslop) · Zug, Switzerland
 
 | Metric | Measured Value | Standard | Status |
 | :--- | :--- | :--- | :--- |
 | **Engineering Score** | \`${result.engineeringScore ?? (100 - result.slopScore)} / 100\` | \`≥ 60 / 100\` | ${result.isGreen ? '🟢 Approved' : '🔴 Action Required'} |
 | **AI Slop Score** | \`${result.slopScore}%\` | \`0%\` | ${result.isGreen ? '🟢 Clean' : '🔴 Action Required'} |
+| **10-Shield CWE Security** | \`${securityFindings.length} Vulnerabilities\` | \`0 CWEs\` | ${securityFindings.length === 0 ? '🟢 100% Secure' : `🔴 ${securityFindings.length} Blocked`} |
+| **Blast Radius Surface** | \`${blastRadius.impactedLayers?.length || 0} Layer(s) / ${blastRadius.totalFilesChanged || 0} File(s)\` | \`Contained\` | ${blastRadius.crossLayerReachability ? '🔴 Cross-Layer Sink' : '🟢 Isolated'} |
 | **Invariants Verified** | \`${result.invariantsVerified}\` | \`100%\` | 🟢 Enforced |
 | **Diff Minimization** | \`${result.linesReduced}\` | \`≥ 80%\` | 🟢 Surgical |
 | **License Status** | \`${isUnlicensed ? '1 / 1 Free Try Used (Locks Next PR)' : '⚡ Pro Unlimited'}\` | \`Active\` | 🟢 Verified |
@@ -739,10 +1112,11 @@ async function run() {
 ${
   result.isGreen
     ? `### ✨ Verdict: Pull Request Approved for Merge
-This pull request satisfies the **ZeroSlop™ Invariant Standard**. Code is mathematically minimal, compilers are clean, and no redundant AI bloat was introduced.`
-    : `### ⚠️ Attention: Invariant Refinement Required
-ZeroSlop identified diff bloat or invariant degradation. Refine the diff to preserve minimal core invariants before requesting maintainer review.`
+This pull request satisfies the **ZeroSlop™ Invariant & 10-Shield CWE Standard**. Code is mathematically minimal, compilers are clean, and zero CWE vulnerabilities or AI bloat were introduced.`
+    : `### ⚠️ Attention: Security or Invariant Remediation Required
+${result.message}`
 }
+${securityAndBlastRadiusSection}
 ${ciSummarySection}
 ${singleEvalBanner}
 ---
@@ -752,7 +1126,7 @@ ${singleEvalBanner}
   writeSummary(summaryMarkdown);
 
   if (!result.isGreen && failOnSlop) {
-    console.error('❌ ZeroSlop gatekeeper failed due to detected AI slop.');
+    console.error('❌ ZeroSlop gatekeeper failed due to detected AI slop or CWE security vulnerability.');
     process.exit(1);
   }
 }

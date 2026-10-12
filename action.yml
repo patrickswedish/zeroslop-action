@@ -52,6 +52,12 @@ outputs:
     description: 'Number of upstream runner timeouts or toolchain flakes isolated'
   gated_jobs_count:
     description: 'Number of maintainer triage gates isolated'
+  security_findings_count:
+    description: 'Total count of deterministic CWE security vulnerabilities blocked (CWE-89, CWE-798, CWE-639, etc.)'
+  critical_cwe_count:
+    description: 'Count of CRITICAL severity CWE security findings'
+  blast_radius_layers:
+    description: 'Count of architectural layers impacted by the pull request diff'
 
 runs:
   using: 'node20'
