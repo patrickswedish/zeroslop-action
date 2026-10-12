@@ -40,29 +40,28 @@ Over the past 18 months, AI coding assistants (including Claude Code, Cursor, Gi
 
 ---
 
-### The Solution: Mechanical Invariant Auditing
-ZeroSlop solves this crisis by introducing a drop-in pre-flight airlock into the developer workflow. Rather than evaluating code with probabilistic LLM guesses, ZeroSlop parses incoming pull request diffs through an **Abstract Syntax Tree (AST) invariant engine**:
+### The Solution: End-to-End PR Merge Acceleration & 12-Shield CWE Security Airlock
+ZeroSlop solves this crisis by introducing a drop-in pre-flight airlock into GitHub Actions. Rather than evaluating code with probabilistic LLM chat guesses, ZeroSlop parses incoming pull request diffs through a **deterministic AST invariant & 12-Shield CWE security engine**:
 
-1. **AST Invariant Isolation**: Systematically peels away up to **94% of hallucinated wrappers and defensive AI bloat**, isolating the minimal durable correction that preserves architectural contracts.
-2. **Zero Test Deletion Guard**: Instantly halts and rejects any pull request that deletes, skips, or weakens existing test coverage.
-3. **Ephemeral RAM Enclave (Zero Code Retention)**: Source code is analyzed in volatile Node 20 RAM and purged immediately upon return. Source code is never retained, never written to disk, and never used to train external models (strictly compliant with Swiss FADP, EU GDPR, and NIS2).
-4. **Autonomous Repo-Native Polish**: Runs existing formatters (Prettier, Ruff, Clippy, ESLint, gofmt) and cleanly commits the polish back to the PR branch, eliminating style debates.
+1. **AST Invariant Isolation & Merge Acceleration**: Systematically peels away up to **94% of hallucinated wrappers and defensive AI bloat**, isolating the minimal durable correction so pull requests get merged 100% green in under 45 minutes instead of sitting in 4.2-day review queues.
+2. **12-Shield Deterministic CWE Security Airlock (`ZS-SEC-001` to `ZS-SEC-012`)**: Mechanically blocks SQL/vector injection (`CWE-89`), hardcoded/seeded credentials (`CWE-798`), unbound caller identity / IDOR (`CWE-639`), OS command & `eval` injection (`CWE-78`/`CWE-94`), silent exception masking (`CWE-390`), XSS (`CWE-79`), unsafe deserialization (`CWE-502`), SSRF (`CWE-918`), GitHub Actions workflow "Pwn Requests" (`CWE-426`), AI package "Slopsquatting" (`CWE-829`), unbounded loop/timer DoS (`CWE-400`), and Trojan Source / prompt-injection payloads (`CVE-2021-42574`).
+3. **Single Self-Updating In-Place PR Verdict Card + Mermaid Blast Radius**: Maintains strictly 1 self-updating comment in the PR timeline with an embedded Mermaid reachability diagram (`API Entrypoints ➔ Auth Boundaries ➔ AI Pipelines ➔ Persistence Sinks`)—eliminating 25-comment bot noise and external SaaS Kanban portals.
+4. **Zero Test Deletion Guard & CI Flake Isolation**: Halts any pull request that deletes or weakens regression tests, and separates contributor code defects from upstream GitHub runner flakes.
+5. **Ephemeral RAM Enclave (Zero Code Retention)**: Source code is analyzed in volatile Node 20 RAM and purged immediately upon return (strictly compliant with Swiss FADP, EU GDPR, and NIS2). Full enterprise security brief: [ribbsaetersystems.com/zeroslop/security](https://www.ribbsaetersystems.com/zeroslop/security).
 
 ---
 
 ### Proven in the World's Most Demanding Codebases
-Unlike conceptual AI tools, ZeroSlop's invariant verification engine was hardened directly against the world’s most demanding production systems. Sovereign pull requests powered by this exact methodology have been merged upstream across 17 tier-1 foundations:
+Unlike conceptual AI tools, ZeroSlop's invariant verification engine was hardened directly against the world’s most demanding production systems. Sovereign pull requests powered by this exact methodology have been merged or verified 100% green upstream across tier-1 foundations:
 
-* **OpenAI Triton** (`triton-lang/triton` #8574, #12221): CPython 3.14t free-threading PEP 703 multi-phase GIL-free initialization via `Py_mod_gil`.
-* **SGLang** (`sgl-project/sglang` #42533): Vectorized FlashInfer KV cache attention serving invariant.
+* **LLVM** (`llvm/llvm-project` #215076, #218873): X86 SelectionDAG vector integer division lowering & XMM register liveness (C++).
 * **Meta Velox** (`facebookincubator/velox` #18529): Vectorized TopNRowNumber in-memory rank ordering parity (C++20).
-* **LLVM Compiler** (`llvm/llvm-project` #215076): X86 SelectionDAG vector integer division lowering (C++).
-* **DuckDB Engine** (`duckdb/duckdb` #26443): Analytical PIVOT IN zero-argument expression preservation (C++).
-* **Apache DataFusion** (`apache/datafusion` #24394, #26006): Execution-layer schema conformance & aggregation (Rust).
-* **Hugging Face** (`huggingface/diffusers` #14481): Generative AI InpaintProcessor contract preservation (Python).
-* **eBay NuRaft** (`eBay/NuRaft` #663): Distributed consensus concurrent snapshot finalization race resolution (C++17).
-* **Microsoft** (`pyright` #11605, `agent-governance-toolkit` #3448, `typespec` #11660).
-* **Valkey** (`valkey-io/valkey` #4424), **Rust** (`rust-lang/rust` #161202), and **Tokio** (`tokio-rs/tokio` #8595).
+* **DuckDB** (`duckdb/duckdb` #26443): Analytical PIVOT IN zero-argument expression preservation (C++).
+* **Apache DataFusion** (`apache/datafusion` #24394, #26189, #26096, #26006): Execution-layer schema conformance & vectorized CASE lookup (Rust).
+* **Microsoft Pyright & TypeSpec** (`microsoft/pyright` #11605, `microsoft/typespec` #11660, `agent-governance-toolkit` #3448, #3442).
+* **Tokio** (`tokio-rs/tokio` #8595) & **ClickHouse** (`ClickHouse/ClickHouse` #114954).
+* **OpenAI Triton** (`triton-lang/triton` #12221) & **SGLang** (`sgl-project/sglang` #42533).
+* **Hugging Face Diffusers** (`huggingface/diffusers` #14481), **Valkey** (`valkey-io/valkey` #4424), **eBay NuRaft** (`eBay/NuRaft` #663), and **Cloudflare Workers SDK** (`cloudflare/workers-sdk` #15205).
 
 ---
 
@@ -70,15 +69,15 @@ Unlike conceptual AI tools, ZeroSlop's invariant verification engine was hardene
 While ZeroSlop was battle-tested and proven directly against the world's most unforgiving compiler backends and GPU runtimes, its primary economic impact is in everyday commercial software engineering:
 
 * **TypeScript, Node.js & React**: Automatically strips away up to 94% of hallucinated adapters, dead wrappers, and bloated mock utilities before peers or managers are tagged.
-* **Python, Go & Rust Microservices**: Mechanically halts deleted regression tests, catches broken interface contracts, and auto-commits repository-native formatting.
-* **From 4.2-Day Bottlenecks to 20-Minute Merges**: Brings senior staff architect rigor to junior and mid-level PRs, allowing engineering leads to stop acting as human linters and get back to shipping core features.
+* **Python, Go & Rust Microservices**: Mechanically halts deleted regression tests, blocks 12 CWE security classes, and verifies compiler/formatting hygiene.
+* **From 4.2-Day Bottlenecks to <45-Minute Merges**: Brings senior staff architect rigor to junior, mid-level, and AI-generated PRs so engineering leads stop acting as human linters and get back to shipping core features.
 
 ---
 
 ### Founder Statement
-> *"More code is not more productivity. In systems engineering, the gold standard has always been the smallest durable correction that preserves all system invariants,"* said **Patrick Ribbsaeter**, Founder and Systems Architect at Ribbsaeter Systems.
+> *"More code is not more productivity. In systems engineering, the gold standard has always been the smallest durable correction that preserves all system invariants,"* said **Patrick Ribbsaeter**, Founder and Principal Systems Architect at Ribbsaeter Systems.
 >
-> *"We are seeing teams drown in AI slop. Companies are hiring senior architects at $200,000 a year, only to have them spend 60 hours a sprint reading through hallucinated boilerplate. ZeroSlop puts an autonomous, mathematical gatekeeper at the repository door: unverified slop gets blocked, test deletions get caught, and surgical pull requests merge cleanly on the first push."*
+> *"We are seeing teams drown in AI slop. Companies are hiring senior architects at $200,000 a year, only to have them spend 60 hours a sprint reading through hallucinated boilerplate and catching AI-introduced security flaws. ZeroSlop puts an autonomous, deterministic gatekeeper at the repository door: unverified slop gets blocked, 12 CWE classes get stopped in RAM, and surgical pull requests get merged 100% green on the first push."*
 
 ---
 
@@ -93,10 +92,10 @@ By intercepting and pre-validating every pull request through ZeroSlop before hu
 ZeroSlop is available immediately on the GitHub Marketplace:
 
 * **Single Evaluation Try ($0 · 1 Pull Request Try)**: Download for free and test ZeroSlop on 1 live pull request with zero configuration required. After 1 pull request, the account locks until a commercial subscription is activated.
-* **ZeroSlop™ Pro**: **$29 / month** with Unlimited Private & Public Pull Requests, Active Auto-Close Airlock (<60/100), Autonomous CI Flake Classifier, Maintainer Triage Gate Isolation, Pre-Merge Status Matrix, and Priority Support Desk.
-* **ZeroSlop™ Enterprise**: **$1,999 / month per 100 developers** (self-serve scaling in 100-developer blocks: 100 devs = $1,999/mo; 200 devs = $3,998/mo; 1,000 devs = $19,990/mo) for dedicated VPC Invariant Enclave, multi-repo fleet analytics, custom wire invariant rule authoring, air-gapped runners, 24/7 sovereign SLAs, and NIS2/CISO audit compliance.
+* **ZeroSlop™ Pro**: **$29 / month** with Unlimited Private & Public Pull Requests, 12-Shield CWE Security Airlock, Single In-Place Mermaid PR Verdict Card, Active Auto-Close Airlock (<60/100), and Autonomous CI Flake Classifier.
+* **ZeroSlop™ Enterprise**: **$1,999 / month per 100 developers** (self-serve scaling in 100-developer blocks: 100 devs = $1,999/mo; 200 devs = $3,998/mo; 1,000 devs = $19,990/mo) for dedicated VPC Invariant Enclave, custom CWE & wire invariant rule authoring, air-gapped runners, 24/7 sovereign SLAs, and NIS2/CISO audit compliance.
 
-To deploy ZeroSlop in under 60 seconds, visit [**github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) or explore the interactive diff simulator at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
+To deploy ZeroSlop in under 60 seconds, visit [**github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems), explore the interactive diff simulator at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop), or review the CISO security brief at [**ribbsaetersystems.com/zeroslop/security**](https://ribbsaetersystems.com/zeroslop/security).
 
 ---
 
@@ -115,4 +114,5 @@ Confidential inquiries: [contact@ribbsaetersystems.com](mailto:contact@ribbsaete
 * **Technical & Business Enquiries**: [contact@ribbsaetersystems.com](mailto:contact@ribbsaetersystems.com)
 * **Founder Profile**: [patrickribbsaeter.com](https://www.patrickribbsaeter.com/) · [linkedin.com/in/patrickribbsaeter](https://www.linkedin.com/in/patrickribbsaeter) · [github.com/patrickswedish](https://github.com/patrickswedish)
 * **Official Website**: [ribbsaetersystems.com](https://www.ribbsaetersystems.com/)
+* **Enterprise Security Brief**: [ribbsaetersystems.com/zeroslop/security](https://www.ribbsaetersystems.com/zeroslop/security)
 * **Official Press Release Portal**: [ribbsaetersystems.com/blog/zeroslop-pr-gatekeeper-official-release](https://ribbsaetersystems.com/blog/zeroslop-pr-gatekeeper-official-release)
