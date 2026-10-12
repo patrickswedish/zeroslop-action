@@ -143,37 +143,37 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 
 <br/>
 
-| Organization | Repository | Domain & Stack | Engineering Focus | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **LLVM** | `llvm/llvm-project` | Compiler Backend · C++ | X86 SelectionDAG non-power-of-two vector integer division vectorization & lowering | **Merged Upstream · [PR #215076](https://github.com/llvm/llvm-project/pull/215076)** |
-| **Meta** | `facebookincubator/velox` | Vectorized Kernels · C++20 | TopNRowNumber in-memory rank ordering correctness & partition stream parity | **Merged Upstream · [PR #18529](https://github.com/facebookincubator/velox/pull/18529)** |
-| **DuckDB** | `duckdb/duckdb` | Vectorized Engine · C++ | PIVOT IN list zero-argument `row()` expression preservation & null dereference guard | **Merged Upstream · [PR #26443](https://github.com/duckdb/duckdb/pull/26443)** |
-| **Apache** | `apache/datafusion` | Query Engine · Rust | Execution-layer schema conformance across in-memory execution and aggregation | **Merged & Shipped · [PR #24394](https://github.com/apache/datafusion/pull/24394)** |
-| **Microsoft** | `microsoft/pyright` | Type Evaluator · TypeScript | Inherited asymmetric descriptor detection across effective MRO behavior | **Merged Upstream · [PR #11605](https://github.com/microsoft/pyright/pull/11605)** |
-| **Hugging Face** | `huggingface/diffusers` | Generative AI · Python | InpaintProcessor 3-tuple return contract preservation when mask is None | **Merged Upstream · [PR #14481](https://github.com/huggingface/diffusers/pull/14481)** |
-| **Valkey** | `valkey-io/valkey` | Distributed Storage · C99 | Cluster key-slot resolution & client cache validation for commands touching arbitrary keys | **Merged Upstream · [PR #4424](https://github.com/valkey-io/valkey/pull/4424)** |
-| **eBay** | `eBay/NuRaft` | Distributed Consensus · C++17 | Rejection of concurrent snapshot sync requests during asynchronous finalization race | **Merged Upstream · [PR #663](https://github.com/eBay/NuRaft/pull/663)** |
-| **Microsoft** | `microsoft/typespec` | Compiler Tooling · TypeScript | Playground state synchronization and deterministic regression coverage | **Merged Upstream · [PR #11660](https://github.com/microsoft/typespec/pull/11660)** |
-| **Microsoft** | `microsoft/agent-governance-toolkit` | AI Governance · Python | Fail-closed approval-chain correctness for zero-required-stage configurations | **Merged Upstream · [PR #3448](https://github.com/microsoft/agent-governance-toolkit/pull/3448)** |
-| **Microsoft** | `microsoft/agent-governance-toolkit` | AI Governance · Python | Policy fixture validation rejecting test definitions without explicit expectations | **Merged Upstream · [PR #3442](https://github.com/microsoft/agent-governance-toolkit/pull/3442)** |
-| **TheBushidoCollective** | `TheBushidoCollective/han` | CLI Tooling · Rust | Windows project-path compatibility with Claude Code slug conventions | **Merged Upstream · [PR #105](https://github.com/TheBushidoCollective/han/pull/105)** |
-| **Tokio** | `tokio-rs/tokio` | Async Runtime · Rust | Current-thread paused time wake tracking & zero-syscall timer preservation | **110/110 Checks Green · Mergeable · [PR #8595](https://github.com/tokio-rs/tokio/pull/8595)** |
-| **ClickHouse** | `ClickHouse/ClickHouse` | Real-Time DBMS · C++20 | Bounds validation on parallel replicas legacy query plan limit (`rows_before_limit_at_least`) | **174/176 Checks Green · [PR #114954](https://github.com/ClickHouse/ClickHouse/pull/114954)** |
-| **SGLang** | `sgl-project/sglang` | LLM Serving · Python/CUDA | Mid-turn inline system message in-place attachment preserving RadixAttention prefix caching | **98 Checks Green · In Review · [PR #42533](https://github.com/sgl-project/sglang/pull/42533)** |
-| **Cloudflare** | `cloudflare/workers-sdk` | Edge Runtime · TypeScript | Raw TCP socket streaming & backpressure handling for rejected WebSocket upgrades | **54/54 Checks Green · [PR #15205](https://github.com/cloudflare/workers-sdk/pull/15205)** |
-| **Apache** | `apache/datafusion` | Query Engine · Rust | PushDownFilter clippy `mutable_key_type` allow annotations for Expr hash sets | **43/43 Checks Green · [PR #26189](https://github.com/apache/datafusion/pull/26189)** |
-| **Apache** | `apache/datafusion` | Query Engine · Rust | Downcast to `FixedSizeBinaryArray` in CASE literal lookup table | **43/43 Checks Green · [PR #26096](https://github.com/apache/datafusion/pull/26096)** |
-| **Apache** | `apache/datafusion` | Query Engine · Rust | Sort-merge semi/anti/mark key equality routing via `JoinKeyComparator` | **42/42 Checks Green · [PR #26006](https://github.com/apache/datafusion/pull/26006)** |
-| **Anthropic / MCP** | `modelcontextprotocol/typescript-sdk` | Agent Protocol · TypeScript | Stream resumption for event IDs containing underscores | **14/14 Checks Green · [PR #2567](https://github.com/modelcontextprotocol/typescript-sdk/pull/2567)** |
-| **LLVM** | `llvm/llvm-project` | Compiler Backend · C++ | X86 CodeGen preserve XMM liveness across `VZEROUPPER` and check register clobbers | **12/12 Checks Green · [PR #218873](https://github.com/llvm/llvm-project/pull/218873)** |
-| **Redpanda** | `redpanda-data/redpanda` | Streaming Storage · C++20 | RPC transport memory semaphore unit retention in queued request entries | **9/9 Checks Green · Mergeable · [PR #31594](https://github.com/redpanda-data/redpanda/pull/31594)** |
-| **OpenAI** | `triton-lang/triton` | GPU Compiler · C++/Python | Nanobind static build free-threaded PEP 703 GIL slot declaration | **All Checks Green · Mergeable · [PR #12221](https://github.com/triton-lang/triton/pull/12221)** |
-| **vLLM** | `vllm-project/vllm` | AI Inference Serving · Python | Empty and non-mapping YAML config validation preventing unhandled CLI crash | **Contributor Checks Green · Mergeable · [PR #60319](https://github.com/vllm-project/vllm/pull/60319)** |
-| **AWS** | `firecracker-microvm/firecracker` | MicroVM Hypervisor · Rust | Resolved clippy `infallible_destructuring_match` on `TimerFd` in release builds | **3/3 Checks Green · Mergeable · [PR #6262](https://github.com/firecracker-microvm/firecracker/pull/6262)** |
-| **Bun** | `oven-sh/bun` | JS Runtime · C++/Zig | Node.js `Buffer` per-encoding methods `ERR_INVALID_ARG_TYPE` receiver conformance in JSC bindings | **2/2 Checks Green · [PR #44571](https://github.com/oven-sh/bun/pull/44571)** |
-| **Ethereum** | `ethereum/go-ethereum` | Blockchain Execution · Go | Bound database batch size during filtermaps log index rollback | **All Checks Green · [PR #35586](https://github.com/ethereum/go-ethereum/pull/35586)** |
-| **Paradigm** | `paradigmxyz/reth` | Blockchain Execution · Rust | Txpool live iterator candidate demotion when earlier transactions are reinserted | **Mergeable · In Review · [PR #27707](https://github.com/paradigmxyz/reth/pull/27707)** |
-| **Supabase** | `supabase/supavisor` | Connection Pooler · Elixir | PostgreSQL cancellation synchronization across backend connection reuse | **All Checks Green · Mergeable · [PR #1149](https://github.com/supabase/supavisor/pull/1149)** |
+| System & Stack | Architectural Invariant Delivered | Upstream Status |
+| :--- | :--- | :--- |
+| **LLVM** (`llvm-project`)<br/>*Compiler Backend · C++* | X86 SelectionDAG non-power-of-two vector integer division vectorization & lowering | **Merged Upstream**<br/>[PR #215076](https://github.com/llvm/llvm-project/pull/215076) |
+| **Meta** (`velox`)<br/>*Vectorized Kernels · C++20* | TopNRowNumber in-memory rank ordering correctness & partition stream parity | **Merged Upstream**<br/>[PR #18529](https://github.com/facebookincubator/velox/pull/18529) |
+| **DuckDB** (`duckdb`)<br/>*Vectorized Engine · C++* | PIVOT IN list zero-argument `row()` expression preservation & null dereference guard | **Merged Upstream**<br/>[PR #26443](https://github.com/duckdb/duckdb/pull/26443) |
+| **Apache** (`datafusion`)<br/>*Query Engine · Rust* | Execution-layer schema conformance across in-memory execution and aggregation | **Merged & Shipped**<br/>[PR #24394](https://github.com/apache/datafusion/pull/24394) |
+| **Microsoft** (`pyright`)<br/>*Type Evaluator · TypeScript* | Inherited asymmetric descriptor detection across effective MRO behavior | **Merged Upstream**<br/>[PR #11605](https://github.com/microsoft/pyright/pull/11605) |
+| **Hugging Face** (`diffusers`)<br/>*Generative AI · Python* | InpaintProcessor 3-tuple return contract preservation when mask is None | **Merged Upstream**<br/>[PR #14481](https://github.com/huggingface/diffusers/pull/14481) |
+| **Valkey** (`valkey`)<br/>*Distributed Storage · C99* | Cluster key-slot resolution & client cache validation for commands touching arbitrary keys | **Merged Upstream**<br/>[PR #4424](https://github.com/valkey-io/valkey/pull/4424) |
+| **eBay** (`NuRaft`)<br/>*Distributed Consensus · C++17* | Rejection of concurrent snapshot sync requests during asynchronous finalization race | **Merged Upstream**<br/>[PR #663](https://github.com/eBay/NuRaft/pull/663) |
+| **Microsoft** (`typespec`)<br/>*Compiler Tooling · TypeScript* | Playground state synchronization and deterministic regression coverage | **Merged Upstream**<br/>[PR #11660](https://github.com/microsoft/typespec/pull/11660) |
+| **Microsoft** (`agent-governance`)<br/>*AI Governance · Python* | Fail-closed approval-chain correctness for zero-required-stage configurations | **Merged Upstream**<br/>[PR #3448](https://github.com/microsoft/agent-governance-toolkit/pull/3448) |
+| **Microsoft** (`agent-governance`)<br/>*AI Governance · Python* | Policy fixture validation rejecting test definitions without explicit expectations | **Merged Upstream**<br/>[PR #3442](https://github.com/microsoft/agent-governance-toolkit/pull/3442) |
+| **Bushido** (`han`)<br/>*CLI Tooling · Rust* | Windows project-path compatibility with Claude Code slug conventions | **Merged Upstream**<br/>[PR #105](https://github.com/TheBushidoCollective/han/pull/105) |
+| **Tokio** (`tokio`)<br/>*Async Runtime · Rust* | Current-thread paused time wake tracking & zero-syscall timer preservation | **110/110 Green**<br/>[PR #8595](https://github.com/tokio-rs/tokio/pull/8595) |
+| **ClickHouse** (`ClickHouse`)<br/>*Real-Time DBMS · C++20* | Bounds validation on parallel replicas legacy query plan limit | **174/176 Green**<br/>[PR #114954](https://github.com/ClickHouse/ClickHouse/pull/114954) |
+| **SGLang** (`sglang`)<br/>*LLM Serving · Python/CUDA* | Mid-turn inline system message in-place attachment preserving RadixAttention prefix cache | **98 Checks Green**<br/>[PR #42533](https://github.com/sgl-project/sglang/pull/42533) |
+| **Cloudflare** (`workers-sdk`)<br/>*Edge Runtime · TypeScript* | Raw TCP socket streaming & backpressure handling for rejected WebSocket upgrades | **54/54 Green**<br/>[PR #15205](https://github.com/cloudflare/workers-sdk/pull/15205) |
+| **Apache** (`datafusion`)<br/>*Query Engine · Rust* | PushDownFilter clippy mutable key type allow annotations for Expr hash sets | **43/43 Green**<br/>[PR #26189](https://github.com/apache/datafusion/pull/26189) |
+| **Apache** (`datafusion`)<br/>*Query Engine · Rust* | Downcast to FixedSizeBinaryArray in CASE literal lookup table | **43/43 Green**<br/>[PR #26096](https://github.com/apache/datafusion/pull/26096) |
+| **Apache** (`datafusion`)<br/>*Query Engine · Rust* | Sort-merge semi/anti/mark key equality routing via JoinKeyComparator | **42/42 Green**<br/>[PR #26006](https://github.com/apache/datafusion/pull/26006) |
+| **Anthropic / MCP** (`ts-sdk`)<br/>*Agent Protocol · TypeScript* | Stream resumption for event IDs containing underscores | **14/14 Green**<br/>[PR #2567](https://github.com/modelcontextprotocol/typescript-sdk/pull/2567) |
+| **LLVM** (`llvm-project`)<br/>*Compiler Backend · C++* | X86 CodeGen preserve XMM liveness across VZEROUPPER and check register clobbers | **12/12 Green**<br/>[PR #218873](https://github.com/llvm/llvm-project/pull/218873) |
+| **Redpanda** (`redpanda`)<br/>*Streaming Storage · C++20* | RPC transport memory semaphore unit retention in queued request entries | **9/9 Green**<br/>[PR #31594](https://github.com/redpanda-data/redpanda/pull/31594) |
+| **OpenAI** (`triton`)<br/>*GPU Compiler · C++/Python* | Nanobind static build free-threaded PEP 703 GIL slot declaration | **All Checks Green**<br/>[PR #12221](https://github.com/triton-lang/triton/pull/12221) |
+| **vLLM** (`vllm`)<br/>*AI Inference Serving · Python* | Empty and non-mapping YAML config validation preventing unhandled CLI crash | **Checks Green**<br/>[PR #60319](https://github.com/vllm-project/vllm/pull/60319) |
+| **AWS** (`firecracker`)<br/>*MicroVM Hypervisor · Rust* | Resolved clippy infallible destructuring match on TimerFd in release builds | **3/3 Green**<br/>[PR #6262](https://github.com/firecracker-microvm/firecracker/pull/6262) |
+| **Bun** (`bun`)<br/>*JS Runtime · C++/Zig* | Node.js Buffer per-encoding methods invalid arg type receiver conformance in JSC bindings | **2/2 Green**<br/>[PR #44571](https://github.com/oven-sh/bun/pull/44571) |
+| **Ethereum** (`go-ethereum`)<br/>*Blockchain Execution · Go* | Bound database batch size during filtermaps log index rollback | **All Checks Green**<br/>[PR #35586](https://github.com/ethereum/go-ethereum/pull/35586) |
+| **Paradigm** (`reth`)<br/>*Blockchain Execution · Rust* | Txpool live iterator candidate demotion when earlier transactions are reinserted | **Mergeable**<br/>[PR #27707](https://github.com/paradigmxyz/reth/pull/27707) |
+| **Supabase** (`supavisor`)<br/>*Connection Pooler · Elixir* | PostgreSQL cancellation synchronization across backend connection reuse | **All Checks Green**<br/>[PR #1149](https://github.com/supabase/supavisor/pull/1149) |
 
 ---
 
@@ -181,32 +181,31 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 
 ### Inputs
 
-| Input | Required | Default | Description |
-| :--- | :---: | :--- | :--- |
-| `api_key` | No (Optional) | `''` | ZeroSlop Pro/Enterprise License Key (`RST_LIVE_...` or `zs_live_...`). Optional for 1st PR Free Try; required from PR #2+. |
-| `license_key` | No (Optional) | `''` | Alias for `api_key`. |
-| `post_pr_comment` | No | `true` | Automatically maintain a single self-updating Sovereign Verdict Card comment in the PR timeline (with embedded Mermaid Blast Radius map). |
-| `auto_close_slop` | No | `false` | Automatically close Pull Requests that fail with severe AI slop (`>=60%`) or CRITICAL CWE vulnerabilities (Pro/Enterprise). |
-| `ci_diagnostics` | No | `false` | Enable Pro CI Intelligence & Flake Classifier. Automatically isolates contributor green code from maintainer triage gates and runner flakes. |
-| `base_branch` | No | `main` | Base branch to compare incoming pull request diff against. |
-| `auto_polish` | No | `true` | Automatically run repo-native linters and auto-commit clean code. |
-| `fail_on_slop` | No | `true` | Fail the status check if unmitigated AI slop or CWE security vulnerabilities are detected. |
-| `github_token` | No | `${{ github.token }}` | GitHub token for querying workflow check runs and updating the single PR Verdict Card. |
-| `api_endpoint` | No | `https://www.ribbsaetersystems.com/api/v1/verify` | Custom API endpoint for on-premise or VPC enterprise appliances. |
+| Input & Default | Purpose & Behavior |
+| :--- | :--- |
+| **`api_key`**<br/>*Default:* `''` *(Optional for 1st PR)* | ZeroSlop Pro/Enterprise License Key (`RST_LIVE_...` or `zs_live_...`). Optional for 1st PR Free Try; required from PR #2+. |
+| **`post_pr_comment`**<br/>*Default:* `'true'` | Automatically maintain a single self-updating Sovereign Verdict Card comment in the PR timeline (with embedded Mermaid Blast Radius map). |
+| **`auto_close_slop`**<br/>*Default:* `'false'` | Automatically close Pull Requests that fail with severe AI slop (`>=60%`) or CRITICAL CWE vulnerabilities (Pro/Enterprise). |
+| **`ci_diagnostics`**<br/>*Default:* `'false'` | Enable Pro CI Intelligence & Flake Classifier. Isolates contributor green code from maintainer triage gates and runner flakes. |
+| **`base_branch`**<br/>*Default:* `'main'` | Base branch to compare incoming pull request diff against. |
+| **`auto_polish`**<br/>*Default:* `'true'` | Automatically run repo-native linters and auto-commit clean code. |
+| **`fail_on_slop`**<br/>*Default:* `'true'` | Fail the status check if unmitigated AI slop or CWE security vulnerabilities are detected. |
+| **`github_token`**<br/>*Default:* `github.token` | GitHub token for querying workflow check runs and updating the single PR Verdict Card. |
+| **`api_endpoint`**<br/>*Default:* *Sovereign Cloud API* | Custom verification endpoint for on-premise or VPC enterprise appliances. |
 
 ### Outputs
 
 | Output | Type | Description |
 | :--- | :--- | :--- |
-| `slop_score` | `number` | Calculated slop ratio percentage (0% = clean invariant, 100% = pure slop). |
-| `lines_reduced` | `number` | Total percentage of bloated, hallucinated lines stripped from diff. |
-| `invariants_verified` | `number` | Count of architectural invariants verified green. |
-| `security_findings_count` | `number` | Total deterministic CWE security vulnerabilities intercepted (`CWE-89`, `CWE-798`, `CWE-639`, etc.). |
-| `critical_cwe_count` | `number` | Count of CRITICAL severity CWE security findings blocked at the gate. |
-| `blast_radius_layers` | `number` | Count of architectural layers impacted by the pull request diff. |
-| `ci_classification` | `string` | Categorization of PR check status: `ALL_GREEN`, `TRIAGE_GATED`, `INFRA_FLAKE`, or `CODE_DEFECT`. |
-| `flaky_jobs_count` | `number` | Total upstream runner timeouts or toolchain flakes isolated. |
-| `gated_jobs_count` | `number` | Total maintainer triage gates (awaiting labels/approvals) isolated. |
+| **`slop_score`** | `number` | Calculated slop ratio percentage (`0%` = clean invariant, `100%` = pure slop). |
+| **`lines_reduced`** | `string` | Total percentage of bloated, hallucinated lines stripped from diff. |
+| **`invariants_verified`** | `string` | Percentage of architectural invariants verified green. |
+| **`security_findings_count`** | `number` | Total deterministic CWE security vulnerabilities intercepted (`CWE-89`, `CWE-798`, `CWE-639`, etc.). |
+| **`critical_cwe_count`** | `number` | Count of CRITICAL severity CWE security findings blocked at the gate. |
+| **`blast_radius_layers`** | `number` | Count of architectural layers impacted by the pull request diff. |
+| **`ci_classification`** | `string` | PR check status: `ALL_GREEN`, `TRIAGE_GATED`, `INFRA_FLAKE`, or `CODE_DEFECT`. |
+| **`flaky_jobs_count`** | `number` | Total upstream runner timeouts or toolchain flakes isolated. |
+| **`gated_jobs_count`** | `number` | Total maintainer triage gates (awaiting labels/approvals) isolated. |
 
 ---
 
@@ -222,19 +221,19 @@ ZeroSlop is engineered for security-conscious engineering teams, sovereign AI la
 * **Enterprise Compliance**: Designed to meet Swiss FADP, European GDPR, and NIS2 DevSecOps supply-chain standards.
 * **Security & Responsible Disclosure**: Comprehensive reporting SLAs and policies documented in [SECURITY.md](SECURITY.md) and [ribbsaetersystems.com/zeroslop/security](https://www.ribbsaetersystems.com/zeroslop/security).
 
-### ⚔️ Category Showdown: ZeroSlop™ Airlock vs. AI Review Chatbots & Legacy SAST
+### ⚔️ Category Showdown: ZeroSlop™ vs. AI Review Bots & Legacy SAST
 
 Competitors tell you *"the future isn't writing code—it's reviewing it and prioritizing it"* while herding your engineers into 80-PR Kanban queues, multi-tab "ChangeStack" portals, and 1,999-finding security charts. Senior engineers were hired to ship systems—not click through external SaaS dashboards or read 25 bot comments per PR.
 
-| Architectural Capability | 🛡️ ZeroSlop™ Sovereign Airlock | 🤖 AI Review Chatbots (CodeRabbit, Greptile, Qodo) | 🐢 Legacy SAST Scanners (SonarQube, Snyk) |
+| Capability | 🛡️ ZeroSlop™ Airlock | 🤖 AI Review Bots *(CodeRabbit, Greptile)* | 🐢 Legacy SAST *(SonarQube, Snyk)* |
 | :--- | :--- | :--- | :--- |
-| **Developer Workflow & UI** | **✓ Zero-Click Native GitHub Summary + 1 In-Place PR Card** (Zero external SaaS dashboards) | ✕ Herds devs into external SaaS portals, ChangeStacks & 80-PR Kanban queues | ✕ Separate enterprise portal with high false-positive alert fatigue |
-| **Cross-Layer Blast Radius** | **✓ Automatic Mermaid `Entrypoint ➔ Auth ➔ Persistence Sink` reachability in PR** | ⚠️ Requires manual clicking across SaaS UI tabs to inspect file groups | ✕ Isolated file-level lint alerts without architectural layer context |
-| **12-Shield CWE Enforcement** | **✓ Deterministically blocks SQLi, Seeded Creds, IDOR, SSRF, Pwn Requests & Slopsquatting** | ⚠️ Probabilistic LLM commentary; leaves 1,999 unfixed findings in charts | ⚠️ Slow post-hoc scans; blind to AI-specific wrapper & workflow patterns |
-| **Prompt-Injection Immunity** | **✓ 100% Deterministic Engine** — Cannot be jailbroken by PR comments | ✕ Vulnerable to indirect prompt injection hidden inside PR diffs | ✓ Deterministic rules, but blind to AI prompt-override payloads |
-| **AI Slop & Wrapper Distillation** | **✓ Strips 94% of hallucinated wrappers & blocks deleted test assertions** | ✕ Adds more AI commentary on top of AI slop without shrinking the diff | ✕ Zero awareness of LLM wrapper bloat or conversational debris |
-| **CI Flake vs. Triage Gate Isolation** | **✓ Separates Contributor Code Defects from Runner Flakes & Triage Gates** | ✕ Blind to upstream runner flakes vs. maintainer approval labels | ✕ No GitHub Actions check-run triage classification |
-| **Source Code Privacy & Retention** | **✓ Strictly Zero Code Retention** (Ephemeral RAM Enclave · Swiss/GDPR) | ⚠️ Ships proprietary diffs to third-party LLM providers & SaaS stores | ⚠️ Persists full source code snapshots in cloud databases |
+| **Workflow & UI** | **✓ Zero-Click GitHub Summary + 1 PR Card** *(No external dashboards)* | ✕ Herds devs into SaaS portals, ChangeStacks & 80-PR queues | ✕ Separate enterprise portal with high alert fatigue |
+| **Blast Radius** | **✓ Auto Mermaid Reachability** *(Entrypoint ➔ Auth ➔ DB Sink)* | ⚠️ Manual clicking across SaaS UI tabs to inspect file groups | ✕ Isolated file alerts without architectural context |
+| **12-Shield CWE Gate** | **✓ Deterministically blocks SQLi, Creds, IDOR, SSRF & Pwn Requests** | ⚠️ Probabilistic LLM chat; leaves 1,999 unfixed findings in charts | ⚠️ Slow post-hoc scans; blind to AI wrapper patterns |
+| **Prompt-Injection Immunity** | **✓ 100% Deterministic Engine** *(Cannot be jailbroken by diffs)* | ✕ Vulnerable to indirect prompt injection hidden in PR diffs | ✓ Deterministic rules, blind to AI prompt overrides |
+| **AI Slop Distillation** | **✓ Strips 94% of hallucinated wrappers & blocks test deletions** | ✕ Adds more AI chat commentary on top of bloated AI diffs | ✕ Zero awareness of LLM wrapper bloat |
+| **CI Flake Isolation** | **✓ Isolates Code Defects from Runner Flakes & Triage Gates** | ✕ Blind to upstream runner flakes vs. maintainer labels | ✕ No GitHub Actions check-run classification |
+| **Code Retention** | **✓ Strictly Zero Code Retention** *(Ephemeral RAM Enclave)* | ⚠️ Ships proprietary diffs to 3rd-party LLM providers | ⚠️ Persists full source snapshots in cloud DBs |
 
 ---
 
@@ -244,47 +243,47 @@ AI coding agents (Cursor, Copilot, Claude Code) increased commit volume by 300%,
 
 ### The Hard ROI Breakdown (10-Engineer Team)
 
-| Metric | Without ZeroSlop (Status Quo) | With ZeroSlop Sovereign Airlock | Net Impact |
+| Metric | Without ZeroSlop | With ZeroSlop Airlock | Net Impact |
 | :--- | :--- | :--- | :--- |
-| **PR Review Churn** | 15–20 hours / week per senior dev | Under 2 hours / week (pre-flight verified) | **60+ hours reclaimed per sprint** |
-| **PR Cycle Turnaround** | 4.2 days average review bottleneck | 45 minutes to merge | **85% faster release cadence** |
-| **CI Failures on PRs** | 14+ failing public CI checks per draft | 100% green compiler checks on first push | **Zero public CI debugging waste** |
-| **Annual Review Payroll** | **$160,000 / year** burned ($80/hr senior salary) | **$348 / year** ($29/mo Pro) or **$1,999/mo** (Enterprise) | **$150,000+ net annual payroll saved** |
-| **Financial Return** | Continuous velocity erosion | **18.2x+ Annual ROI** | **Payback Period: < 48 Hours** |
+| **PR Review Churn** | 15–20 hrs/wk per senior dev | Under 2 hrs/wk (pre-verified) | **60+ hrs reclaimed / sprint** |
+| **PR Turnaround** | 4.2 days average bottleneck | 45 minutes to merge | **85% faster release cadence** |
+| **CI Failures on PRs** | 14+ failing checks per draft | 100% green checks on 1st push | **Zero public CI waste** |
+| **Review Payroll** | **$160,000 / yr** burned | **$348 / yr** ($29/mo Pro) | **$150,000+ payroll saved** |
+| **Financial Return** | Continuous velocity erosion | **18.2x+ Annual ROI** | **Payback: < 48 Hours** |
 
 ---
 
 ## 🎯 Engineered for Every Decision Maker in Engineering
 
-| Role | Core Friction | How ZeroSlop Delivers The Win |
+| Role | Core Friction Solved | How ZeroSlop Delivers The Win |
 | :--- | :--- | :--- |
-| **Staff & Senior Engineers** | Getting slammed with 20 review comments for bloated AI helpers. | **Surgical Invariant Output**: Strips 180-line diffs down to the 4 lines that preserve contracts. Auto-commits clean formatting before peers review. Zero CI humiliation. |
+| **Staff & Senior Engineers** | Getting slammed with 20 review comments for bloated AI helpers. | **Surgical Invariant Output**: Strips 180-line diffs down to the 4 lines that preserve contracts. Auto-commits clean formatting before peers review. |
 | **Tech Leads & EMs** | PR queue backlogs; senior engineers acting as human linters. | **70% Shorter PR Cycles**: Clears review bottlenecks so teams spend sprint capacity shipping user features instead of untangling boilerplate. |
 | **VPs of Engineering** | Hiring more engineers slows release cadence; high cost of delay. | **Measurable Velocity Boost**: Reclaim 60+ senior hours per sprint. Turn generative AI code into verified production throughput with 18x annual return. |
-| **CTOs & Chief Architects** | Long-term architectural decay and subtle AI memory/concurrency leaks. | **Hard Invariants & Zero-Click Blast Radius**: Mathematically proves interface contracts and maps cross-layer exploit reachability directly in GitHub without external SaaS dashboard bloat. |
-| **CISOs & AppSec Directors** | AI-introduced CWE flaws, prompt-injected review bots, and IP leakage. | **10-Shield CWE Airlock & Zero Code Retention**: Blocks SQLi, hardcoded keys, IDOR, SSRF, and CI Pwn Requests deterministically in ephemeral RAM. 100% immune to reviewer prompt injection. |
+| **CTOs & Chief Architects** | Long-term architectural decay and subtle AI memory/concurrency leaks. | **Hard Invariants & Zero-Click Blast Radius**: Mathematically proves interface contracts and maps cross-layer exploit reachability directly in GitHub. |
+| **CISOs & AppSec Directors** | AI-introduced CWE flaws, prompt-injected review bots, and IP leakage. | **12-Shield CWE Airlock & Zero Code Retention**: Blocks SQLi, hardcoded keys, IDOR, SSRF, and CI Pwn Requests deterministically in ephemeral RAM. |
 
 ---
 
 ## 💼 Commercial Licensing & Pricing (100% Self-Serve)
 
-| Tier | Investment | Seats & Scope | Concurrency | Capabilities Included | Direct Checkout |
-| :--- | :--- | :--- | :--- | :--- | :---: |
-| **Single Evaluation Try** | **$0 (1 PR Try)** | **1 Developer · 1 PR Audit**<br>*(One-Time Account Test · Locks After 1 PR)* | Standard | AST diff parser · 10-Shield CWE Security Airlock · Zero-Click Blast Radius · Zero-test-deletion guard | [**Try 1 PR Free**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
-| **ZeroSlop™ Pro** | **$29 / month** | **1 Pro Developer Account**<br>*(Single Seat · Unlimited Repos · Zero Local Installs)* | Unlimited | Full Continuous Access + **Unlimited Repo Audits** · **10-Shield CWE Security Airlock** · **Zero-Click Cross-Layer Blast Radius** · **Active Auto-Close Airlock** · **Autonomous CI Flake & Triage Classifier** | [**Subscribe Pro ($29/mo)**](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
-| **ZeroSlop™ Enterprise Core** | **$1,999 / month** | **Per 100 Active Developers**<br>*(100-Dev Block · Dedicated VPC · Unlimited Repos)* | Unlimited Dedicated | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom CWE & Wire Protocol Invariants · Multi-Repo Fleet Analytics · Air-Gapped Runners · 24/7 SLA | [**Deploy Enterprise ($1,999/mo)**](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+| Tier & Investment | Scope & Concurrency | Capabilities & Instant Activation |
+| :--- | :--- | :--- |
+| **Single Evaluation Try**<br/>**`$0` (1 PR Try)** | **1 Developer · 1 PR Audit**<br/>*One-Time Account Test · Locks After 1 PR* | AST diff parser · 12-Shield CWE Security Airlock · Zero-Click Mermaid Blast Radius · Zero-test-deletion guard<br/>👉 [**Try 1 PR Free on Marketplace →**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
+| **ZeroSlop™ Pro**<br/>**`$29 / month`** | **1 Pro Developer Seat**<br/>*Unlimited Repos · Unlimited PRs* | Full Continuous Access + **Unlimited Repo Audits** · **12-Shield CWE Security Airlock** · **Single In-Place PR Verdict Card** · **Zero-Click Blast Radius** · **Autonomous CI Flake Classifier**<br/>👉 [**Subscribe Pro ($29/mo) →**](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
+| **ZeroSlop™ Enterprise Core**<br/>**`$1,999 / month`** | **Per 100 Active Developers**<br/>*Dedicated VPC · Unlimited Repos* | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom CWE & Wire Protocol Invariants · Multi-Repo Fleet Analytics · Air-Gapped Runners · 24/7 SLA<br/>👉 [**Deploy Enterprise ($1,999/mo) →**](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
 
 ### ⚡ Self-Serve Headcount Scaling (Zero Sales Calls · Instant Activation)
 
 Enterprise Core is billed in transparent **100-developer blocks at $1,999 / month per block**. Organizations purchase the quantity matching their active contributor count:
 
-| Active Engineering Headcount | License Allocation | Monthly Investment | Annual Investment | Activation Model |
-| :--- | :--- | :--- | :--- | :--- |
-| **1 – 68 Engineers** | Individual Pro Seats ($29/dev) | $29 – $1,972 / mo | $348 – $23,664 / yr | [Subscribe Pro ($29/mo)](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
-| **Up to 100 Engineers** | 1x Enterprise Core Block | **$1,999 / month flat** | $23,988 / year | [Deploy Enterprise ($1,999/mo)](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
-| **Up to 200 Engineers** | 2x Enterprise Core Blocks | **$3,998 / month flat** | $47,976 / year | [Deploy Enterprise (2 Units)](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
-| **Up to 500 Engineers** | 5x Enterprise Core Blocks | **$9,995 / month flat** | $119,940 / year | [Deploy Enterprise (5 Units)](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
-| **Up to 1,000 Engineers** | 10x Enterprise Core Blocks | **$19,990 / month flat** | $239,880 / year | [Deploy Enterprise (10 Units)](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+| Engineering Headcount | License Allocation | Investment & Instant Activation |
+| :--- | :--- | :--- |
+| **1 – 68 Engineers** | Individual Pro Seats ($29/dev) | **$29 – $1,972 / mo** · [Subscribe Pro ($29/mo) →](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
+| **Up to 100 Engineers** | 1x Enterprise Core Block | **$1,999 / month flat** ($23,988/yr) · [Deploy 1 Block →](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+| **Up to 200 Engineers** | 2x Enterprise Core Blocks | **$3,998 / month flat** ($47,976/yr) · [Deploy 2 Blocks →](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+| **Up to 500 Engineers** | 5x Enterprise Core Blocks | **$9,995 / month flat** ($119,940/yr) · [Deploy 5 Blocks →](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+| **Up to 1,000 Engineers** | 10x Enterprise Core Blocks | **$19,990 / month flat** ($239,880/yr) · [Deploy 10 Blocks →](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
 
 *Zero sales negotiation. Zero multi-week procurement friction. Calculate your engineering headcount and deploy organization-wide via Stripe.*
 
