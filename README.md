@@ -226,11 +226,11 @@ AI coding agents (Cursor, Copilot, Claude Code) increased commit volume by 300%,
 
 ## 💼 Commercial Licensing & Pricing
 
-| Tier | Investment | Quota & Scope | Concurrency | Capabilities Included | Direct Checkout |
+| Tier | Investment | Team Seats & Scope | Concurrency | Capabilities Included | Direct Checkout |
 | :--- | :--- | :--- | :--- | :--- | :---: |
-| **Single Evaluation Try** | **$0 (1 PR Try)** | **1 Pull Request Audit**<br>*(One-Time Account Test · Locks After 1 PR)* | Standard | AST diff parser · Invariant gatekeeper · Zero-test-deletion guard · Auto-polish linter | [**Try 1 PR Free**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
-| **ZeroSlop™ Pro** | **$29 / month** | **Unlimited Private & Public PRs**<br>*(Any GitHub Org)* | Unlimited | Full Continuous Access + **Unlimited Repo Audits** · **Active Auto-Close Airlock** · **Autonomous CI Flake & Triage Classifier** · Pre-Merge Status Matrix · Priority Desk | [**Subscribe Pro ($29/mo)**](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
-| **ZeroSlop™ Enterprise** | **$1,999 / month** | **Enterprise Engineering Orgs**<br>*(Unlimited seats & repos)* | Unlimited Dedicated | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom Wire Protocol Invariants · Multi-Repo Fleet Analytics · Air-Gapped Runners · 24/7 SLA | [**Deploy Enterprise ($1,999/mo)**](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+| **Single Evaluation Try** | **$0 (1 PR Try)** | **1 Developer · 1 PR Audit**<br>*(One-Time Account Test · Locks After 1 PR)* | Standard | AST diff parser · Invariant gatekeeper · Zero-test-deletion guard · Auto-polish linter | [**Try 1 PR Free**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
+| **ZeroSlop™ Pro** | **$29 / month** | **Up to 10 Team Developers**<br>*(Unlimited Private & Public Repos · Zero Local Installs)* | Unlimited | Full Continuous Access + **Unlimited Repo Audits** · **Active Auto-Close Airlock** · **Autonomous CI Flake & Triage Classifier** · Pre-Merge Status Matrix · Priority Desk | [**Subscribe Pro ($29/mo)**](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
+| **ZeroSlop™ Enterprise** | **$1,999 / month** | **Unlimited Seats & Repos Org-Wide**<br>*(Zero per-seat counting · Dedicated VPC)* | Unlimited Dedicated | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom Wire Protocol Invariants · Multi-Repo Fleet Analytics · Air-Gapped Runners · 24/7 SLA | [**Deploy Enterprise ($1,999/mo)**](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
 
 Provision license keys and explore the live interactive simulator at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
 
