@@ -224,14 +224,27 @@ AI coding agents (Cursor, Copilot, Claude Code) increased commit volume by 300%,
 
 ---
 
-## 💼 Commercial Licensing & Pricing
+## 💼 Commercial Licensing & Pricing (100% Self-Serve)
 
 | Tier | Investment | Seats & Scope | Concurrency | Capabilities Included | Direct Checkout |
 | :--- | :--- | :--- | :--- | :--- | :---: |
 | **Single Evaluation Try** | **$0 (1 PR Try)** | **1 Developer · 1 PR Audit**<br>*(One-Time Account Test · Locks After 1 PR)* | Standard | AST diff parser · Invariant gatekeeper · Zero-test-deletion guard · Auto-polish linter | [**Try 1 PR Free**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
 | **ZeroSlop™ Pro** | **$29 / month** | **1 Pro Developer Account**<br>*(Single Seat · Unlimited Repos · Zero Local Installs)* | Unlimited | Full Continuous Access + **Unlimited Repo Audits** · **Active Auto-Close Airlock** · **Autonomous CI Flake & Triage Classifier** · Pre-Merge Status Matrix · Priority Desk | [**Subscribe Pro ($29/mo)**](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
-| **ZeroSlop™ Enterprise Core** | **$1,999 / month flat** | **Up to 100 Developers Org-Wide**<br>*(Hard Ceiling · Dedicated VPC · Unlimited Repos)* | Unlimited Dedicated | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom Wire Protocol Invariants · Multi-Repo Fleet Analytics · Air-Gapped Runners · 24/7 SLA | [**Deploy Enterprise ($1,999/mo)**](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
-| **Sovereign Fleet (100+ Devs)** | **Custom Quote** | **100+ to 500+ Developers Org-Wide**<br>*(Custom Cloud/On-Premise SLA)* | Custom Dedicated | Everything in Enterprise Core + Custom Compute Topology · 24/7 Dedicated Principal Architect Retainer · Tailored Legal MSA | [**Inquire Confidentially**](mailto:contact@ribbsaetersystems.com) |
+| **ZeroSlop™ Enterprise Core** | **$1,999 / month** | **Per 100 Active Developers**<br>*(100-Dev Block · Dedicated VPC · Unlimited Repos)* | Unlimited Dedicated | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom Wire Protocol Invariants · Multi-Repo Fleet Analytics · Air-Gapped Runners · 24/7 SLA | [**Deploy Enterprise ($1,999/mo)**](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+
+### ⚡ Self-Serve Headcount Scaling (Zero Sales Calls · Instant Activation)
+
+Enterprise Core is billed in transparent **100-developer blocks at $1,999 / month per block**. Organizations purchase the quantity matching their active contributor count:
+
+| Active Engineering Headcount | License Allocation | Monthly Investment | Annual Investment | Activation Model |
+| :--- | :--- | :--- | :--- | :--- |
+| **1 – 68 Engineers** | Individual Pro Seats ($29/dev) | $29 – $1,972 / mo | $348 – $23,664 / yr | [Subscribe Pro ($29/mo)](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
+| **Up to 100 Engineers** | 1x Enterprise Core Block | **$1,999 / month flat** | $23,988 / year | [Deploy Enterprise ($1,999/mo)](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+| **Up to 200 Engineers** | 2x Enterprise Core Blocks | **$3,998 / month flat** | $47,976 / year | [Deploy Enterprise (2 Units)](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+| **Up to 500 Engineers** | 5x Enterprise Core Blocks | **$9,995 / month flat** | $119,940 / year | [Deploy Enterprise (5 Units)](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+| **Up to 1,000 Engineers** | 10x Enterprise Core Blocks | **$19,990 / month flat** | $239,880 / year | [Deploy Enterprise (10 Units)](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+
+*Zero sales negotiation. Zero multi-week procurement friction. Calculate your engineering headcount and deploy organization-wide via Stripe.*
 
 Provision license keys and explore the live interactive simulator at [**ribbsaetersystems.com/zeroslop**](https://ribbsaetersystems.com/zeroslop).
 
