@@ -155,18 +155,12 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 
 <br/>
 
-### ⚡ 1. Frontier AI Inference, GPU Compilers & LLM Runtimes
-*KV-cache prefix optimization, GPU kernel interface slots, model tokenizer parity, and high-throughput inference serving.*
+### ⚡ 1. Frontier AI Inference & Generative Media
+*Model contract preservation, processing pipelines, and inference stability.*
 
 | System | Stack | Architectural Invariant Delivered | Upstream Status |
 | :--- | :--- | :--- | :---: |
 | **Hugging Face Diffusers** | GenAI · Python | InpaintProcessor 3-tuple return contract preservation when mask tensor input is None | **Merged**<br/>[PR #14481](https://github.com/huggingface/diffusers/pull/14481) |
-| **SGLang** | LLM Serving · Py / CUDA | Weight checker rotary embedding axis_map buffer preservation across multi-GPU ranks | **Checks Green**<br/>[PR #44520](https://github.com/sgl-project/sglang/pull/44520) |
-| **vLLM** | LLM Serving · Python | Descriptive ValueError exception guard for unsupported Mamba2 and Zamba2 LoRA adapters | **Checks Green**<br/>[PR #61870](https://github.com/vllm-project/vllm/pull/61870) |
-| **OpenAI Triton** | GPU Compiler · C++ / Py | Nanobind static build free-threaded Python PEP 703 GIL module slot declaration | **Checks Green**<br/>[PR #12221](https://github.com/triton-lang/triton/pull/12221) |
-| **Meta TorchTune** | LLM Training · Python | Mistral and Gemma end-token generation stopping control and tokenizer parity | **3/3 Green**<br/>[PR #2977](https://github.com/meta-pytorch/torchtune/pull/2977) |
-| **Aider** | AI Dev Tool · Python | Enforce strict token budget ceiling during repository map binary search | **Checks Green**<br/>[PR #5854](https://github.com/Aider-AI/aider/pull/5854) |
-| **Continue** | AI Dev Tool · TypeScript | Preserve SSE keep-alive ping comments during event streaming without premature truncation | **13/13 Green**<br/>[PR #13382](https://github.com/continuedev/continue/pull/13382) |
 
 <br/>
 
@@ -177,10 +171,8 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 | :--- | :--- | :--- | :---: |
 | **LLVM** | Compiler · C++ | X86 SelectionDAG non-power-of-two vector integer division vectorization and target lowering | **Merged**<br/>[PR #215076](https://github.com/llvm/llvm-project/pull/215076) |
 | **Tokio** | Async Runtime · Rust | Current-thread paused time wake tracking and zero-syscall timer queue preservation | **Merged**<br/>[PR #8595](https://github.com/tokio-rs/tokio/pull/8595) |
-| **LLVM** | Compiler · C++ | X86 CodeGen preserve XMM register liveness across VZEROUPPER and check register clobbers | **12/12 Green**<br/>[PR #218873](https://github.com/llvm/llvm-project/pull/218873) |
 | **AWS Firecracker** | MicroVM · Rust | Resolved clippy infallible destructuring match on TimerFd in release builds | **Merged**<br/>[PR #6262](https://github.com/firecracker-microvm/firecracker/pull/6262) |
-| **Bun** | JS Runtime · Zig | Node.js Buffer per-encoding methods receiver type conformance in JavaScriptCore bindings | **2/2 Green**<br/>[PR #44571](https://github.com/oven-sh/bun/pull/44571) |
-| **Cloudflare Workers SDK** | Edge Runtime · TypeScript | Raw TCP socket streaming and backpressure handling for rejected WebSocket upgrades | **54/54 Green**<br/>[PR #15205](https://github.com/cloudflare/workers-sdk/pull/15205) |
+| **Bushido Han** | Agent Tooling · Rust | Windows project-path normalization compatibility with Claude Code workspace slug rules | **Merged**<br/>[PR #105](https://github.com/TheBushidoCollective/han/pull/105) |
 
 <br/>
 
@@ -193,19 +185,14 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 | **DuckDB** | Database · C++ | PIVOT IN list zero-argument `row()` expression preservation and null dereference guard | **Merged**<br/>[PR #26443](https://github.com/duckdb/duckdb/pull/26443) |
 | **Meta Velox** | Query Engine · C++20 | TopNRowNumber in-memory rank ordering correctness and partition stream execution parity | **Merged**<br/>[PR #18529](https://github.com/facebookincubator/velox/pull/18529) |
 | **Apache DataFusion** | Query Engine · Rust | Execution-layer schema conformance across in-memory physical execution and aggregation | **Merged**<br/>[PR #24394](https://github.com/apache/datafusion/pull/24394) |
-| **Apache DataFusion** | Query Engine · Rust | Preserve inner list field nullability across general_list_repeat execution | **Checks Green**<br/>[PR #26379](https://github.com/apache/datafusion/pull/26379) |
-| **Valkey** | Datastore · C99 | Cluster key-slot resolution and client-side cache validation for arbitrary key commands | **Merged**<br/>[PR #4424](https://github.com/valkey-io/valkey/pull/4424) |
-| **ClickHouse** | OLAP Engine · C++20 | Bounds validation on parallel replicas legacy query plan limit enforcement pipeline | **174/176 Green**<br/>[PR #114954](https://github.com/ClickHouse/ClickHouse/pull/114954) |
-| **Apache DataFusion** | Query Engine · Rust | PushDownFilter clippy mutable key type allow annotations for logical Expr hash sets | **43/43 Green**<br/>[PR #26189](https://github.com/apache/datafusion/pull/26189) |
 | **Apache DataFusion** | Query Engine · Rust | Safe downcast to FixedSizeBinaryArray in CASE literal vectorized lookup evaluation table | **Merged**<br/>[PR #26096](https://github.com/apache/datafusion/pull/26096) |
-| **Apache DataFusion** | Query Engine · Rust | Sort-merge semi, anti, and mark join key equality routing via JoinKeyComparator | **42/42 Green**<br/>[PR #26006](https://github.com/apache/datafusion/pull/26006) |
-| **Redpanda** | Streaming · C++20 | RPC transport memory semaphore unit retention across queued outbound request entries | **9/9 Green**<br/>[PR #31594](https://github.com/redpanda-data/redpanda/pull/31594) |
-| **Supabase Supavisor** | Pooler · Elixir | PostgreSQL query cancellation key synchronization across pooled backend connection reuse | **Checks Green**<br/>[PR #1149](https://github.com/supabase/supavisor/pull/1149) |
+| **Valkey** | Datastore · C99 | Cluster key-slot resolution and client-side cache validation for arbitrary key commands | **Merged**<br/>[PR #4424](https://github.com/valkey-io/valkey/pull/4424) |
+| **SQLFluff** | SQL Linter · Python | T-SQL: Support empty OVER () clause for PERCENTILE_CONT and PERCENTILE_DISC | **Merged**<br/>[PR #8788](https://github.com/sqlfluff/sqlfluff/pull/8788) |
 
 <br/>
 
 ### 🤖 4. Autonomous Agent Protocols, Type Systems & Security Governance
-*Deterministic approval chains, MCP protocol streaming, type inference hierarchies, and cryptographic consensus.*
+*Deterministic approval chains, type inference hierarchies, and cryptographic consensus.*
 
 | System | Stack | Architectural Invariant Delivered | Upstream Status |
 | :--- | :--- | :--- | :---: |
@@ -214,13 +201,6 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 | **Microsoft Agent Governance** | Agent Safety · Python | Fail-closed approval-chain invariant enforcement for zero-required-stage configurations | **Merged**<br/>[PR #3448](https://github.com/microsoft/agent-governance-toolkit/pull/3448) |
 | **Microsoft Agent Governance** | Agent Safety · Python | Policy fixture schema validation rejecting test definitions missing explicit expectations | **Merged**<br/>[PR #3442](https://github.com/microsoft/agent-governance-toolkit/pull/3442) |
 | **eBay NuRaft** | Consensus · C++17 | Rejection of concurrent snapshot sync requests during asynchronous finalization race window | **Merged**<br/>[PR #663](https://github.com/eBay/NuRaft/pull/663) |
-| **Bushido Han** | Agent Tooling · Rust | Windows project-path normalization compatibility with Claude Code workspace slug rules | **Merged**<br/>[PR #105](https://github.com/TheBushidoCollective/han/pull/105) |
-| **Anthropic MCP SDK** | Agent Protocol · TypeScript | Stream resumption support for SSE event identifiers containing underscore delimiter tokens | **14/14 Green**<br/>[PR #2567](https://github.com/modelcontextprotocol/typescript-sdk/pull/2567) |
-| **Ledger Ragger** | Secure Element · Python | Hardware wallet firmware project discovery across linked git worktrees and submodules | **7/7 Green**<br/>[PR #291](https://github.com/LedgerHQ/ragger/pull/291) |
-| **Ethereum go-ethereum** | Execution · Go | Bound leveldb/pebble database batch memory size during filtermaps log index rollback | **Checks Green**<br/>[PR #35586](https://github.com/ethereum/go-ethereum/pull/35586) |
-| **Paradigm Reth** | Execution · Rust | Transaction pool live iterator candidate demotion when earlier transactions are reinserted | **Mergeable**<br/>[PR #27707](https://github.com/paradigmxyz/reth/pull/27707) |
-| **Web3.py** | Ethereum SDK · Python | Async socket teardown lifecycle synchronization and deterministic future test harness | **Tests Green**<br/>[PR #3872](https://github.com/ApeWorX/web3.py/pull/3872) |
-| **Vercel Next.js** | Web Framework · TypeScript | Segment-cache client navigation recovery with full-page fallback guard on stale prefetches | **3/3 Green**<br/>[PR #97815](https://github.com/vercel/next.js/pull/97815) |
 
 ---
 
