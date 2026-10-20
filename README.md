@@ -155,52 +155,18 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 
 <br/>
 
-### ⚡ 1. Frontier AI Inference & Generative Media
-*Model contract preservation, processing pipelines, and inference stability.*
+### 🏛️ Verified Sovereign Invariant Merges (Tier-1 Compilers & Runtimes)
+*Deterministic architectural invariant delivery across the world's most demanding open-source infrastructure.*
 
 | System | Stack | Architectural Invariant Delivered | Upstream Status |
 | :--- | :--- | :--- | :---: |
-| **Hugging Face Diffusers** | GenAI · Python | InpaintProcessor 3-tuple return contract preservation when mask tensor input is None | **Merged**<br/>[PR #14481](https://github.com/huggingface/diffusers/pull/14481) |
-
-<br/>
-
-### 🏛️ 2. Compilers, Low-Level Systems & MicroVM Infrastructure
-*Vector code generation, register liveness preservation, async event-loop timer tracking, and kernel-adjacent microVM runtimes.*
-
-| System | Stack | Architectural Invariant Delivered | Upstream Status |
-| :--- | :--- | :--- | :---: |
-| **LLVM** | Compiler · C++ | X86 SelectionDAG non-power-of-two vector integer division vectorization and target lowering | **Merged**<br/>[PR #215076](https://github.com/llvm/llvm-project/pull/215076) |
-| **Tokio** | Async Runtime · Rust | Current-thread paused time wake tracking and zero-syscall timer queue preservation | **Merged**<br/>[PR #8595](https://github.com/tokio-rs/tokio/pull/8595) |
-| **AWS Firecracker** | MicroVM · Rust | Resolved clippy infallible destructuring match on TimerFd in release builds | **Merged**<br/>[PR #6262](https://github.com/firecracker-microvm/firecracker/pull/6262) |
-| **Bushido Han** | Agent Tooling · Rust | Windows project-path normalization compatibility with Claude Code workspace slug rules | **Merged**<br/>[PR #105](https://github.com/TheBushidoCollective/han/pull/105) |
-
-<br/>
-
-### 💾 3. High-Performance Data Engines & Distributed OLAP
-*Vectorized query execution, partition in-memory ordering, schema nullability conformance, and distributed storage engines.*
-
-| System | Stack | Architectural Invariant Delivered | Upstream Status |
-| :--- | :--- | :--- | :---: |
-| **Apache Arrow (Rust)** | Columnar Format · Rust | Correctness fix for Fields::filter_leaves nested traversal on ListView and LargeListView | **Merged**<br/>[PR #11657](https://github.com/apache/arrow-rs/pull/11657) |
-| **DuckDB** | Database · C++ | PIVOT IN list zero-argument `row()` expression preservation and null dereference guard | **Merged**<br/>[PR #26443](https://github.com/duckdb/duckdb/pull/26443) |
-| **Meta Velox** | Query Engine · C++20 | TopNRowNumber in-memory rank ordering correctness and partition stream execution parity | **Merged**<br/>[PR #18529](https://github.com/facebookincubator/velox/pull/18529) |
-| **Apache DataFusion** | Query Engine · Rust | Execution-layer schema conformance across in-memory physical execution and aggregation | **Merged**<br/>[PR #24394](https://github.com/apache/datafusion/pull/24394) |
-| **Apache DataFusion** | Query Engine · Rust | Safe downcast to FixedSizeBinaryArray in CASE literal vectorized lookup evaluation table | **Merged**<br/>[PR #26096](https://github.com/apache/datafusion/pull/26096) |
-| **Valkey** | Datastore · C99 | Cluster key-slot resolution and client-side cache validation for arbitrary key commands | **Merged**<br/>[PR #4424](https://github.com/valkey-io/valkey/pull/4424) |
-| **SQLFluff** | SQL Linter · Python | T-SQL: Support empty OVER () clause for PERCENTILE_CONT and PERCENTILE_DISC | **Merged**<br/>[PR #8788](https://github.com/sqlfluff/sqlfluff/pull/8788) |
-
-<br/>
-
-### 🤖 4. Autonomous Agent Protocols, Type Systems & Security Governance
-*Deterministic approval chains, type inference hierarchies, and cryptographic consensus.*
-
-| System | Stack | Architectural Invariant Delivered | Upstream Status |
-| :--- | :--- | :--- | :---: |
-| **Microsoft Pyright** | Type Checker · TypeScript | Inherited asymmetric descriptor detection and type inference across effective MRO hierarchy | **Merged**<br/>[PR #11605](https://github.com/microsoft/pyright/pull/11605) |
-| **Microsoft TypeSpec** | API Compiler · TypeScript | Playground state synchronization and deterministic compiler regression suite coverage | **Merged**<br/>[PR #11660](https://github.com/microsoft/typespec/pull/11660) |
-| **Microsoft Agent Governance** | Agent Safety · Python | Fail-closed approval-chain invariant enforcement for zero-required-stage configurations | **Merged**<br/>[PR #3448](https://github.com/microsoft/agent-governance-toolkit/pull/3448) |
-| **Microsoft Agent Governance** | Agent Safety · Python | Policy fixture schema validation rejecting test definitions missing explicit expectations | **Merged**<br/>[PR #3442](https://github.com/microsoft/agent-governance-toolkit/pull/3442) |
-| **eBay NuRaft** | Consensus · C++17 | Rejection of concurrent snapshot sync requests during asynchronous finalization race window | **Merged**<br/>[PR #663](https://github.com/eBay/NuRaft/pull/663) |
+| **DuckDB** | Database · C++ | PIVOT IN list row() expression preservation | **Merged**<br/>[PR #26443](https://github.com/duckdb/duckdb/pull/26443) |
+| **Meta Velox** | Query Engine · C++20 | TopNRowNumber partition parity | **Merged**<br/>[PR #18529](https://github.com/facebookincubator/velox/pull/18529) |
+| **OpenAI Triton** | GPU Compiler · C++ / Py | Backend compiler invariant preservation | **Merged**<br/>[PR #12221](https://github.com/triton-lang/triton/pull/12221) |
+| **LLVM** | Compiler · C++ | Vector integer division target lowering | **Merged**<br/>[PR #215076](https://github.com/llvm/llvm-project/pull/215076) |
+| **Apache DataFusion** | Query Engine · Rust | Schema conformance across physical execution | **Merged**<br/>[PR #24394](https://github.com/apache/datafusion/pull/24394) |
+| **Tokio** | Async Runtime · Rust | Paused-time wake tracking & zero-syscall queue | **Merged**<br/>[PR #8595](https://github.com/tokio-rs/tokio/pull/8595) |
+| **Microsoft Pyright** | Type Checker · TypeScript | MRO descriptor type inference | **Merged**<br/>[PR #11605](https://github.com/microsoft/pyright/pull/11605) |
 
 ---
 
