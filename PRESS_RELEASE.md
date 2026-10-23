@@ -52,12 +52,12 @@ ZeroSlop solves this crisis by introducing a drop-in pre-flight airlock into Git
 ---
 
 ### Proven in the World's Most Demanding Codebases
-Unlike conceptual AI tools, ZeroSlop's invariant verification engine was hardened directly against the world’s most demanding production systems. Sovereign pull requests powered by this exact methodology have been merged or verified 100% green upstream across tier-1 foundations:
+Unlike conceptual AI tools, ZeroSlop's invariant verification engine was engineered to satisfy the strict invariant standards of the world’s most demanding production systems. Sovereign pull requests powered by this exact methodology have been merged or verified 100% green upstream across tier-1 foundations:
 
 * **LLVM** (`llvm/llvm-project` #215076, #218873): X86 SelectionDAG vector integer division lowering & XMM register liveness (C++).
 * **Meta Velox** (`facebookincubator/velox` #18529): Vectorized TopNRowNumber in-memory rank ordering parity (C++20).
 * **DuckDB** (`duckdb/duckdb` #26443): Analytical PIVOT IN zero-argument expression preservation (C++).
-* **Apache DataFusion** (`apache/datafusion` #24394, #26189, #26096, #26006): Execution-layer schema conformance & vectorized CASE lookup (Rust).
+* **Redpanda** (`redpanda-data/redpanda` #31594) & **Bun** (`oven-sh/bun` #44571): RPC transport semaphore memory retention & JSBuffer encoding conformance.
 * **Microsoft Pyright & TypeSpec** (`microsoft/pyright` #11605, `microsoft/typespec` #11660, `agent-governance-toolkit` #3448, #3442).
 * **Tokio** (`tokio-rs/tokio` #8595) & **ClickHouse** (`ClickHouse/ClickHouse` #114954).
 * **OpenAI Triton** (`triton-lang/triton` #12221) & **SGLang** (`sgl-project/sglang` #42533).
@@ -66,7 +66,7 @@ Unlike conceptual AI tools, ZeroSlop's invariant verification engine was hardene
 ---
 
 ### Hardened on Compilers. Built for Everyday Commercial Stacks.
-While ZeroSlop was battle-tested and proven directly against the world's most unforgiving compiler backends and GPU runtimes, its primary economic impact is in everyday commercial software engineering:
+While ZeroSlop was engineered for the uncompromising invariant rigor of compiler backends and GPU runtimes, its primary economic impact is in everyday commercial software engineering:
 
 * **TypeScript, Node.js & React**: Automatically strips away up to 94% of hallucinated adapters, dead wrappers, and bloated mock utilities before peers or managers are tagged.
 * **Python, Go & Rust Microservices**: Mechanically halts deleted regression tests, blocks 12 CWE security classes, and verifies compiler/formatting hygiene.

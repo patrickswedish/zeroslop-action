@@ -146,7 +146,7 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 > ### 🛡️ Universal 3-Tier Multi-Ecosystem Coverage: For Every Developer, Every Repository, Every Stack.
 > ZeroSlop is not a specialized niche tool. It is an autonomous invariant defense system that operates across the full breadth of the global software ecosystem:
 > 
-> * **Tier 1: Hyperscale Infrastructure & Compilers (Rust, C++, Zig, CUDA)**: Proven in the world's most unforgiving production environments—including **Apache Arrow (Rust)**, **AWS Firecracker**, **LLVM SelectionDAG**, **Meta Velox**, **DuckDB**, **Apache DataFusion**, **OpenAI Triton**, and **ClickHouse**. Guarantees zero-copy buffer safety, strict memory lifetime ownership, and compiler attribute conformance.
+> * **Tier 1: Hyperscale Infrastructure & Compilers (Rust, C++, Zig, CUDA)**: Engineered to satisfy the uncompromising invariant rigor of the world's most demanding production codebases—including **AWS Firecracker**, **LLVM SelectionDAG**, **Meta Velox**, **DuckDB**, **OpenAI Triton**, **Tokio**, and **ClickHouse**. Guarantees zero-copy buffer safety, strict memory lifetime ownership, and compiler attribute conformance.
 > * **Tier 2: Production Cloud Platforms, Distributed Frameworks & Web3 (TypeScript, Python, Go)**: Protects high-velocity commercial systems—including **Vercel Next.js**, **Cloudflare Workers**, **Supabase**, **ApeWorX web3.py**, **ArcticDB**, and **Anthropic Model Context Protocol (MCP)**. Halts async deadlocks, cancelled future lock poisoning, rejected WebSocket upgrades, and client-server hydration shifts.
 > * **Tier 3: Specialized Developer Tooling, Domain SDKs & Utilities**: Guards testing harnesses, hardware wallet firmware (**Ledger Ragger**), fintech integration pipelines (**Coinbase SDK**, **Goldman Sachs JDMN**), and fine-tuning architectures (**Meta TorchTune**). Eliminates linter drift and cross-platform path incompatibilities.
 > 
@@ -166,8 +166,8 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 | **Meta Velox** | Query Engine · C++20 | `TopNRowNumber` in-memory partition rank ordering | **Merged**<br/>[PR #18529](https://github.com/facebookincubator/velox/pull/18529) |
 | **OpenAI Triton** | GPU Compiler · C++ / Py | Free-threaded GIL slot declaration & backend lowering | **Merged**<br/>[PR #12221](https://github.com/triton-lang/triton/pull/12221) |
 | **LLVM** | Compiler · C++ | X86 SelectionDAG vector integer division lowering | **Merged**<br/>[PR #215076](https://github.com/llvm/llvm-project/pull/215076) |
-| **Apache DataFusion** | Query Engine · Rust | `FixedSizeBinaryArray` CASE lookup & nested nullability | **Merged**<br/>[PR #26096](https://github.com/apache/datafusion/pull/26096) · [PR #24394](https://github.com/apache/datafusion/pull/24394) |
-| **Apache Arrow (Rust)** | Columnar Memory · Rust | Nested `ListView` and `LargeListView` filter invariants | **Merged**<br/>[PR #11657](https://github.com/apache/arrow-rs/pull/11657) |
+| **Redpanda** | Streaming · C++20 | RPC transport memory semaphore unit retention across queued requests | **Checks Green**<br/>[PR #31594](https://github.com/redpanda-data/redpanda/pull/31594) |
+| **Bun** | JS Runtime · Zig | Buffer per-encoding methods receiver type conformance in JavaScriptCore | **Checks Green**<br/>[PR #44571](https://github.com/oven-sh/bun/pull/44571) |
 | **Tokio** | Async Runtime · Rust | Current-thread paused-time wake tracking | **Merged**<br/>[PR #8595](https://github.com/tokio-rs/tokio/pull/8595) |
 | **AWS Firecracker** | MicroVM VMM · Rust | VirtIO `io_uring` release build destructuring invariant | **Merged**<br/>[PR #6262](https://github.com/firecracker-microvm/firecracker/pull/6262) |
 | **Linux Foundation Valkey** | In-Memory Store · C | Cluster key-slot cache routing across module commands | **Merged**<br/>[PR #4424](https://github.com/valkey-io/valkey/pull/4424) |
