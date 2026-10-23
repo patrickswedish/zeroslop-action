@@ -90,10 +90,10 @@ When a GitHub Actions workflow shows a red `X`, engineers waste hours investigat
 
 ## IV. Free Trials, Commercial Licensing & Enterprise Procurement
 
-### 15. What are the two free evaluation options?
-We offer two frictionless ways to evaluate ZeroSlop before subscribing:
-1. **Alternative 1 — 14-Day Full Free Trial (1-Click GitHub App · Recommended for Orgs):** Install the [ZeroSlop GitHub App](https://github.com/apps/zeroslop-engine) for **2 full weeks (14 days) completely free** across unlimited repositories with zero YAML setup.
-2. **Alternative 2 — 1-PR Instant Evaluation Try (GitHub Action · CI Pipeline Step):** Add `uses: patrickswedish/zeroslop-action@v1` to `.github/workflows/zeroslop.yml` for **1 complimentary pull request audit** with zero credit card required. Locks after 1 PR until a commercial `ZEROSLOP_API_KEY` is configured.
+### 15. Is ZeroSlop™ free for open-source repositories?
+**Yes, 100% Free Forever.** ZeroSlop provides permanent, unlimited pull request protection for all public open-source repositories on GitHub:
+1. **Public Open Source Repositories ($0 Forever):** Drop `uses: RibbsaeterSystems/zeroslop-action@v1` into `.github/workflows/zeroslop.yml`. No API key, no credit card, and zero expiration. It automatically evaluates every incoming public PR, intercepts slop and CWE vulnerabilities, and posts the in-place Invariant Verdict Card.
+2. **Private Repositories (14-Day Free Evaluation):** For private corporate teams, install the [ZeroSlop GitHub App](https://github.com/apps/zeroslop-engine) for **2 full weeks (14 days) completely free** across all private organization repositories with zero YAML configuration. Commercial activation starts at $29/mo Pro via Stripe.
 
 ### 16. How is commercial pricing structured?
 ZeroSlop uses transparent, flat-rate self-serve licensing with zero opaque enterprise quotes:

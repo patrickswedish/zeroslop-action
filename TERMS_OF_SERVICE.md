@@ -19,12 +19,13 @@ All algorithms, AST patterns, reduction matrices, heuristics, designs, documenta
 
 ---
 
-### 2. Commercial Subscriptions & Single Evaluation Try
-Subject to timely payment of applicable subscription fees and continuous adherence to these Terms, Ribbsaeter Systems grants Customer a limited, non-exclusive, non-transferable, revocable license to execute the Service within Customer's designated GitHub repositories.
+### 2. Open Source Community Grant & Commercial Subscriptions
+Subject to continuous adherence to these Terms (and timely payment of applicable subscription fees for private repositories), Ribbsaeter Systems grants Customer a limited, non-exclusive, non-transferable, revocable license to execute the Service within Customer's designated GitHub repositories:
 
-* **Single Evaluation Try (`$0` · 1 Free Pull Request Try)**: Every GitHub account or organization is granted strictly **one (1) complimentary pull request evaluation try** (`1 / 1 Free Try`, lifetime, zero monthly resets) to test ZeroSlop™ on a real pull request. Immediately after the first pull request evaluation completes, the GitHub account is locked from further runs until an active commercial license is provisioned.
-* **ZeroSlop™ Pro Tier (`$29 / month`)**: Authorized for unlimited public and private repository pull request evaluations, active auto-close airlock enforcement, autonomous CI flake classification, and maintainer triage gate isolation.
-* **ZeroSlop™ Enterprise Tier (`$1,999 / month`)**: Authorized for unlimited organization-wide seats and repositories, dedicated VPC invariant enclave deployment, self-hosted air-gapped runner integration, custom architectural invariant rules, and 24/7 principal architect SLA.
+* **Open Source Community Grant (`$0` · Free Forever)**: Public open-source repositories on GitHub are granted a perpetual, royalty-free license for **unlimited pull request evaluations** with zero API key requirement, zero expirations, and zero monthly run caps. Diffs must be publicly accessible on GitHub.
+* **14-Day Organizational Evaluation**: Organizations evaluating ZeroSlop for private repositories are granted a complimentary 14-day evaluation license via the 1-Click GitHub App across all private organization repositories.
+* **ZeroSlop™ Pro Tier (`$29 / month`)**: Authorized for private corporate repository pull request evaluations, active auto-close airlock enforcement, autonomous CI flake classification, and maintainer triage gate isolation.
+* **ZeroSlop™ Enterprise Tier (`$1,999 / month`)**: Authorized for unlimited organization-wide seats and private repositories, dedicated VPC invariant enclave deployment, self-hosted air-gapped runner integration, custom architectural invariant rules, SOC2 PDF audit dossiers, and 24/7 principal architect SLA.
 
 Customer shall ensure that API keys (`RST_LIVE_xxx`) are treated as confidential credentials and not disclosed, committed to public repositories, or shared with unauthorized third parties.
 

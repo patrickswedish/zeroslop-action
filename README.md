@@ -57,9 +57,9 @@
 
 > **The Executive Summary**: AI coding agents increased code output by 300%, but engineering velocity slowed down by 40% because senior architects are trapped acting as human linters. **ZeroSlop™ by Ribbsaeter Systems** mechanically audits incoming PR diffs against architectural invariants, stripping slop down to surgical, green commits that merge in minutes.
 
-> 🎁 **Two Free Trial Alternatives to Choose From**:
-> * 🚀 **Alternative 1: 14-Day Free Trial (1-Click GitHub App · Recommended for Orgs)**: Experience **2 full weeks completely free** with zero YAML configuration. Native webhook monitoring across all public and private repositories with automated in-place PR verdict cards. 👉 [**Start 14-Day Free Trial via GitHub App →**](https://github.com/apps/zeroslop-engine)
-> * ⚙️ **Alternative 2: 1-PR Instant Evaluation Try (GitHub Action · CI Pipeline Step)**: Test the airlock immediately on a single pull request directly within `.github/workflows/zeroslop.yml`. Zero credit card required; **1 complimentary PR audit** out of the box (locks after 1 PR). 👉 [**Try 1 PR Free on GitHub Marketplace →**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) · [Jump to Quickstart ↓](#quickstart)
+> 🌍 **Open Source Free Forever & Commercial Tiers**:
+> * 🛡️ **Public Open-Source Repositories (100% Free Forever)**: Drop ZeroSlop into `.github/workflows/zeroslop.yml` for **unlimited pull request audits, forever**. Zero API key, zero credit card, and zero setup fees. Automatic in-place Invariant Verdict Cards on every PR. 👉 [**Install Free on GitHub Marketplace →**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) · [Jump to Quickstart ↓](#quickstart)
+> * ⚡ **Private Corporate Repositories (Pro & Enterprise)**: Continuous proprietary pull request protection, private repository access, compliance audit logs, and SOC2 receipts via self-serve [Stripe Checkout](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) ($29/mo Pro · $1,999/mo Enterprise). 14-Day free trial available via [1-Click GitHub App](https://github.com/apps/zeroslop-engine).
 >
 > ⚡ **Inference Economics & The KV Cache Wall**: Diff minimization isn't just about clean Git histories. When autonomous agents generate bloated code, downstream context windows explode, choking GPU High-Bandwidth Memory (HBM). By purging 94% of synthetic diff bloat, ZeroSlop cuts multi-turn agent token burn and active KV Cache saturation by 50%–70%. 👉 [**Explore Interactive KV-Cache Estimator on Hugging Face →**](https://hf.co/spaces/Patrickribbsaeter/zeroslop-kv-cache-estimator)
 
@@ -242,13 +242,13 @@ Add the official sovereign badge to your repository's `README.md` to signal to c
 [zeroslop-url]: https://www.ribbsaetersystems.com/zeroslop
 ```
 
-### Two Free Trial Alternatives to Choose From vs. Commercial License Key
+### Open Source Community Tier vs. Commercial Corporate License
 
-Choose whichever evaluation path fits your team's workflow:
+Choose whichever deployment path fits your repository:
 
-* 🚀 **Alternative 1 — 14-Day Full Free Trial (1-Click GitHub App · Recommended for Orgs)**: Install the [ZeroSlop GitHub App](https://github.com/apps/zeroslop-engine) for **2 full weeks (14 days) completely free**. Protect unlimited pull requests across your entire organization with zero YAML configuration and automated in-place verdict cards.
-* ⚙️ **Alternative 2 — 1-PR Instant Evaluation Try (GitHub Action · CI Pipeline Step)**: Add the [ZeroSlop Action](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) directly to `.github/workflows/zeroslop.yml` for **1 complimentary pull request audit** with zero credit card required. Experience the pre-flight invariant airlock on a single live PR before upgrading. Locks after 1 PR.
-* ⚡ **Commercial Activation — ZeroSlop™ Pro (`$29/mo`) & Enterprise (`$1,999/mo`)**: Unlocks continuous, unlimited pull request protection across private and public repositories, Active Auto-Close enforcement, and the Autonomous CI Flake & Triage Classifier. Provision your key in under 60 seconds via [Stripe Checkout](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) and store it as `ZEROSLOP_API_KEY` in your repository or organization secrets.
+* 🛡️ **Public Open Source Repositories — 100% Free Forever**: Add the [ZeroSlop Action](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) directly to `.github/workflows/zeroslop.yml` for **unlimited, continuous pull request protection**. Zero credit card, zero API key required, and zero expirations. Includes the complete 12-Shield CWE security airlock and automated in-place PR Verdict Cards on every pull request.
+* 🚀 **14-Day Free Evaluation for Organizations (1-Click GitHub App)**: Install the [ZeroSlop GitHub App](https://github.com/apps/zeroslop-engine) for **2 full weeks (14 days) completely free** across all private team repositories with zero YAML configuration.
+* ⚡ **Commercial Activation — ZeroSlop™ Pro (`$29/mo`) & Enterprise (`$1,999/mo`)**: Unlocks continuous, unlimited pull request protection across private corporate repositories, Active Auto-Close enforcement, and the Autonomous CI Flake & Triage Classifier. Provision your key in under 60 seconds via [Stripe Checkout](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) and store it as `ZEROSLOP_API_KEY` in your private repository secrets.
 
 <div align="center">
   <br/>
@@ -264,7 +264,7 @@ Choose whichever evaluation path fits your team's workflow:
 
 | Input | Default | Purpose & Architectural Behavior |
 | :--- | :--- | :--- |
-| **`api_key`** | `''` *(1st PR Free)* | ZeroSlop Pro or Enterprise License Key (`RST_LIVE_...` or `zs_live_...`). Optional for 1st PR Free Try; required from PR #2+. |
+| **`api_key`** | `''` *(Free for OSS)* | ZeroSlop Pro or Enterprise License Key (`RST_LIVE_...` or `zs_live_...`). Optional for all public open-source repos (Free Forever); required for private corporate repos. |
 | **`post_pr_comment`** | `'true'` | Maintain a single self-updating Sovereign Verdict Card comment in the PR timeline with an embedded Mermaid Blast Radius graph. |
 | **`auto_close_slop`** | `'false'` | Automatically close Pull Requests failing with severe AI slop or CRITICAL security vulnerabilities (Pro/Enterprise). |
 | **`ci_diagnostics`** | `'false'` | Enable Pro CI Flake Classifier isolating contributor green code from maintainer triage gates and upstream runner infrastructure flakes. |
@@ -324,22 +324,22 @@ Competitors tell you *"the future isn't writing code—it's reviewing it and pri
 
 ## 💼 Choose Your Package & Subscribe (Commercial Licensing & Pricing)
 
-> ### 🎁 Two Free Trial Alternatives to Choose From
-> * **Option A (1-Click GitHub App)**: [**Start 14-Day Free Trial →**](https://github.com/apps/zeroslop-engine) — *2 weeks free · Zero YAML setup · Org-wide protection*
-> * **Option B (GitHub Action)**: [**Try 1 PR Free on GitHub Marketplace →**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) — *1 complimentary PR audit · Zero credit card · Locks after 1 PR*
+> ### 🌍 Open Source Community Free Tier & Commercial Subscriptions
+> * **Public Repositories**: **100% Free Forever** — *Unlimited PRs · Zero API key required · Automated PR Verdict Cards*
+> * **Private Repositories (GitHub App)**: [**Start 14-Day Free Trial →**](https://github.com/apps/zeroslop-engine) — *2 weeks free · Zero YAML setup · Org-wide protection*
 >
-> ### ⚡ Instant Pro Activation ($29 / month)
+> ### ⚡ Instant Pro Activation for Private Repos ($29 / month)
 > **Choose your subscription package below. Direct self-serve activation via Stripe with instant license key delivery in under 60 seconds:**
 > 
 > 👉 [**Subscribe to ZeroSlop™ Pro ($29 / month) via Stripe Checkout →**](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02)  
-> *Unlimited PR audits · All repositories · Single In-Place PR Card · 14-Day 100% Full Refund Guarantee*
+> *Unlimited private PR audits · Single In-Place PR Card · Compliance receipts · 14-Day 100% Full Refund Guarantee*
 
 | Tier & Investment | Scope & Concurrency | Capabilities Included & Instant Activation |
 | :--- | :--- | :--- |
-| **14-Day Free Trial** · **`$0`** *(GitHub App)* | **Unlimited Repositories · 14 Days** *(Org-Wide Free Trial · Zero YAML)* | **2 Weeks Full Access** · Automated Webhook Monitoring · In-Place PR Verdict Cards · Zero YAML Setup — 👉 [**Start 14-Day Free Trial on GitHub App →**](https://github.com/apps/zeroslop-engine) |
-| **Single Evaluation Try** · **`$0`** *(GitHub Action)* | **1 Developer · 1 PR Audit** *(One-Time Evaluation · Locks After 1 PR)* | Pre-Flight Invariant Airlock · 12-Shield CWE Security Airlock · Zero-Click Mermaid Blast Radius · Zero-test-deletion guard — 👉 [**Try 1 PR Free on GitHub Marketplace →**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
-| **ZeroSlop™ Pro** · **`$29 / month`** | **1 Pro Developer Seat** *(Unlimited Repositories · Unlimited PRs)* | **Unlimited PR Audits** · **12-Shield CWE Security Airlock** · **Single In-Place PR Verdict Card** · **CI Flake Classifier** — 👉 [**Subscribe ZeroSlop™ Pro ($29/mo) →**](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
-| **ZeroSlop™ Enterprise** · **`$1,999 / month`** | **Per 100 Active Developers** *(Dedicated VPC · Unlimited Repositories)* | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom CWE & Wire Protocol Rules · Air-Gapped Runners · 24/7 SLA — 👉 [**Deploy Enterprise Core ($1,999/mo) →**](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
+| **Open Source** · **`$0`** *(Free Forever)* | **All Public Repositories · Unlimited PRs** *(Community Standard · Zero Key Required)* | **Unlimited PR Invariant Audits** · **12-Shield CWE Security Airlock** · **Automated In-Place PR Verdict Card** · Zero-test-deletion guard · Zero expiration — 👉 [**Install on GitHub Marketplace →**](https://github.com/marketplace/actions/zeroslop-by-ribbsaeter-systems) |
+| **14-Day Org Trial** · **`$0`** *(GitHub App)* | **Private Repositories · 14 Days** *(Org-Wide Free Trial · Zero YAML)* | **2 Weeks Full Access for Private Repos** · Automated Webhook Monitoring · In-Place PR Verdict Cards · Zero YAML Setup — 👉 [**Start 14-Day Free Trial on GitHub App →**](https://github.com/apps/zeroslop-engine) |
+| **ZeroSlop™ Pro** · **`$29 / month`** | **Private Team Repositories · Unlimited PRs** *(Commercial License · 1 Seat)* | **Full Private Repository Access** · **12-Shield CWE Security Airlock** · **Single In-Place PR Verdict Card** · **CI Flake Classifier** — 👉 [**Subscribe ZeroSlop™ Pro ($29/mo) →**](https://buy.stripe.com/28E5kFflO4n65Ho9JFfQI02) |
+| **ZeroSlop™ Enterprise** · **`$1,999 / month`** | **Per 100 Active Developers** *(Dedicated VPC · Unlimited Private Repos)* | Everything in Pro + **Dedicated VPC Invariant Enclave** · Custom CWE & Wire Protocol Rules · Air-Gapped Runners · SOC2 PDF Audit Reports · 24/7 SLA — 👉 [**Deploy Enterprise Core ($1,999/mo) →**](https://buy.stripe.com/aFaeVf0qU06Qb1I9JFfQI03) |
 
 <br/>
 

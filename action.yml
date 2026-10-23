@@ -7,7 +7,7 @@ branding:
 
 inputs:
   api_key:
-    description: 'Ribbsaeter Systems ZeroSlop API key (Optional for 1-PR Free Evaluation Try; required after 1st PR for Pro & Enterprise)'
+    description: 'Ribbsaeter Systems ZeroSlop API key (Optional for all public open-source repositories — 100% Free Forever with unlimited PRs; required for private corporate repositories)'
     required: false
     default: ''
   base_branch:
