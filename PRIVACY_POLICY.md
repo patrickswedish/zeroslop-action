@@ -19,7 +19,7 @@ When you execute the ZeroSlop™ GitHub Action within your continuous integratio
 3. **Zero AI Model Training**:
    * **WE NEVER USE YOUR CODE TO TRAIN, FINE-TUNE, RE-TRAIN, OR VALIDATE ARTIFICIAL INTELLIGENCE MODELS.**
    * Your code is never sent to public LLM APIs (OpenAI, Anthropic, Google, etc.).
-   * The ZeroSlop Invariant Engine evaluates code using deterministic formal compiler checks, abstract syntax tree (AST) traversal, and sovereign mathematical minimization matrices.
+   * The ZeroSlop Invariant Engine evaluates pull request diffs deterministically inside an ephemeral RAM enclave with zero external LLM calls.
 
 ---
 

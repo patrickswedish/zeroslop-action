@@ -11,6 +11,8 @@
   <a href="https://hf.co/spaces/Patrickribbsaeter/zeroslop-kv-cache-estimator"><b>KV Cache Estimator (Hugging Face)</b></a> &nbsp;◆&nbsp;
   <a href="https://www.ribbsaetersystems.com/inference"><b>Inference Runtime</b></a> &nbsp;◆&nbsp;
   <a href="https://www.ribbsaetersystems.com/zeroslop"><b>Live Simulator</b></a> &nbsp;◆&nbsp;
+  <a href="FAQ.md"><b>FAQ</b></a> &nbsp;◆&nbsp;
+  <a href="SECURITY.md"><b>Security</b></a> &nbsp;◆&nbsp;
   <a href="https://www.ribbsaetersystems.com"><b>ribbsaetersystems.com</b></a>
 </p>
 
@@ -160,13 +162,20 @@ ZeroSlop is not marketing theory. It is powered by the exact invariant engine th
 
 | System | Stack | Architectural Invariant Delivered | Upstream Status |
 | :--- | :--- | :--- | :---: |
-| **DuckDB** | Database · C++ | PIVOT IN list row() expression preservation | **Merged**<br/>[PR #26443](https://github.com/duckdb/duckdb/pull/26443) |
-| **Meta Velox** | Query Engine · C++20 | TopNRowNumber partition parity | **Merged**<br/>[PR #18529](https://github.com/facebookincubator/velox/pull/18529) |
-| **OpenAI Triton** | GPU Compiler · C++ / Py | Backend compiler invariant preservation | **Merged**<br/>[PR #12221](https://github.com/triton-lang/triton/pull/12221) |
-| **LLVM** | Compiler · C++ | Vector integer division target lowering | **Merged**<br/>[PR #215076](https://github.com/llvm/llvm-project/pull/215076) |
-| **Apache DataFusion** | Query Engine · Rust | Schema conformance across physical execution | **Merged**<br/>[PR #24394](https://github.com/apache/datafusion/pull/24394) |
-| **Tokio** | Async Runtime · Rust | Paused-time wake tracking & zero-syscall queue | **Merged**<br/>[PR #8595](https://github.com/tokio-rs/tokio/pull/8595) |
-| **Microsoft Pyright** | Type Checker · TypeScript | MRO descriptor type inference | **Merged**<br/>[PR #11605](https://github.com/microsoft/pyright/pull/11605) |
+| **DuckDB** | Database · C++ | PIVOT IN list `row()` expression preservation | **Merged**<br/>[PR #26443](https://github.com/duckdb/duckdb/pull/26443) |
+| **Meta Velox** | Query Engine · C++20 | `TopNRowNumber` in-memory partition rank ordering | **Merged**<br/>[PR #18529](https://github.com/facebookincubator/velox/pull/18529) |
+| **OpenAI Triton** | GPU Compiler · C++ / Py | Free-threaded GIL slot declaration & backend lowering | **Merged**<br/>[PR #12221](https://github.com/triton-lang/triton/pull/12221) |
+| **LLVM** | Compiler · C++ | X86 SelectionDAG vector integer division lowering | **Merged**<br/>[PR #215076](https://github.com/llvm/llvm-project/pull/215076) |
+| **Apache DataFusion** | Query Engine · Rust | `FixedSizeBinaryArray` CASE lookup & nested nullability | **Merged**<br/>[PR #26096](https://github.com/apache/datafusion/pull/26096) · [PR #24394](https://github.com/apache/datafusion/pull/24394) |
+| **Apache Arrow (Rust)** | Columnar Memory · Rust | Nested `ListView` and `LargeListView` filter invariants | **Merged**<br/>[PR #11657](https://github.com/apache/arrow-rs/pull/11657) |
+| **Tokio** | Async Runtime · Rust | Current-thread paused-time wake tracking | **Merged**<br/>[PR #8595](https://github.com/tokio-rs/tokio/pull/8595) |
+| **AWS Firecracker** | MicroVM VMM · Rust | VirtIO `io_uring` release build destructuring invariant | **Merged**<br/>[PR #6262](https://github.com/firecracker-microvm/firecracker/pull/6262) |
+| **Linux Foundation Valkey** | In-Memory Store · C | Cluster key-slot cache routing across module commands | **Merged**<br/>[PR #4424](https://github.com/valkey-io/valkey/pull/4424) |
+| **ClickHouse** | OLAP Engine · C++ | Parallel replicas legacy query plan limit bounds | **Merged**<br/>[PR #114954](https://github.com/ClickHouse/ClickHouse/pull/114954) |
+| **Hugging Face Diffusers** | Generative AI · Python | 3-tuple return contract preservation in `InpaintProcessor` | **Merged**<br/>[PR #14481](https://github.com/huggingface/diffusers/pull/14481) |
+| **eBay NuRaft** | Consensus Engine · C++ | Concurrent snapshot finalization race resolution | **Merged**<br/>[PR #663](https://github.com/eBay/NuRaft/pull/663) |
+| **Microsoft Pyright** | Type Checker · TypeScript | Inherited asymmetric descriptor MRO type evaluation | **Merged**<br/>[PR #11605](https://github.com/microsoft/pyright/pull/11605) |
+| **Microsoft TypeSpec** | API Compiler · TypeScript | Compiler diagnostic & emitter contract preservation | **Merged**<br/>[PR #11660](https://github.com/microsoft/typespec/pull/11660) |
 
 ---
 
@@ -370,6 +379,8 @@ Inquire confidentially: [**contact@ribbsaetersystems.com**](mailto:contact@ribbs
 
 ## ❓ Frequently Asked Questions (FAQ)
 
+> 📖 **Read the Full 20-Question Executive & CISO FAQ**: [**View Complete `FAQ.md` →**](FAQ.md)
+
 ### What are the two free trial alternatives to choose from?
 We offer two distinct, zero-risk ways to evaluate ZeroSlop:
 1. 🚀 **14-Day Full Free Trial via GitHub App**: Install the [ZeroSlop GitHub App](https://github.com/apps/zeroslop-engine) for **2 full weeks (14 days) of unlimited pull request audits** across all public and private repositories with zero YAML configuration. Automated webhook monitoring posts in-place PR verdict cards directly in your review threads.
@@ -379,18 +390,28 @@ We offer two distinct, zero-risk ways to evaluate ZeroSlop:
 Immediately after checkout via Stripe, you are redirected to your private activation screen displaying your sovereign API key (`RST_LIVE_xxx`). Copy this key, navigate to your GitHub Repository or Organization **Settings → Secrets and variables → Actions**, create a secret named `ZEROSLOP_API_KEY`, and pass `api_key: ${{ secrets.ZEROSLOP_API_KEY }}` in your workflow YAML. Your pull requests are unlocked in under 60 seconds.
 
 ### Does ZeroSlop store, retain, or train on our proprietary code?
-**Strictly zero code retention.** ZeroSlop evaluates pull request diffs ephemerally in a volatile Node 20 RAM enclave. Your source code is never written to disk, never stored in a database, and never used to train machine learning models. We log strictly mathematical invariant telemetry (lines purged, invariant pass/fail).
+**Strictly zero code retention.** ZeroSlop evaluates pull request diffs ephemerally in a volatile Node 20 RAM enclave. Your source code is never written to disk, never stored in a database, and never used to train machine learning models. We log strictly mathematical invariant telemetry (lines purged, invariant pass/fail). See our [Zero Code Retention & Privacy Policy](PRIVACY_POLICY.md).
 
-### How does ZeroSlop protect all repositories in our organization?
-For teams with dozens of repositories, you do not need to configure secrets one by one. In your GitHub Organization settings, add `ZEROSLOP_API_KEY` under Organization Secrets and grant access to **"All repositories"**. Every repository in your organization automatically inherits ZeroSlop pre-flight protection.
+### How does ZeroSlop prevent AI agents from deleting tests or injecting malicious prompts?
+Autonomous coding agents frequently make a failing CI run pass by deleting assertions or skipping tests. ZeroSlop mechanically hard-blocks any pull request that deletes regression assertions or weakens test coverage. Furthermore, unlike conversational LLM review bots that feed raw diffs into an LLM prompt window, ZeroSlop's deterministic airlock is mathematically immune to indirect prompt injection and blocks Trojan Source bidirectional Unicode (`CVE-2021-42574`).
+
+### Will ZeroSlop spam our pull requests with 25 inline comments on every push?
+**Never.** ZeroSlop operates as a **Silent Airlock**. It maintains **one single self-updating Sovereign Verdict Card** in the PR timeline with an embedded Zero-Click Mermaid Blast Radius graph. Every new `git push` updates that single card in place.
+
+### How does ZeroSlop protect all repositories in our organization & support air-gapped VPCs?
+For teams with dozens of repositories, add `ZEROSLOP_API_KEY` once under **GitHub Organization Secrets** with access granted to **"All repositories"**. For regulated enterprises, sovereign AI labs, and defense contractors, **ZeroSlop™ Enterprise Core** includes a self-hosted VPC enclave appliance (`api_endpoint` override) with zero external internet egress.
 
 ### How do I get support or request custom invariant rules?
 Direct founder and senior engineering support is available via [**contact@ribbsaetersystems.com**](mailto:contact@ribbsaetersystems.com). For media, press inquiries, and editorial kits, contact [**press@ribbsaetersystems.com**](mailto:press@ribbsaetersystems.com). Every inquiry is reviewed and answered by senior production engineers within 24 hours.
 
-### Direct Inquiries & Desks
+### Direct Inquiries, Governance & Legal Documentation
+- **Complete Executive FAQ**: [FAQ.md](FAQ.md)
+- **Zero Code Retention & Privacy Policy**: [PRIVACY_POLICY.md](PRIVACY_POLICY.md)
+- **Security & Responsible Disclosure SLA**: [SECURITY.md](SECURITY.md)
+- **Commercial Terms of Service**: [TERMS_OF_SERVICE.md](TERMS_OF_SERVICE.md)
+- **Proprietary Client License Agreement**: [LICENSE](LICENSE)
 - **Technical & License Support**: [contact@ribbsaetersystems.com](mailto:contact@ribbsaetersystems.com)
 - **Media & Press Relations**: [press@ribbsaetersystems.com](mailto:press@ribbsaetersystems.com)
-- **Enterprise Architecture**: [contact@ribbsaetersystems.com](mailto:contact@ribbsaetersystems.com)
 
 ---
 
